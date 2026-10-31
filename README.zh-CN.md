@@ -15,7 +15,7 @@ NR 负责神经图像处理与风格控制；FSR XMX 负责超分；XeSS FG / Xe
 
 **详细文档：** [完整安装与使用教程](docs/USER-GUIDE.zh-CN.md) · [50 ms→17 ms 完整时间线](docs/optimization/FULL-HISTORY.md) · [逐项代码与性能复盘](docs/optimization/TECHNICAL-RETROSPECTIVE.md) · [其他游戏接入](PORTING.md)
 
-**下载最新版：请使用本页 main 分支的 Code → Download ZIP 或 git clone。旧 v0.2.0 Release 压缩包是历史版本，当前优化版以 main 为准。**
+**下载：选择[v0.3.0-multires源码版本](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires)，或main获取后续修订。完整说明见[文档目录](docs/INDEX.md)。旧v0.2.0为历史版本。**
 
 [实验工具与用法](tools/experiments/README.md) · [项目恢复与私人备份清单](docs/RECOVERY.md) · [研究源码档案](source/research-archive/README.md)
 
@@ -48,7 +48,7 @@ B580、1280×720 NR 输入。最新默认后端如下：
 
 [完整优化历程：50 多 ms 如何降到现在](docs/optimization/FULL-HISTORY.md) · [下载安装](INSTALL.md) · [其他游戏接入](PORTING.md)
 
-网络行测量 NR 推理；流式行测量游戏帧周期。历史起点和当前链头来自各阶段记录，同批收益在表内单列。面板的跨帧桥内区间用于运行诊断；FPS 使用游戏基础帧率，XeSS FG 呈现帧率另列。NR 输入固定 1280×720，显示输出可经超分放大。
+网络行测量 NR 推理；流式行测量游戏帧周期。历史起点和当前链头来自各阶段记录，同批收益在表内单列。面板的跨帧桥内区间用于运行诊断；FPS 使用游戏基础帧率，XeSS FG 呈现帧率另列。上述历史性能批次的NR输入为1280×720；新版实际输入可变，显示输出由后续超分决定。
 
 ## 准备开发依赖
 
@@ -106,7 +106,13 @@ python local/game-package/panel/configure_game.py --package local/game-package -
 python local/game-package-vk102/panel/configure_game.py --package local/game-package-vk102 --game-bin "C:/Games/Cyberpunk2077/bin/x64"
 ```
 
-**两种都用，以 Small 为启动模型：**
+**两种都用，推荐默认Full启动：**
+
+```powershell
+.\Install-Cyberpunk.cmd -GameDirectory "C:/Games/Cyberpunk2077" -FullPackage local/game-package-vk102 -SmallPackage local/game-package
+```
+
+下面是手动选择Small启动的可选示例：
 
 ```powershell
 python local/game-package/panel/configure_game.py --package local/game-package --game-bin "C:/Games/Cyberpunk2077/bin/x64" --vk102-manifest local/game-package-vk102/manifest
@@ -150,7 +156,7 @@ python local/game-package/panel/configure_game.py --package local/game-package -
 
 正常退出游戏，恢复备份的 `nrvk_bridge.dll`、`plugins/CyberpunkNRBridge.asi`、`plugins/nr_hdr_proxy.hlsl`、`plugins/nr_bridge.ini`、`plugins/NRB-deferred-identity.enable`。只移除本次新增的文件；若改过伪装设置，恢复对应 OptiScaler INI 备份。不要处理无关的游戏文件。
 
-本发布为 **Experimental**，适用配置为 Windows x64、Intel Arc B580、1280×720 NR 输入。仓库发布源码与构建配方；`local/`、`build/` 中生成的权重、DLL、SPV 保留在用户本地。
+本发布为 **Experimental**，适用配置为 Windows x64、Intel Arc B580，支持原生输入自动匹配和低分辨率NR档位，原生输入已验证至3840×2160。仓库发布源码与构建配方；`local/`、`build/` 中生成的权重、DLL、SPV 保留在用户本地。
 
 构建验证记录见 [BUILD-VERIFICATION.md](BUILD-VERIFICATION.md)。着色器先检查编译器原始输出，再恢复冻结的 `NoContraction` 装饰并核对最终哈希；脚本没有内嵌预编译 SPIR-V。
 

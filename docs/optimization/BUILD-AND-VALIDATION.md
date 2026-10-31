@@ -1,13 +1,13 @@
-# 构建与验证
+# 当前构建与验证 — 2026-11-01
 
-继续使用根目录 `tools/Build.ps1`。`vk102` 现指向优化 Full 232 派发；`small` 指向新版 Small 108 派发。模型 DLL 身份保持原有要求。
+当前版本为v0.3.0-multires。推荐从根目录 `Install-Cyberpunk.cmd` 进入；手动构建继续使用 `tools/Build.ps1`，默认 `vk102` 为Full232派发，`small`为新版Small108派发。
 
-先构建 Full，再构建 Small 时增加 `-FullModel <Full模型输出目录>`（例如 `local/vk102`，不是 game-package 目录）。这个依赖用于复现实机 Small 沿用 Full 的末端 blend scalar；其余权重仍从 Small DLL 提取。此项是已有实机版本身份，不宣称是重新校准后的 Small 模型数学。不要默默替换成旧 Small scalar。
+先构建Full，再给Small传 `-FullModel <Full模型目录>`。这份共享末端blend参数沿用已采纳Small，其他权重来自Small自己的DLL。两个模型分别使用build/vulkan-vk102和build/vulkan-small，组包按profile选择DLL；桥使用build/bridge。输出目录支持绝对路径和相对路径。
 
-`weight-transforms.json` 的 offset/count 单位为 half 元素。变换只重排 uint16，保持位值；每条变换检查输入与输出 SHA256，最后逐个核对 cold 资源清单。Full 165、Small 70 个 cold 资源；两版各 39 个网络 shader。五个 Small 偏移核中三份随新源码发布，另外两份复用仓库已有、相同身份的 Small 专用源配方。
+模型下载/身份名单在tools/fetch_install_models.py和model_profiles.json。Full原版E16和原社区8270两个精确SHA对应的599张量、165冷资源完全一致；Small保留2bc1精确SHA、255张量和70冷资源。提取DLL作为数据，不执行它。
 
-`recipes.json` 绑定 glslang 16.5.0 原始编译哈希，再恢复已采纳 NoContraction 装饰并验证最终哈希。所有 shader 必须与已采纳二进制相同，不能仅以编译成功替代。构建目录和模型权重只存在本地，不上传。
+每模型39份网络shader遵守固定glslang16.5.0及NoContraction配方；六份桥shader覆盖原生gather/scatter与低分辨率gather/scatter。720p计划作为种子，nr_geometry.h和nr_network_shape.inc按R/N生成实际buffer、PUSH、grid与padding。
 
-本次验证记录见 `publication-validation.json`。历史 GPU 门：Full fixed 与双帧反馈位一致；Small fixed / 短反馈与修正 descriptor range 的父臂一致，旧短范围父臂不作为等价参考。历史长反馈问题与游戏人工观察分别保留，不把固定输入验证泛化为所有序列稳定。
+本轮实际完成两模型公开源码全流程构建：后端5/5、桥11/11、面板与组包初始化均通过。GPU验证包括两模型22组原生尺寸；修复设备函数缓存后，两模型共6次生命周期、42帧逐字节等于720p基线。Full540padding与低分辨率强度0回归另已通过。完整口径见[当前构建验收](../../BUILD-VERIFICATION.md)。
 
-本次只发布和做 CPU 构建/计划/ABI 检查，没有新 GPU 计时、没有重新部署到游戏。历史帧/模型数据不公开，因而外部不能仅用本仓库复现原 fixture 哈希；可用自己的合法模型与输入执行独立验证。
+publication-validation.json、new-user-validation.json等2026-10月记录保留原始版本身份；它们是历史证据，不是本轮验收文件。性能继续区分网络推理、准备/恢复、桥内重叠等待与游戏帧周期；不得相加不同批次收益。低分辨率早期计时与最终画质门分别列于[多分辨率说明](../MULTIRES-20261101.md)。

@@ -1,27 +1,35 @@
-# Current source-build verification — 2026-10-29
+# Current source-build verification — 2026-11-01
 
-| Check | Full | Optimized Small |
+Current release: **v0.3.0-multires**. Source builds include native/low-resolution processing, effective panel controls and device-dispatch lifetime fixes.
+
+| Check | Full | Small |
 |---|---:|---:|
-| Runtime rows / buffers / dispatches | 152 / 502 / 232 | 76 / 222 / 108 |
-| Network shaders rebuilt to accepted byte hashes | 39/39 | 39/39 |
-| Cold resources matched to accepted game assets | 165/165 | 70/70 |
-| Backend CPU checks | 2/2 PASS | 2/2 PASS |
-| Bridge CPU checks | 11/11 PASS | shared bridge |
-| Panel/configuration checks | PASS | PASS |
-| PowerShell syntax and publication checks | PASS | PASS |
+| Seed-plan rows / buffers / dispatches | 152 / 502 / 232 | 76 / 222 / 108 |
+| Network shaders | 39 | 39 |
+| Bridge shader variants | 6 | 6 |
+| Tensor hashes / cold resources | 599 / 165 | 255 / 70 |
+| Backend CPU tests | 5/5 PASS | 5/5 PASS |
+| Bridge CPU tests | 11/11 PASS | 11/11 PASS |
+| Panel/configuration and actual package initialization | PASS | PASS |
+| Native dimension gates, seven frames per case | 11 PASS | 11 PASS |
+| Recreated device lifecycles with the DLL kept loaded | 3 × 7 frames PASS | 3 × 7 frames PASS |
 
-The plans reproduce bindings, PUSH values, dispatch grids, POLICY and HISTORY from the accepted packages after path normalization. Weight transforms preserve uint16 bits and validate input/output hashes. Shader recipes use glslang 16.5.0, restore the accepted NoContraction decorations and validate final SPIR-V hashes.
+The 42 lifecycle frames matched the original 720p outputs byte for byte. Native-size gates cover 640×360 through 3840×2160, including odd dimensions and feedback/reset/mode-return checks. They are functional GPU checks; historical network performance is recorded separately.
 
-Small keeps its five offset-specific kernels and its own weights. Build Full first: Small reads the shared final blend scalar from that output to reproduce the accepted game package.
+## Fresh source build
 
-[Current build details](docs/optimization/BUILD-AND-VALIDATION.md) · [Recorded GPU results](docs/optimization/README.md) · [Earlier source-build record](docs/optimization/BUILD-VERIFICATION-20261024.md)
+Actual public `Build.ps1` ran Full without `-Profile` (verifying the Full default), then Small using that Full output. Both completed model extraction, weight packing, shader compilation, native compilation, CPU tests, panel tests and package assembly. Their manifest/runtime plans match the GPU-accepted release identities. Build directories are `build/vulkan-vk102` and `build/vulkan-small`; package assembly explicitly selects the matching component. Assembling Full after Small was also checked.
 
-## Fresh new-user build walkthrough
+Generated settings explicitly contain `backend=102` for Full and `input_height=0` for native processing. Model switching and flow-through rendering use the same effective controls, so legacy startup controls cannot replace the selected resolution. Streaming defaults ON; diagnostic readback, color-state proof and generic probes are OFF.
 
-A fresh source-only directory ran the documented sequence: `Build.ps1 -Profile vk102`, followed by `Build.ps1 -Profile small -FullModel local/vk102`. Both complete builds exited successfully, including extraction, shader verification, native builds, CPU checks, panel tests and package assembly.
+## Model download equivalence
 
-The resulting Full package has 232 dispatches, 39 network shaders and 165 cold resources; Small has 108 dispatches, 39 shaders and 70 cold resources. Every packaged asset hash was checked. Dual-backend configuration was exercised in both boot directions against a configuration fixture: boot keys, manifests, matching components and shared panel paths agree. The fixture game files remained unchanged.
+Full accepts the existing `8270b350…` container and original `e16bcf15…` container. Independent extraction verified all 599 tensor hashes, all 165 packed cold resources, the complete WEIGHTS_HT resource and NRMODEL1 payload match. Small retains exact identity `2bc19bc0…`. Full and Small are never selected merely by DLL filename or version text.
 
-Late-latch defaults to 1 in the bridge and diagnostic configuration; packaged `tail_profile` defaults to 0. The panel launcher starts the panel only; users launch Cyberpunk from their normal game launcher.
+## Installer validation
 
-[Machine-readable walkthrough result](docs/optimization/new-user-validation.json). This walkthrough validates local builds and configuration; network timings remain those of the accepted GPU measurement batches.
+The PowerShell entry was exercised with freshly built packages in an isolated game-directory fixture. Existing OptiScaler, XMX, FG and settings remained byte-identical; NR configuration defaulted to Full/native. A separate clean-directory install exercised the pinned official OptiScaler archive, extraction, ASI loading configuration and file checksums. Restore returned each fixture to its original files. Publication checks exclude binaries, weights, captures and local configuration.
+
+The Small download endpoint and supported local DLL identity were checked; the full 368 MB Small archive was not redownloaded to completion in this release check. Downloads are verified against the pinned archive and DLL hashes before building.
+
+[Installer](docs/ONE-CLICK-INSTALL.zh-CN.md) · [Geometry and quality scope](docs/MULTIRES-20261101.md) · [2026-10-24 historical build record](docs/optimization/BUILD-VERIFICATION-20261024.md)

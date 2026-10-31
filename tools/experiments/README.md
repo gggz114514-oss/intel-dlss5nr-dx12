@@ -1,5 +1,17 @@
 # 实验工具：构建、回放、数值、性能与恢复
 
+当前适配v0.3.0-multires。Build默认Full，普通构建目录为build/vulkan-vk102与build/vulkan-small；实验目录继续与它们分开。原生/低分辨率组件测试与离线固定计划runner是两种入口，不混用输入合同。
+
+## 新增：多分辨率组件验证
+
+- `tools/prepare_multires_inputs.py --width 960 --height 540 --out local/experiments/input-540`：生成FP32颜色、原生像素单位MV、深度和哈希，仅CPU。
+- 在对应模型构建目录执行 `cmake --build build/vulkan-vk102 --config Release --target nr_multires_component_gpu`；先用 `--help`查看接口，不运行GPU。
+- 组件宿主参数为 `DLL MANIFEST INPUT_ASSETS FRESH_OUT R_WIDTH R_HEIGHT O_WIDTH O_HEIGHT NR_HEIGHT [baseline]`。NR_HEIGHT=0为原生；不带baseline时包含切档及返回检查，带baseline用于同尺寸七帧回归。
+- 正式执行前关闭游戏、按下文的独占锁协议提交具名GPU任务；`Run-Gpu.ps1`封装的是计划runner，不直接拿它的参数调用组件宿主。
+- `tools/compare_multires_frames.py --baseline <父输出目录> --candidate <候选输出目录> --receipt <结果.json>`：逐字节核对七帧，仅用于同输入720路径回归。不同处理分辨率需单独做数值/画面比较，不要求逐位相同。
+- 合成输入用于尺寸、反馈、重置和强度0检查；画质使用真实输入并明确MV/depth/history条件。计时分别记录网络、准备/恢复和游戏周期。
+
+
 这些工具用于恢复本项目的实验能力。默认游戏构建不执行 GPU 实验。实验输出放在 `local/experiments/`，模型与采集数据保持本地。
 
 ## 工具表

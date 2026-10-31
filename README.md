@@ -1,5 +1,7 @@
 # Intel DLSS5 NR — Cyberpunk 2077
 
+[Documentation index](docs/INDEX.md) · [v0.3.0 source release](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires)
+
 **2026-11-01 variable-resolution update:** Full and Small now follow the actual game render input, with native/720/540/480/360p NR controls and streaming enabled. Use `Install-Cyberpunk.cmd` after installing the build prerequisites: it fetches pinned model containers, builds both models, backs up game files and installs the panel. Existing SR/FG files are preserved; FSR XMX is installed separately. See the [installer guide](docs/ONE-CLICK-INSTALL.zh-CN.md) and [release validation](docs/MULTIRES-20261101.md). Native-control and device-recreation fixes are included.
 
 **2026-10-29: Default builds now use optimized Full (232 dispatches, ~17.45 ms) and optimized Small (108 dispatches, ~9.98 ms), plus late-latch streaming (~5.43 ms game frame-period improvement in the recorded scene).** See [optimization history and evidence](docs/optimization/README.md). The Vulkan backend substantially references the community **mochizuki0323 / DLSSNR-AMD** project; see [attribution](docs/optimization/AMD-ATTRIBUTION.md). Build Full first, then pass `-FullModel local/vk102` when building Small.
@@ -11,7 +13,7 @@ Experimental **NR + FSR XMX upscaling + XeSS Frame Generation** on Intel Arc B58
 
 **Detailed guides:** [Installation walkthrough (中文)](docs/USER-GUIDE.zh-CN.md) · [Full development history](docs/optimization/FULL-HISTORY.md) · [Technical retrospective](docs/optimization/TECHNICAL-RETROSPECTIVE.md) · [Other-game integration](PORTING.md)
 
-**Download current main via Code → Download ZIP or git clone. The v0.2.0 release archive is historical; main contains the optimized profiles documented here.**
+**Download the [v0.3.0-multires source release](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires), or current main for subsequent documentation and fixes. The v0.2.0 archive is historical.**
 
 [实验工具与用法](tools/experiments/README.md) · [项目恢复与私人备份清单](docs/RECOVERY.md) · [研究源码档案](source/research-archive/README.md)
 
@@ -49,7 +51,7 @@ Intel Arc B580, 1280×720 NR input:
 
 [Complete optimization history](docs/optimization/FULL-HISTORY.md) · [Download and install](INSTALL.md) · [Integrate another game](PORTING.md)
 
-Network rows measure NR inference. Streaming measures game frame period. The historical endpoints span development stages; paired results use the baseline recorded for that batch. NR input is fixed at 1280×720; super resolution produces the display image. Frame-generation presentation FPS and panel bridge intervals have their own measurement scopes.
+Network rows measure NR inference. Streaming measures game frame period. The historical endpoints span development stages; paired results use the baseline recorded for that batch. Those historical timings used 1280×720 NR input. The current backend supports variable inputs; super resolution produces the display image. Frame-generation presentation FPS and panel bridge intervals have their own measurement scopes.
 
 ## Build either model from its DLL
 
@@ -96,7 +98,13 @@ For **VK102 only**, built from your full-model DLL above:
 python local/game-package-vk102/panel/configure_game.py --package local/game-package-vk102 --game-bin "C:/Games/Cyberpunk2077/bin/x64"
 ```
 
-For **both**, boot Small and register the newly built VK102 package:
+For **both**, the recommended installer boots Full and registers Small. After building both packages, run:
+
+```powershell
+.\Install-Cyberpunk.cmd -GameDirectory "C:/Games/Cyberpunk2077" -FullPackage local/game-package-vk102 -SmallPackage local/game-package
+```
+
+The following optional manual configuration boots Small instead:
 
 ```powershell
 python local/game-package/panel/configure_game.py --package local/game-package --game-bin "C:/Games/Cyberpunk2077/bin/x64" --vk102-manifest local/game-package-vk102/manifest
@@ -111,6 +119,7 @@ The configuration command updates paths inside the package only. It requires you
 Run `Launch-NR-Panel-Game.cmd` from the chosen boot package to open the control panel, then launch Cyberpunk from your normal game launcher. This script starts the panel only. It uses Windows Python Launcher (`py -3`); alternatively run `python panel/nr_control_panel.py` from the package directory. Default address: **http://127.0.0.1:8788/**. To use another port, set `NR_PANEL_PORT` before launching. Local screenshots use port 8789 because another panel was already running.
 
 - **Backend**: `VK102 310.8` / key `102` selects optimized Full; `Small 310.9.16` selects optimized Small. Only configured backends are shown. Select Small or VK102 and Save. The bridge switches at a frame boundary, resets history and uses that model's own component and assets.
+- **NR resolution**: native automatic (0), 720, 540, 480 or 360; click a button to save. Check effective R/N/O/P and the bridge-applied setting. Native requires R=N, regardless of display size.
 - **Enabled / style / strength / structure / tone / skin / mask / display strength**: per-frame appearance controls; they do not rebuild a model. Styles are Classic, Natural and Cinematic.
 - **Mounted + increasing processed count**: check actual processing, not just DLL loading. Inspect scene cuts, loading/reset, motion and exposure changes yourself.
 - **OptiScaler spoof presets**: game restart required. Edit only with the game closed; the panel retains an INI backup. No elevation or alternate-shell bypass is used.
@@ -139,7 +148,7 @@ Click an image for its original resolution. Screenshots are documentation assets
 
 Close the game. Restore your backed-up `nrvk_bridge.dll`, `plugins/CyberpunkNRBridge.asi`, `plugins/nr_hdr_proxy.hlsl`, `plugins/nr_bridge.ini` and `plugins/NRB-deferred-identity.enable`; remove only files introduced by this installation. Restore the intended OptiScaler INI backup if you changed spoof settings. Leave unrelated game files alone.
 
-This Experimental source release targets Windows x64, Intel Arc B580 and 1280×720 NR input. Keep generated `local/` and `build/` assets on your own machine; the repository distributes source and build recipes.
+This Experimental source release targets Windows x64 and Intel Arc B580, with native input matching through the tested 3840×2160 input and optional 720/540/480/360p NR processing. Keep generated `local/` and `build/` assets on your own machine; the repository distributes source and build recipes.
 
 [BUILD-VERIFICATION.md](BUILD-VERIFICATION.md) records build checks. GLSL builds verify raw compiler output before restoring the frozen `NoContraction` decorations, then verify final SPIR-V hashes. No precompiled shader payload is embedded in scripts.
 

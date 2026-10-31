@@ -1,5 +1,7 @@
 # Variable-resolution FP16 update — 2026-11-01
 
+Download this release’s Source code ZIP for a fixed v0.3.0-multires snapshot; main contains documentation and follow-up fixes. See [the document index](docs/INDEX.md) for current installation, build, performance and recovery guidance.
+
 ## 2026-11-01: variable resolution + installer
 
 Native render dimensions and optional 720/540/480/360p processing are supported by both optimized models. New `Install-Cyberpunk.cmd` automates pinned model download, local build, backups and game installation; FSR XMX is deliberately excluded. Fixed Full540 padding initialization, low-resolution identity residuals, native-control override and Vulkan device-function lifetime during model switching. Validation: 22 native-size gates; 6 component lifecycles / 42 frames bit-exact to the 720 baseline; fresh Full and Small source builds and package checks. See [details](docs/MULTIRES-20261101.md).

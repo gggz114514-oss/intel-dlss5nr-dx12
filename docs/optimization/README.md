@@ -1,6 +1,8 @@
 # FP16 优化记录 / FP16 optimization record
 
-截至 2026-10-29，本目录记录已采纳的 Full、最新 Small 和跨帧流式桥接成果。源码发布包含真实 shader、固定编译配方、权重布局变换和执行计划，未上传模型权重、DLL、SPIR-V、游戏截图或诊断采集帧。
+当前入口：v0.3.0-multires支持原生输入自动匹配和720/540/480/360p档位，默认Full与流式处理。[安装入口](../ONE-CLICK-INSTALL.zh-CN.md) · [最新构建验收](../../BUILD-VERIFICATION.md)。本目录旧性能批次继续保留各自日期和720p口径。
+
+截至 2026-11-01，本目录记录已采纳的 Full、最新 Small 和跨帧流式桥接成果。源码发布包含真实 shader、固定编译配方、权重布局变换和执行计划，未上传模型权重、DLL、SPIR-V、游戏截图或诊断采集帧。
 
 **重要致谢：当前 Vulkan 后端大量参考了望月（mochizuki0323）的 [DLSSNR-AMD](https://github.com/mochizuki0323/DLSSNR-AMD) 社区项目。** 参考不仅是模型工具，也包括网络组织、矩阵生产消费、布局与融合思路。Intel XMX 的 lane/fragment 映射、供料调度及生命周期按 B580 重新实现并验证。该项目不是 AMD 官方 SDK。见 [来源与边界](AMD-ATTRIBUTION.md) 和仓库 MIT 许可。
 

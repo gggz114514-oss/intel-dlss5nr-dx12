@@ -1,5 +1,7 @@
 # Source-package verification
 
+历史构建记录（2026-10-24），不是当前安装指南。新版后端5项CPU、桥11项CPU及多分辨率/生命周期GPU验收见[当前验证](../../BUILD-VERIFICATION.md)。
+
 > 2026-10-29 optimized update: current Full/Small build identities, streaming changes and validation are documented in [docs/optimization](README.md). Older entries below describe the earlier release.
 
 

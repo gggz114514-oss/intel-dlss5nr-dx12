@@ -1,5 +1,7 @@
 # 望月 / DLSSNR-AMD 来源与迁移边界
 
+2026-11-01可变分辨率版延续本文的望月项目致谢；新增NR低分辨率处理与残差恢复参考既有项目内Triton路径，Intel几何生成、同步与设备生命周期由本项目实现。FSR XMX是单独安装的超分组件，不作为本仓库发布内容。
+
 本 Vulkan 后端大量参考 [mochizuki0323/DLSSNR-AMD](https://github.com/mochizuki0323/DLSSNR-AMD)（中文讨论中称“望月的 AMD 项目”）。这是社区实现，不代表 AMD 官方贡献、认证或 SDK。
 
 来源包括模型提取/解包及网络结构理解，也包括 shader 中 Swin、attention、FFN、DS/UPS、尾部折叠的组织方式，以及让生产者按下个消费者所需布局输出、减少中间张量落地的思路。仓库 `third_party/dlssnr_amd_model_tools/PROVENANCE.json` 记录了工具快照；该工具快照 commit 不代表后续每项 shader 研究都来自同一个版本。公开代码中保留了原有来源注释，根 LICENSE 与第三方 LICENSE 保留 Copyright (c) 2026 mochizuki0323。

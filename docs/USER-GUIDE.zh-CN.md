@@ -8,7 +8,7 @@
 
 Full 是 232 派发、约 17.45 ms 的版本；Small 是 108 派发、约 9.98 ms 的版本。默认流式桥接已启用。上述网络时间对应 B580、1280×720 NR 输入的记录。
 
-下载入口统一使用当前 **main** 分支。旧 v0.2.0 Release 是历史源码包；当前 Full 232 / Small 108 派发及流式默认开启版本均在 main。
+下载稳定的源码快照 [v0.3.0-multires](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires)，或使用 main 获取后续修订。旧 v0.2.0 是历史版本。
 
 ## 1. 下载与目录准备
 
@@ -84,7 +84,7 @@ Small 使用自己的模型权重和偏移专用核，同时从 Full 构建输�
 
 ## 5. 配置双后端
 
-正常退出游戏。以下示例以 Small 为启动后端，同时注册 Full：
+一键安装已自动完成双后端配置，默认Full启动，无需重复本节。正常退出游戏后，以下手动可选示例以Small为启动后端，同时注册Full：
 
 ```powershell
 .\.venv\Scripts\python.exe local/game-package/panel/configure_game.py `
@@ -123,7 +123,7 @@ plugins/NRB-deferred-identity.enable
 
 ## 7. 启动并确认挂载
 
-运行启动包内 `Launch-NR-Panel-Game.cmd` 打开面板，再从游戏平台启动赛博朋克。脚本只启动面板，使用 Windows Python Launcher（`py -3`）；也可在包目录执行 `python panel/nr_control_panel.py`。面板默认地址是 `http://127.0.0.1:8788/`。游戏使用 1280×720 NR 输入；已使用的 1080p 组合为 1920×1080 显示输出配 DLSS Quality 输入，再由 OptiScaler 路由到兼容的超分实现。
+运行启动包内 `Launch-NR-Panel-Game.cmd` 打开面板，再从游戏平台启动赛博朋克。脚本只启动面板，使用 Windows Python Launcher（`py -3`）；也可在包目录执行 `python panel/nr_control_panel.py`。面板默认地址是 `http://127.0.0.1:8788/`。原生模式按游戏实际输入R运行NR，N=R。显示分辨率、DLSS挡位共同决定R；1080p/1440p/2160p输出都不再要求固定720p NR输入。安装器用户运行结束时打印的Open-NR-Panel.cmd，手动组包用户运行包内Launch-NR-Panel-Game.cmd。
 
 进入存档后检查：
 
@@ -131,6 +131,7 @@ plugins/NRB-deferred-identity.enable
 2. 当前后端显示已挂载，处理计数持续增加。
 3. 改变风格或强度后，画面对应更新。
 4. 切换后端后，实际挂载状态更新，处理继续运行。
+5. 原生模式检查R=N；切换固定高度后检查N对应缩小、O不变，再返回原生。
 
 后端切换发生在帧边界，同时重置历史。选择器的保存动作与实际挂载状态分别显示，因此以运行状态和处理计数确认结果。
 
@@ -142,7 +143,8 @@ plugins/NRB-deferred-identity.enable
 |---|---|
 | Full / Small 挂载状态 | 确认实际执行模型 |
 | processed / 处理计数 | 确认正在处理帧 |
-| NR network 时间 | 分析后端推理 |
+| R / N / O / P | 游戏输入 / NR处理 / 超分输出 / 补边；原生R=N |
+| NR network 时间 | 分析后端推理；待时间戳时不以桥内total替代 |
 | 面板桥内 total / tail | 分析桥接和跨帧等待 |
 | 游戏基础 FPS / 帧周期 | 评价实际吞吐 |
 | 帧生成后的 FPS | 评价最终呈现频率 |
@@ -165,7 +167,7 @@ plugins/NRB-deferred-identity.enable
 
 ## 10. 恢复与卸载
 
-正常退出游戏。恢复第 6 节备份的同名文件；安装前不存在的文件只移除本次新增项。若修改过 OptiScaler 伪装预设，恢复对应 `OptiScaler.ini` 备份。其他游戏文件和超分组件保持原状。
+一键安装用户先退出游戏，执行 `py -3 tools/install_cyberpunk.py --restore "<本次安装目录>/INSTALL-RECEIPT.json"`。手动安装用户正常退出游戏，恢复第 6 节备份的同名文件；安装前不存在的文件只移除本次新增项。若修改过 OptiScaler 伪装预设，恢复对应 `OptiScaler.ini` 备份。其他游戏文件和超分组件保持原状。
 
 旧游戏包仍保留时，也可以重新配置旧包，再安装其 `game-files/`。模型权重、二进制和提取结果都位于本地构建目录，不需要上传或分发。
 
