@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-03",
+  "release": "v0.4.0-dx12",
+  "payload_files": 392,
+  "payload_sha256_check": "PASS",
+  "installer_smoke_tests": "5/5 PASS",
+  "complete_zip_fixture_install_uninstall": "PASS: cached ZIP extraction, all payload hashes, Small DLL, DS FG input, native FidelityFX DLL restored",
+  "vulkan_small_source_build": "PASS",
+  "vulkan_cpu_tests": "3/3 PASS: network_geometry, residual_contract, device_dispatch_lifetime",
+  "host_module_contract": "PASS",
+  "host_ci": "NOT PASS: rr-colour source test updated for featureIdentity; aggregate subsequently stops at nr_install_status (process exit 0xC0000409); not used as a full-suite success claim",
+  "overlay_source_provenance": "37/37 PASS against pinned upstream ZIP",
+  "new_gpu_runs": 0,
+  "game_directories_modified": false,
+  "release_binaries": "Existing game-tested package binaries retained; source-check rebuild is not shipped"
+}

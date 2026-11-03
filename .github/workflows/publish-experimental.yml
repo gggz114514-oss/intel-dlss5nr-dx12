@@ -1,4 +1,4 @@
-name: Publish Experimental
+name: Validate published source
 
 on:
   push:
@@ -9,16 +9,12 @@ permissions:
   contents: read
 
 jobs:
-  publish:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release-experimental]')
+  source:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Publish the source release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-        run: |
-          gh api "repos/$GH_REPO/contents/RELEASE-NOTES.md?ref=$GITHUB_SHA" --jq .content | base64 --decode > release-notes.md
-          gh release create v0.3.0-multires --target "$GITHUB_SHA" --title "v0.3.0 — Variable-resolution Full / Small" --prerelease --notes-file release-notes.md
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source allowlist and publication contents
+        run: python tools/check_publication.py --out /tmp/intel-nr-publication.json

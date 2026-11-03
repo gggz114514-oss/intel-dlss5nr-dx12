@@ -26,3 +26,6 @@ source/bridge/game/
 source/bridge/tests/*.py
 # Stale duplicate; the matched shader is source/bridge/nr_hdr_proxy.hlsl
 source/bridge/shaders/nr_hdr_proxy.hlsl
+
+# Local installer fixtures and release validation
+work/

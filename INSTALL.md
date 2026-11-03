@@ -1,107 +1,72 @@
-# Build and install
+# DX12 通用版安装与卸载
 
-## New recommended entry: variable-resolution installer
+[下载完整安装包](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261103.zip) · [发布说明](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12)
 
-Run `Install-Cyberpunk.cmd` after preparing the build prerequisites below. It downloads pinned model containers, builds Full then Small, installs native-auto controls with streaming enabled, and records backups for restore. With existing packages, pass `-FullPackage` and `-SmallPackage` to skip building. FSR XMX is excluded and existing SR/FG libraries are preserved. See [complete installer instructions](docs/ONE-CLICK-INSTALL.zh-CN.md). The following sections remain the manual build route.
+Intel NR + FSR XMX — 新用户安装指南
 
-[中文完整操作教程](docs/USER-GUIDE.zh-CN.md)：从下载源码到双后端挂载，附常见问题与恢复步骤。
+你只需要游戏、兼容的 Intel 显卡及已安装的显卡驱动。
+安装包已带配套 OptiScaler、Full／Small 模型和运行时、FSR XMX、超分与补帧依赖。
+不需要先安装 OPT，不需要 Python、Visual Studio、Vulkan SDK，也不需要复制开发机文件。
 
-下载稳定的源码快照 [v0.3.0-multires](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.3.0-multires)，或使用 main 获取后续修订。旧 v0.2.0 是历史版本。
+一、准备
+Windows 10/11 64 位。当前性能及稳定性测试平台为 Intel Arc B580。
+此安装器提供三款游戏的安装入口，不代表支持所有游戏或所有 Intel GPU：
+  巫师三次世代版：bin\x64_dx12\witcher3.exe（必须以 DX12 启动）
+  赛博朋克2077：bin\x64\Cyberpunk2077.exe
+  死亡搁浅导演剪辑版：ds.exe
+先退出游戏。将整个压缩包解压到一个普通目录，不要在压缩包内直接运行，不要只取出 Install.cmd。
+如果曾装过其他 OPT、ReShade 或代理 DLL MOD，先用该 MOD 的卸载方式清理；不要直接删除游戏自带 DLL。
+尤其不要把 amd_fidelityfx_loader_dx12.dll、amd_fidelityfx_framegeneration_dx12.dll、amd_fidelityfx_upscaler_dx12.dll 当成 OPT 专属文件删除：赛博朋克本身也使用它们。安装器会备份已存在的文件，卸载时恢复。
 
-## Download the current source / 下载当前源码
+二、安装（鼠标操作即可）
+1. 双击 Install.cmd，在窗口中选择上述游戏 EXE。
+2. 等待文件校验及复制。缺少 VC++ x64 运行库时，脚本从微软下载签名安装器；按窗口完成安装。
+   只有缺少运行库时才需要联网。显卡驱动须通过 Intel 或电脑厂商提供的安装器安装。
+3. 看到“安装完成”后关闭窗口。游戏目录无写权限时，右键 Install.cmd 选择“以管理员身份运行”。
+   安装器不会自动修改显卡驱动、频率、Windows TDR 或游戏存档。
 
-```powershell
-git clone https://github.com/gggz114514-oss/intel-dlss5nr-dx12.git C:\Dev\intel-dlss5nr-cyberpunk2077
-cd C:\Dev\intel-dlss5nr-cyberpunk2077
-```
+三、第一次进入游戏
+从 Steam／Epic 等原入口启动游戏；巫师三选择 DX12。
+在游戏画面设置中启用 DLSS/超分，进入正常 3D 存档场景后按 Insert 打开 OPT 面板。
+进入 Intel NR 设置，确认启用；默认 Full、原生 NR 输入、经典风格。
+Full 偏重质量；Small 更快。处理分辨率可以单独调整，原生表示跟随游戏送入的渲染分辨率，不是显示器分辨率。
+超分选择 FSR（本包提供 XMX DLL）；以面板和日志中的实际加载状态为准。
+干净安装默认开启游戏进程内的全局 DXGI NVIDIA 伪装和 Streamline 伪装（RTX 4090），以及 XeFG 补帧输出；不修改系统显卡驱动或全系统设备身份。
+赛博朋克／巫师三默认 DLSSG 输入，还需在游戏画面设置中启用帧生成；死亡搁浅导演剪辑版没有原生 DLSSG，安装器自动选择 upscaler 输入。
+如从旧配置升级，已有配置优先；请在 OPT 面板核对伪装与补帧选项，修改伪装后重启游戏。补帧实际启用状态以游戏面板及日志为准。
+自然／电影与经典的差异受“局部色调”影响，可先设为 1；风格强度 0–1 混合，1–2 增强曲线。
+此包没有网页控制面板或自定义滤镜编辑器，设置在游戏内 OPT 面板中完成。
+已有 OptiScaler.ini 会保留，已有用户设置不会被默认值覆盖。
 
-Or select **Code → Download ZIP** on the repository's main branch and extract it to a short writable path. This is a source distribution: build the local game package using the instructions below. The installer downloads supported model containers, or accepts local model DLLs; the repository supplies the extractor, packing recipes, shaders, native backend, game bridge and panel.
+四、卸载／更新
+退出游戏，双击 Uninstall.cmd，选择同一 EXE。
+卸载器只处理安装记录中的文件，恢复被替换的旧文件；保留备份、日志和非本包文件。
+备份在游戏 EXE 目录的 intel-nr-backups；安装记录为 intel-nr-install.json，请勿手动删除。
+更新此包请先卸载再安装。卸载不会撤销系统 VC++ 运行库。
 
-当前主分支包含 Full 232 派发、新 Small 108 派发和默认启用的跨帧流式桥接。下载源码后先构建 Full，再构建 Small；随后配置包路径、复制游戏文件、用包内脚本启动面板，再从游戏平台启动游戏。中文命令详见 [README.zh-CN.md](README.zh-CN.md)。
+五、遇到问题
+双击 Collect-Logs.cmd，选择游戏 EXE，得到本地 ZIP；查看后再发给维护者。
+ZIP 包含 OPT 日志、配置、NR 状态、安装记录及显卡驱动信息，可能包含本机路径；不含存档、截图或模型输入帧，也不会自动上传。
+安装日志和诊断 ZIP 位于 %LOCALAPPDATA%\IntelNR\InstallerLogs。
+不启动／无面板：确认游戏 EXE 选择正确、DX12 模式、压缩包完整解压及驱动已安装。
+NR 不生效：确认游戏超分已启用，再导出日志，不要叠装多个版本碰运气。
+卡顿／NR 暂停：保存日志，退出游戏；不要靠增大 TDR 或反复切换后端掩盖故障。
 
-## Build prerequisites
+六、版本内容
+配套宿主与着色器；Full、新 Small；Small 窄缓冲 4KB 对齐稳定性修复；望月输入归一化适配；风格强度修复。
+自然风格已移除过暗的旧 LUT，保留轻度曝光／对比度与饱和度调整；风格强度 1 不再完整应用旧压暗曲线。
+Vulkan 后端的生产消费优化和通用输入接入大量参考 AMD 望月项目及其 OptiScaler 集成，相关上游许可保留在 Licenses 中。
+本次安装器升级不改变模型、着色器与推理代码，不把旧游戏测试视为新版实机验收。
+“面向新用户”是指无需开发环境，不是无条件兼容所有硬件与游戏。
+本包使用用户提供的模型及第三方 FSR XMX 文件，保留 Licenses。公开发布需分别遵循各组件的分发条件；本次未上传公开仓库。
 
-- Windows x64, Intel Arc B580 and a driver exposing the features in `source/vulkan/port_network_bridge_backend.h`.
-- Visual Studio 2022 C++ Build Tools / Desktop C++ workload with Windows SDK; CMake 3.24+ on PATH (or `-CMake` to `Build.ps1`).
-- Python 3.12+ and NumPy (`requirements-model.txt`).
-- [glslang 16.5.0](https://github.com/KhronosGroup/glslang/releases/tag/16.5.0); other compiler output is not interchangeable.
-- Vulkan headers: your SDK's `Include` directory or `include` in [Vulkan-Headers](https://github.com/KhronosGroup/Vulkan-Headers).
-- External [OptiScaler source](https://github.com/optiscaler/OptiScaler), commit `7534ad00bf9e590eedb99e8dd9fd8c89dae3654f` (v0.9.4 integration). Required: `external/nvngx_dlss_sdk/nvsdk_ngx.h`, `OptiScaler/include/detours/detours.h`, `OptiScaler/library/detours/detours.lib`.
+VC++ 官方来源：https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
 
-```powershell
-git clone https://github.com/optiscaler/OptiScaler.git C:\Dev\OptiScaler
-git -C C:\Dev\OptiScaler checkout 7534ad00bf9e590eedb99e8dd9fd8c89dae3654f
-```
 
-Use a short, writable ASCII path: the existing Windows bridge uses ANSI file APIs and remains subject to Windows path-length limits. Keep the model DLL outside the source tree. No system Python, registry or driver changes are made.
+## 从仓库启动
 
-## Build
+下载并解压整个源码包，双击 `Install-NR.cmd`。脚本按 `tools/intel-nr/PACKAGE.json` 下载固定版本和 SHA256；解压后再次校验每个 payload 文件。无需本地编译。`Uninstall-NR.cmd` 和 `Collect-NR-Logs.cmd` 使用同一安装器。
 
-Run the commands in [README.md](README.md) or [README.zh-CN.md](README.zh-CN.md) from the repository root. Choose `-Profile small` for the supported 310.9.16.0 Small DLL, or `-Profile vk102` for the supported 310.8.0.0 full-model DLL. Build optimized vk102 first. Optimized Small additionally requires `-FullModel local/vk102` to reproduce the shared final blend scalar of the accepted game build. Both extract their own model tensors from the corresponding local DLL. Use new/empty model and package directories. The script stops on any extraction, shader identity, compile or CPU-check failure.
+## 开发者
 
-The two native targets can also be configured after asset preparation:
-
-```powershell
-cmake -S source/vulkan -B build/vulkan-small -A x64 -DNR_MODEL_DIR="C:/path/to/repo/local/small" -DVULKAN_INCLUDE_DIR="C:/VulkanSDK/Include"
-cmake --build build/vulkan-small --config Release
-cmake -S source/bridge -B build/bridge -A x64 -DOPTISCALER_SOURCE="C:/Dev/OptiScaler" -DNRB_XESS_IDENTITY_TEST=ON -DNRB_DEFERRED_IDENTITY_TEST=ON -DNRB_LIVE_NR_TEST=ON -DNRB_MULTI_ROUTE_LIVE=ON -DNRB_TAIL_ORDER_PROBE=ON
-cmake --build build/bridge --config Release
-```
-
-Historical `*_TEST` switches select the existing experimental game path. One-frame readback and developer GPU probes are disabled in the default build. The separate legacy Python/Triton runtime is not part of this publication.
-
-The Small output is `local/game-package/`; VK102 uses `local/game-package-vk102/`. Each contains generated runtime assets, its matching component in `bin/`, locally built game bridge, D3D12 proxy shader source, panel and configuration. Raw extraction/debug outputs are not copied into it. The manual native commands above illustrate Small; use `local/vk102` as `NR_MODEL_DIR` for VK102. `Build.ps1` selects it automatically.
-
-## Configure, install, run
-
-Close Cyberpunk. Keep the package at its final writable location:
-
-```powershell
-python local/game-package/panel/configure_game.py --package local/game-package --game-bin "C:/Games/Cyberpunk2077/bin/x64"
-```
-
-This updates the package's shared manifest/panel/status paths and the panel's OptiScaler path. The target must contain `Cyberpunk2077.exe` and your separately installed `OptiScaler.ini`. It does not install game files or alter upscaler settings.
-
-1. Back up any existing `nrvk_bridge.dll` and same-name files under `plugins/`.
-2. Copy the **contents** of `local/game-package/game-files/` into the game's `bin/x64/`.
-3. Keep the separately installed working OptiScaler/upscaler. No `dxgi.dll`, NVIDIA/FSR/XeSS or frame-generation DLL is provided.
-4. Start `Launch-NR-Panel-Game.cmd` in the package to open the panel, then launch Cyberpunk from your normal game launcher. The script starts the panel only, using Windows Python Launcher (`py -3`); alternatively run `python panel/nr_control_panel.py` from the package. Panel address: `http://127.0.0.1:8788/`.
-5. Known 1080p configuration: 1920×1080 display output + DLSS Quality input (1280×720) through the working OptiScaler route. The current native mode follows the actual game render input, including inputs above 720p; fixed-height modes reduce NR work while keeping the SR output unchanged. Geometry and padding are generated by the runtime, not edited by hand.
-6. Confirm the chosen backend is mounted and `processed` increases. A loaded DLL or idle `attach rc=0` is insufficient.
-7. Check motion, appearance, scene cuts, exposure and history reset; use external frame-time measurements.
-
-The local game setup used the OptiScaler NVIDIA spoof preset to expose DLSS input. The panel can edit that preset with the game closed, retaining a backup. Compatible upscaler installation is separate; FSR XMX is not bundled or automatically installed. The installer downloads official OptiScaler only when absent and preserves existing SR/FG files.
-
-The generated `game-files/plugins/nr_bridge.ini` and panel config point to the same manifest, INI and status paths in your package. If you move it, regenerate those paths before installation; an already copied INI cannot follow a moved folder.
-
-### Use a newly built VK102 backend, alone or alongside Small
-
-Build VK102 with `Build.ps1 -Profile vk102` and its supported full-model DLL. To boot VK102 alone, configure that package and copy its `game-files/` contents:
-
-```powershell
-python local/game-package-vk102/panel/configure_game.py --package local/game-package-vk102 --game-bin "C:/Games/Cyberpunk2077/bin/x64"
-```
-
-For both models, build both profiles and choose one boot package. Register the other package before installing:
-
-```powershell
-# Small boot package, with newly built VK102 available in the selector.
-python local/game-package/panel/configure_game.py --package local/game-package --game-bin "C:/Games/Cyberpunk2077/bin/x64" --vk102-manifest local/game-package-vk102/manifest
-
-# Alternatively, VK102 boot package, with Small available.
-python local/game-package-vk102/panel/configure_game.py --package local/game-package-vk102 --game-bin "C:/Games/Cyberpunk2077/bin/x64" --small-manifest local/game-package/manifest
-```
-
-Install only the chosen boot package's `game-files/`. Keep both packages' matching `bin/nrvk_bridge.dll`, runtime, shaders and weights together. The selector switches at a frame boundary and resets history, preserving appearance settings. The boot key in the installed bridge INI must match the component copied from that boot package. Neither package's generated model assets belong in GitHub.
-
-## Roll back
-
-Close the game. Remove only these introduced files and restore any same-name backups: `plugins/CyberpunkNRBridge.asi`, `plugins/nr_bridge.ini`, `plugins/nr_hdr_proxy.hlsl`, `plugins/NRB-deferred-identity.enable`, `nrvk_bridge.dll`. Leave unrelated game/OptiScaler files alone. For a changed spoof preset, check and restore your intended `OptiScaler.ini.nr-backup`.
-
-## Troubleshooting
-
-- Unsupported DLL: check the pinned primary/equivalent hashes in tools/model_profiles.json. The installer can download the fixed supported containers; the extractor rejects other identities.
-- Shader mismatch: use glslang 16.5.0 and unmodified sources; retain hash/precision checks.
-- Permission failure: keep the package writable. No elevation or alternate-shell bypass is used.
-- Port 8788 busy: close the previous panel or set `NR_PANEL_PORT`.
-- Mounted but no processed frames: check fixed input geometry, trigger file, working OptiScaler route and bridge log.
+源码构建请看 [DX12-DEVELOPMENT](docs/DX12-DEVELOPMENT.md)。`tools/Build.ps1` 及旧私有桥仍保留供开发研究，普通用户不需要运行。

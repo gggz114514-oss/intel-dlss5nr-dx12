@@ -1,6 +1,6 @@
 # Local assets
 
-Current release: **v0.3.0-multires / 2026-11-01**. This page describes current generated assets; historical performance is in [docs/optimization](docs/optimization/README.md).
+Model-generation recipe retained from **v0.3.0-multires / 2026-11-01**; current user release is **v0.4.0-dx12**. This page describes current generated assets; historical performance is in [docs/optimization](docs/optimization/README.md).
 
 
 Build Full first; Small also takes the built Full directory for its accepted shared blend scalar. Model tensors come from the supported `nvngx_dlssnr.dll` or its ZIP, supplied locally or fetched by the pinned installer. Extraction parses PE resources without executing the DLL.
@@ -19,4 +19,4 @@ Each profile builds **39** network modules and six bridge shaders (gather, scatt
 
 Two old image bundles were developer fixtures, not weights, and are absent. The runtime initializes their buffers to zero, then game gather/controls/history provide frame data. The first pass selects procedural noise from the current frame seed. No developer screenshot, captured activation or pre-exported blob is needed.
 
-`Build.ps1` runs extraction, shader preparation, native builds, CPU checks and package assembly for the selected profile. `local/`, `assets/`, `models/`, `weights/` and `build/` are ignored. Generated weights, SPIR-V, CUDA code and proprietary binaries are not repository contents and are not covered by the source license. The seven explicitly supplied screenshots in `docs/images/` are documentation assets, not runtime fixtures.
+`Build.ps1` runs extraction, shader preparation, native builds, CPU checks and package assembly for the selected profile. `local/`, `assets/`, `models/`, `weights/` and `build/` are ignored. Generated weights, SPIR-V, CUDA code and proprietary binaries are not repository contents and are not covered by the source license. The ten explicitly supplied screenshots in `docs/images/` are documentation assets, not runtime fixtures.

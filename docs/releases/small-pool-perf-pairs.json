@@ -1,0 +1,157 @@
+{
+ "pairs": [
+  {
+   "pair": 1,
+   "parent": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5764,
+    "median": 10.5482,
+    "p05": 10.5283,
+    "p95": 10.877
+   },
+   "cand": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5895,
+    "median": 10.5602,
+    "p05": 10.5401,
+    "p95": 10.9133
+   },
+   "delta_median_ms": 0.012,
+   "delta_mean_ms": 0.0131,
+   "delta_pct_median": 0.114
+  },
+  {
+   "pair": 2,
+   "parent": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5791,
+    "median": 10.549,
+    "p05": 10.5303,
+    "p95": 10.8462
+   },
+   "cand": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5933,
+    "median": 10.5633,
+    "p05": 10.5426,
+    "p95": 10.9148
+   },
+   "delta_median_ms": 0.0143,
+   "delta_mean_ms": 0.0142,
+   "delta_pct_median": 0.136
+  },
+  {
+   "pair": 3,
+   "parent": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5793,
+    "median": 10.5488,
+    "p05": 10.5299,
+    "p95": 10.9421
+   },
+   "cand": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5929,
+    "median": 10.5626,
+    "p05": 10.5432,
+    "p95": 10.9524
+   },
+   "delta_median_ms": 0.0138,
+   "delta_mean_ms": 0.0136,
+   "delta_pct_median": 0.131
+  },
+  {
+   "pair": 4,
+   "parent": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5768,
+    "median": 10.5485,
+    "p05": 10.5294,
+    "p95": 10.8847
+   },
+   "cand": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5908,
+    "median": 10.5629,
+    "p05": 10.5421,
+    "p95": 10.6046
+   },
+   "delta_median_ms": 0.0144,
+   "delta_mean_ms": 0.014,
+   "delta_pct_median": 0.137
+  },
+  {
+   "pair": 5,
+   "parent": {
+    "frames": 1459,
+    "failed": true,
+    "mean": 10.5771,
+    "median": 10.5483,
+    "p05": 10.5295,
+    "p95": 10.7204
+   },
+   "cand": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.596,
+    "median": 10.5634,
+    "p05": 10.5432,
+    "p95": 10.9617
+   },
+   "delta_median_ms": 0.0151,
+   "delta_mean_ms": 0.0189,
+   "delta_pct_median": 0.143
+  },
+  {
+   "pair": 6,
+   "parent": {
+    "frames": 1521,
+    "failed": true,
+    "mean": 10.5825,
+    "median": 10.5512,
+    "p05": 10.5318,
+    "p95": 10.9615
+   },
+   "cand": {
+    "frames": 2000,
+    "failed": false,
+    "mean": 10.5952,
+    "median": 10.563,
+    "p05": 10.543,
+    "p95": 10.9723
+   },
+   "delta_median_ms": 0.0118,
+   "delta_mean_ms": 0.0127,
+   "delta_pct_median": 0.112
+  }
+ ],
+ "summary": {
+  "pairs_total": 6,
+  "pairs_valid": 4,
+  "delta_mean_ms": 0.0136,
+  "delta_median_ms": 0.014,
+  "delta_stdev_ms": 0.0011,
+  "delta_ci95_ms": [
+   0.0125,
+   0.0147
+  ],
+  "delta_pct_median": 0.133,
+  "frames_per_arm": 2000,
+  "memory": {
+   "parent_bytes": 524967744,
+   "candidate_bytes": 525099072,
+   "delta_bytes": 131328,
+   "delta_pct": 0.025,
+   "allocations": 2
+  },
+  "note": "network GPU timestamp interval per frame; short windows chosen below the parent failure points"
+ }
+}

@@ -1,34 +1,27 @@
-# Variable-resolution FP16 update — 2026-11-01
+# v0.4.0 — Intel NR DX12 Universal
 
-Download this release’s Source code ZIP for a fixed v0.3.0-multires snapshot; main contains documentation and follow-up fixes. See [the document index](docs/INDEX.md) for current installation, build, performance and recovery guidance.
+## Download / 下载
 
-## 2026-11-01: variable resolution + installer
+Download **Intel-NR-DX12-20261103.zip**, extract everything, run **Install.cmd**, select your game's EXE. No Python, Visual Studio, Vulkan SDK or preinstalled OPT required. Source users can run **Install-NR.cmd** to download and hash-check this same bundle.
 
-Native render dimensions and optional 720/540/480/360p processing are supported by both optimized models. New `Install-Cyberpunk.cmd` automates pinned model download, local build, backups and game installation; FSR XMX is deliberately excluded. Fixed Full540 padding initialization, low-resolution identity residuals, native-control override and Vulkan device-function lifetime during model switching. Validation: 22 native-size gates; 6 component lifecycles / 42 frames bit-exact to the 720 baseline; fresh Full and Small source builds and package checks. See [details](docs/MULTIRES-20261101.md).
+下载完整安装包并解压，运行 Install.cmd。支持安装入口：赛博朋克 2077、巫师三 DX12、死亡搁浅导演剪辑版。卸载用 Uninstall.cmd，日志用 Collect-Logs.cmd。请保留安装记录和备份，勿手动删除游戏原生 FidelityFX DLL。
 
-Download the **current main branch** using Code → Download ZIP, or clone the repository. The older v0.2.0 release archive contains the earlier 266/118-dispatch backends; the optimized sources described here are on main.
+## Changes
 
-| Component | Current default |
-|---|---|
-| Full (`vk102`, panel key `102`) | **232 dispatches**, 152 rows, 502 buffers, 39 network shaders, 165 cold resources |
-| Small (`small`) | **108 dispatches**, 76 rows, 222 buffers, 39 network shaders, 70 cold resources |
-| Full network | **17.450 ms**; latest paired campaign 18.724→17.450 ms |
-| Small network | **9.980 ms**; paired fixed-input batch 14.324→9.980 ms |
-| Late-latch streaming | **Default ON**; game period 34.81→29.38 ms in the recorded same-scene comparison |
+- Optimized Full and Small with variable native resolution and 720/540/480/360p processing choices.
+- OptiScaler integrated menu and universal DX12 input bridge; matched host/runtime/shader.
+- Small 4–64 KiB buffer alignment stability fix; complete investigation published.
+- Natural tone LUT correction and continuous style strength; Classic/Natural/Cinematic retained.
+- Full/native/Classic defaults; per-process NVIDIA DXGI/Streamline spoofing + XeFG, with Death Stranding's upscaler FG input handled by the installer. Existing preferences preserved.
+- Verified backups, native FidelityFX restoration on uninstall, VC++ prerequisite handling and log export.
+- Three original Witcher screenshots on the homepage, Small / NR off / Full, all without FG.
 
-Platform: Intel Arc B580, Windows x64, 1280×720 NR input. Full historical development starts at 50.821 ms. Network inference and game frame period are measured separately.
+## Special thanks / 特别鸣谢
 
-## Build and use
+**mochizuki0323 / DLSSNR-AMD (望月)** — MIT, network organization and producer-consumer layouts. **TheAutomatic / dlss-5-amd-project** — GPL-3.0, OptiScaler host and universal game integration. Full notices and source links are retained in the ZIP and repository.
 
-1. Download main and install the dependencies listed in INSTALL.md.
-2. Build Full from the supported 310.8.0.0 model DLL.
-3. Build Small from the supported 310.9.16.0 DLL with `-FullModel local/vk102`.
-4. Configure the selected boot package and register the other backend.
-5. Back up existing bridge files, copy the boot package's game-files contents into Cyberpunk bin/x64.
-6. Start the panel script, then launch Cyberpunk from the normal game launcher.
+## Validation scope
 
-The game uses separately installed OptiScaler + FSR XMX + XeSS FG components. This repository distributes source and build recipes; model DLLs and generated assets remain local. INT8 is a separate development branch.
+This release packages the already game-tested DLLs, shader and model assets; it does not replace them with untested rebuilds. Package hashes, installer tests and source checks are documented in the repository. Full ~17.45 ms and Small ~9.98 ms are historical B580/720p network timings; the private Cyberpunk streaming −5.43 ms is a separate historical game-period result.
 
-[中文完整教程](docs/USER-GUIDE.zh-CN.md) · [Install](INSTALL.md) · [Full optimization history](docs/optimization/FULL-HISTORY.md) · [Build verification](BUILD-VERIFICATION.md)
-
-The Vulkan backend substantially references **望月 / mochizuki0323 / DLSSNR-AMD**, including producer/consumer organization, layouts and fusion. MIT source notices and attribution are retained.
+See INSTALL.md for use, LICENSES.md for licenses and docs/optimization/SMALL-GPU-HANG-20261103.md for stability evidence and costs.

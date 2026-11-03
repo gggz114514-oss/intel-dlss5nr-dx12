@@ -123,10 +123,14 @@ static void pool_buffers(NRVK_Backend* b) {
         VkDeviceSize size=0;std::vector<Slot> slots;
         for(auto id:ids) {
             auto& x=b->plan.buffers[id];Slot* selected=nullptr;
-            if(!x.resident)for(auto& s:slots)if(s.last<x.firstPass && s.size>=x.allocated && s.offset%x.alignment==0)
+            // Small's tested B580 pool-layout workaround: preserve the Vulkan requirement
+            // and page-align medium-small buffers. No per-frame work is added.
+            VkDeviceSize slotAlign=x.alignment;
+            if(x.allocated>4096 && x.allocated<=65536 && slotAlign<4096)slotAlign=4096;
+            if(!x.resident)for(auto& s:slots)if(s.last<x.firstPass && s.size>=x.allocated && s.offset%slotAlign==0)
                 if(!selected||s.size<selected->size)selected=&s;
             if(selected){x.memoryOffset=selected->offset;selected->last=x.lastPass;}
-            else{x.memoryOffset=(size+x.alignment-1)/x.alignment*x.alignment;slots.push_back({x.memoryOffset,x.allocated,x.lastPass});size=x.memoryOffset+x.allocated;}
+            else{x.memoryOffset=(size+slotAlign-1)/slotAlign*slotAlign;slots.push_back({x.memoryOffset,x.allocated,x.lastPass});size=x.memoryOffset+x.allocated;}
             x.ownsMemory=false;
         }
         VkMemoryAllocateInfo ai{VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO};ai.allocationSize=size;ai.memoryTypeIndex=group.first.first;

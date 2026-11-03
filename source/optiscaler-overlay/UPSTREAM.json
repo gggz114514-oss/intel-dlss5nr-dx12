@@ -1,0 +1,192 @@
+{
+  "repository": "https://github.com/TheAutomatic/dlss-5-amd-project",
+  "commit": "dd542eb28006a27cba37ba86c37dbd022bdba9a5",
+  "license": "GPL-3.0",
+  "files": [
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/Config.cpp",
+      "sha256": "953ad8fcd066d1bbb42e91acb56392afdc0392d01c939fb6b0c6ee8aed669fa7",
+      "upstream_sha256": "ef32c9a70bf14a4eaf52618c373238ff6c70cf783709bc3e88762ba84f4f614c"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/Config.h",
+      "sha256": "d209f45fa20e544f3a502f72e22dd34324154753c2e2f9e6c59655684a889ba8",
+      "upstream_sha256": "7e21273e275e5e2b10184f2d4f33e18265895ab4eb23f55af3b29e44ea1b972a"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/ConfigKeys.h",
+      "sha256": "6df24e44988d450b691d91dca6f813257c3e893fe7c932f9d400f36d7862cb81",
+      "upstream_sha256": "943549d8d6965dc4c3980715999d205a2f9cc2d3060a493d377730f827ac942a"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dllmain.cpp",
+      "sha256": "6f18de0e3ac91b6a236148f6c5b69c5f9e3816a7f7833dfd59a62a19a9847621",
+      "upstream_sha256": "c5c05f12ee91d4e8394df4a2311fedfd5cee59545df07d80acecb9d46fd42e3d"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/OptiScaler.vcxproj",
+      "sha256": "d42efd50cc92188009600f0b335b6426f601faff2b33f8d172ed0dda3b0a66cc",
+      "upstream_sha256": "9f40897b6dfb94390bf9991bed47bb96a81b9e544868fedd29a7a06c698686dc"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/DlssNrFeature_Dx12.h",
+      "sha256": "ab7006e2ff017d32ac5beafdef3466d31a861f079c0d970e97d6240ce472798a",
+      "upstream_sha256": "51555bf40a2fa92a4f99c35124704147a69cba0c2d7ac9a4a5ea49df0c7cd963"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/DlssNr_Menu.cpp",
+      "sha256": "18b3db57e819f931242cb20d71e9e52d50e1146536e9b2175b933d7329b1a66c",
+      "upstream_sha256": "391ed010ae703ae21118a2b8828ce2a942d9500c091cf1dc419c9cadc99d3902"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/DlssNr_PipelineUi.h",
+      "sha256": "793eb5b13a1f6a4a87bca427481d0ab2b0cf19d81bed982747e610dae23ef16e",
+      "upstream_sha256": "9beb6efdd3a78c3ec3b6913e9b97bf2749b72fee96a93d98fbcdc022f4c380d9"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/inputs/NVNGX_DLSS_Dx12.cpp",
+      "sha256": "d365d3a17c3e115151f8f3913e655ba542c7999efbce7b45576145d5c6ff2e5f",
+      "upstream_sha256": "efc2bdbb99bedba39ce6d834cbf2af5214d7c1e8a8c9397f75fe743f3b185310"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/menu/menu_common.cpp",
+      "sha256": "3f770abaf1e1245a8875bc3fe6fb2f253b341299036a9080a3f4c989f9886a7f",
+      "upstream_sha256": "7f415f225b8bbdece739f6ea60842c18fa4042a0667689947ac4144d3e8c88bb"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/upscalers/IFeature_Dx11wDx12.cpp",
+      "sha256": "160f5cb74a44683328b0be2b9a92a2022cb427f62dfb2b7b9de193ee47692fd6",
+      "upstream_sha256": "6b3f7b8e1d917009bb7083375d688b8c1f702c47012f27ef2f82972e380b0424"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/upscalers/IFeature_VkwDx12.cpp",
+      "sha256": "76792a033aede7f003d6cb9acb088ff9d5df3ba7db4536d7961b98714b07295d",
+      "upstream_sha256": "cf1ba087bab8689049a8d7028f380c4cf8c7199839438df445c9fd7bcc1732c0"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/wrapped/wrapped_swapchain.cpp",
+      "sha256": "6b26cd98b2d195d9b0fd56ec3a24fafb290dafce56ea2bd1b50a3d8026c4b548",
+      "upstream_sha256": "642f9db3b8e8236e0289e9f0ddc423450ab994572817cdcc24cdaadc2eb6889d"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/amd/AmdBridge.cpp",
+      "sha256": "6fedc634bbf5cc76f7c45ba2e619d5d6913ee01762004e071a685d8ff2322881",
+      "upstream_sha256": "430bce6518b97725d26d3fbe211dcfbc1b48283b3f918c6a6d2d29eff6f08a10"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/amd/AmdBridge.h",
+      "sha256": "a1f50dbfb1774c5c5dace3c0846072cdd69d8c8b6564522171bdb62cd3e1a348",
+      "upstream_sha256": "c22f1a6a44b6a4e4ce9af544619e1af781ffeeaa6ddcb7dfd6b6d0de60c0e397"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/amd/AmdPreSr.h",
+      "sha256": "85a6874c80788c61b70df3a27d967c05d3af197ae470b4e02c91ed3d99413a43",
+      "upstream_sha256": "f8c867130544e7351f8db8e78fceb4f7010f27b3f733f98ba7eee7e30fe19659"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/InstallStatus.h",
+      "sha256": "c5227727761b9320f3b52ce6b554765f1cacbd22a986268eb08575217be9cd39",
+      "upstream_sha256": "7f990dbf05f5a9e8ed9f785574f9ac118efabc220363bea72222f1741fc491fc"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/IntelBackend.cpp",
+      "sha256": "876184afdb0628c47028d41a6669a58668f8bfa029c26c429e147904239e0885",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/IntelBackend.h",
+      "sha256": "e1457e400817243daef0b546c557d3f18952e2e5c10e63b2f0c8d0b2b018a741",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/Kind.h",
+      "sha256": "79d021a39956cea60fdc9ee2d49a38df7a07940724c60a06614bbfc4c8a70e3b",
+      "upstream_sha256": "39f329045f4a75e31e2f89ac791ecf36b5853ef56833708167b937a496a4acfe"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/Selector.cpp",
+      "sha256": "42711bb7e5d6cb66a8077a085c8c27db4047dc5e821bf98c5eaf7b69c0a3cda8",
+      "upstream_sha256": "cc8898de9779efd2d8ce068027fe69fa2f5c029ea519f17a5a4a9dd179053d61"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/Selector.h",
+      "sha256": "50b6dc71f6bb49f619ee7a7bf83cea34224c5ac35b967eb82ba8a8f1ebee997c",
+      "upstream_sha256": "2083671d0b613f414a1584a86d3d60a4963a3aa430bc3f4c699eca6a9350be53"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/submission/CommandListProxy.h",
+      "sha256": "296a854cf4be5a12a1a910c904fbfc870e05f1997a4b43ce5984fe59a578f4db",
+      "upstream_sha256": "4984dd4732e44a7ec5d17371619752d654c30ae1a5c07289f9dc8ddf4911569e"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/submission/LogicalList.h",
+      "sha256": "86fe2f387be0e71702836780cce8dd2330024dbdf1d5707046de1a32c1755c41",
+      "upstream_sha256": "62507a57791138e21f096f7e1d4415cda9331e43ac3b5ed4d92c950bcb3a4e0d"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/submission/SubmissionTls.h",
+      "sha256": "fd0161a53819281bd6aedc787916b2c768cfc174f807f7ce3309490ba4d86f20",
+      "upstream_sha256": "9794369f0548ad916361f8c508563f5eec15d7fc7a9b533b00872decece3847a"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_bridge.h",
+      "sha256": "fa00d0d034588a24d66a3d7e3684d65a40ba6e8341ba90a1ec05207af6bec4a2",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_hdr_proxy.cpp",
+      "sha256": "ae876866a0bd3177743216a1d27efbeff454276baf5c9366cae529565e611440",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_hdr_proxy.h",
+      "sha256": "15d0adbdf10d24f84386c296d9e0f1a615b4fa5145ab62ae5119bd27f96d9482",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_hdr_resource_pool.h",
+      "sha256": "40253ec223624d773d6325e85831d9be59226c932a48d5a7b8fea3a3ae96325a",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_input_adapter.hlsl",
+      "sha256": "2e86a602957fae56236d57cccdd45dd0276882dd7da2cf65d6f6926b5fe1cfc1",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_input_contract.h",
+      "sha256": "02f14002cb6ef2a1a1c2f9369eff1d5a25ec84baa229affe0a1d3f31e863c1f1",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_intel_composite.h",
+      "sha256": "123abdc315e1fa8fbee4fb43cf2081cd758d411af863ec54d8894978638b1161",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_intel_runtime.cpp",
+      "sha256": "ba44174787abdada40399532111ebec657621a2327bb77cfae98a7c5a1a27cad",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/dlssnr/backend/intel/nr_intel_runtime.h",
+      "sha256": "d5a14fbd15d406ea9854224a7f96f546acd084864e14dd2177facdec74c41045",
+      "upstream_sha256": null
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/menu/input/input_system_hid.cpp",
+      "sha256": "33e19618ea039c0821168aa7239a8dbdd5e05bf42c8670c95a20b601bbbdb57f",
+      "upstream_sha256": "51177b85af6a035109b0d2e07cfaa7bab5a8c89f4508605f3ed6d6fe33c3fb89"
+    },
+    {
+      "path": "OptiScaler-DLSSNR-PreSR-Multipass-main/OptiScaler/shaders/dlssnr/DlssNr_Dx12.cpp",
+      "sha256": "1e394e898c06076eb9fd7e94aadfb2de5ffeb6008c34815bdf5cb978b18127e8",
+      "upstream_sha256": "b003da716ce7514fb70dfe71a49d1225dc65998f706b3980e5ea7a8488742916"
+    },
+    {
+      "path": "tests/host/test_rr_nr_colour_source.py",
+      "sha256": "52f0aa2d5fbc029687ae026016797dfc343408e801d77bb176ae29932b29e784",
+      "upstream_sha256": "51aa7a3ca9907d2eb8c69a76df52c2ceba8ba02bff9f6ffeb490fefd0d4a5d14"
+    }
+  ]
+}

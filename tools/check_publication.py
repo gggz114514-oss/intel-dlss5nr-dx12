@@ -8,7 +8,7 @@ import subprocess
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-ALLOWED = {'.md', '.txt', '.json', '.py', '.ps1', '.cmd', '.cpp', '.h', '.comp', '.glsl', '.hlsl', '.inc', '.sha256', '.yml'}
+ALLOWED = {'.md', '.txt', '.json', '.py', '.ps1', '.cmd', '.cpp', '.h', '.comp', '.glsl', '.hlsl', '.inc', '.sha256', '.yml', '.vcxproj', '.filters', '.hpp', '.inl', '.rc', '.def'}
 SPECIAL = {'.gitignore', '.gitattributes', 'LICENSE', 'CMakeLists.txt'}
 SCREENSHOTS = {'docs/images/' + name + '.png' for name in
                ('nr-off', 'vk102-classic', 'vk102-natural', 'vk102-cinematic',
