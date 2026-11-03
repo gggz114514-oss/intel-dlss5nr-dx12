@@ -1,0 +1,23 @@
+[
+  {
+    "path": "docs/images/witcher3-small.png",
+    "label": "Small",
+    "frame_generation": false,
+    "sha256": "910cfd89b38b0dc1d04530515e2df317137ec536b649bb631d454d53925cd1f2",
+    "source": "User-provided original screenshot; labels confirmed by user; no image processing"
+  },
+  {
+    "path": "docs/images/witcher3-nr-off.png",
+    "label": "NR off",
+    "frame_generation": false,
+    "sha256": "1460707619b54dabed3c06cddca472b87380d940113bd8f1dbeae065c663a326",
+    "source": "User-provided original screenshot; labels confirmed by user; no image processing"
+  },
+  {
+    "path": "docs/images/witcher3-full.png",
+    "label": "Full",
+    "frame_generation": false,
+    "sha256": "d437717829bc9e0319153daf13e9d215dce13e2c30cc8f789936f6e9baf77ebe",
+    "source": "User-provided original screenshot; labels confirmed by user; no image processing"
+  }
+]

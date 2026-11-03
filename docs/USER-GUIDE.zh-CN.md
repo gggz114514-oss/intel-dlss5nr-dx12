@@ -8,14 +8,14 @@
 
 Full 是 232 派发、约 17.45 ms 的版本；Small 是 108 派发、约 9.98 ms 的版本。默认流式桥接已启用。上述网络时间对应 B580、1280×720 NR 输入的记录。
 
-下载稳定的源码快照 [v0.3.0-multires](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires)，或使用 main 获取后续修订。旧 v0.2.0 是历史版本。
+下载稳定的源码快照 [v0.3.0-multires](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.3.0-multires)，或使用 main 获取后续修订。旧 v0.2.0 是历史版本。
 
 ## 1. 下载与目录准备
 
-下载入口：[GitHub 仓库](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077)。可使用 Code → Download ZIP，或：
+下载入口：[GitHub 仓库](https://github.com/gggz114514-oss/intel-dlss5nr-dx12)。可使用 Code → Download ZIP，或：
 
 ```powershell
-git clone https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077.git C:\Dev\intel-dlss5nr-cyberpunk2077
+git clone https://github.com/gggz114514-oss/intel-dlss5nr-dx12.git C:\Dev\intel-dlss5nr-cyberpunk2077
 cd C:\Dev\intel-dlss5nr-cyberpunk2077
 ```
 

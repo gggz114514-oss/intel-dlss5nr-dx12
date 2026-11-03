@@ -1,4 +1,24 @@
-# Intel DLSS5 NR — 赛博朋克 2077
+# Intel DLSS5 NR — DX12 通用
+
+项目现以 **DX12 通用** 命名；OptiScaler 接入已在《赛博朋克 2077》《巫师三》DX12 版与《死亡搁浅 导演剪辑版》中实机使用。下方保留此前 Vulkan 后端与赛博朋克私有桥的开发、构建及性能记录。**历史私有桥的 −5.43 ms 是独立测量，不作为通用 OPT 桥的性能数字。**
+
+## 巫师三：Small / NR 关闭 / Full
+
+用户实机截图，顺序为 **Small → NR 关闭 → Full**，三张均**未开启补帧**。原图完整保留，点击图片可查看原始分辨率。重点观察面部皮肤、头发与盔甲的表现；截图上的瞬时 FPS 不作为同批性能基准。
+
+### Small
+
+![巫师三 — Small，未开启补帧](docs/images/witcher3-small.png)
+
+### NR 关闭
+
+![巫师三 — NR 关闭，未开启补帧](docs/images/witcher3-nr-off.png)
+
+### Full
+
+![巫师三 — Full，未开启补帧](docs/images/witcher3-full.png)
+
+## 后端与历史发布资料
 
 **2026-11-01 可变分辨率新版：** Full / Small 支持游戏实际输入自动匹配，提供原生、720/540/480/360p处理档位，保留已有模型优化与默认流式处理。新增 [一键构建安装](docs/ONE-CLICK-INSTALL.zh-CN.md)（自动下载模型与缺失的官方OptiScaler；FSR XMX不自动部署）、逐文件备份和恢复。已修复原生控制覆盖与模型切换设备生命周期崩溃。[新版验证与成本](docs/MULTIRES-20261101.md)。
 
@@ -15,7 +35,7 @@ NR 负责神经图像处理与风格控制；FSR XMX 负责超分；XeSS FG / Xe
 
 **详细文档：** [完整安装与使用教程](docs/USER-GUIDE.zh-CN.md) · [50 ms→17 ms 完整时间线](docs/optimization/FULL-HISTORY.md) · [逐项代码与性能复盘](docs/optimization/TECHNICAL-RETROSPECTIVE.md) · [其他游戏接入](PORTING.md)
 
-**下载：选择[v0.3.0-multires源码版本](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires)，或main获取后续修订。完整说明见[文档目录](docs/INDEX.md)。旧v0.2.0为历史版本。**
+**下载：选择[v0.3.0-multires源码版本](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.3.0-multires)，或main获取后续修订。完整说明见[文档目录](docs/INDEX.md)。旧v0.2.0为历史版本。**
 
 [实验工具与用法](tools/experiments/README.md) · [项目恢复与私人备份清单](docs/RECOVERY.md) · [研究源码档案](source/research-archive/README.md)
 

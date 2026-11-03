@@ -1,6 +1,6 @@
 # 新版 NR：一键构建与安装到赛博朋克
 
-可从[v0.3.0-multires源码发布](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires)或main下载；安装器不重发OptiScaler包。当前源码构建和安装恢复验收见[BUILD-VERIFICATION](../BUILD-VERIFICATION.md)。
+可从[v0.3.0-multires源码发布](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.3.0-multires)或main下载；安装器不重发OptiScaler包。当前源码构建和安装恢复验收见[BUILD-VERIFICATION](../BUILD-VERIFICATION.md)。
 
 2026-11-01 可变分辨率版保留优化 Full / Small 和默认开启的流式处理，增加游戏实际输入尺寸自动匹配，以及 720 / 540 / 480 / 360p NR 处理档位。原生模式不是720p上限：输入为1080p、1440p、2160p时按对应原生尺寸处理。固定档保持输入宽高比，不把更小输入放大。
 

@@ -1,6 +1,26 @@
-# Intel DLSS5 NR — Cyberpunk 2077
+# Intel DLSS5 NR — DX12 Universal
 
-[Documentation index](docs/INDEX.md) · [v0.3.0 source release](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires)
+The project is now **DX12 Universal**, with OptiScaler integration used in Cyberpunk 2077, The Witcher 3 DX12 and Death Stranding Director’s Cut. The Vulkan backend and earlier Cyberpunk private-bridge build and performance records are retained below. **The historical private bridge’s −5.43 ms result is a separate measurement, not a universal OPT bridge benchmark.**
+
+## The Witcher 3: Small / NR off / Full
+
+User-captured in-game screenshots in the order **Small → NR off → Full**, with **frame generation disabled in all three**. Original images are preserved; click to view at full resolution. Compare facial skin, hair and armor. The instantaneous FPS overlay is not a paired performance benchmark.
+
+### Small
+
+![The Witcher 3 — Small, frame generation off](docs/images/witcher3-small.png)
+
+### NR off
+
+![The Witcher 3 — NR off, frame generation off](docs/images/witcher3-nr-off.png)
+
+### Full
+
+![The Witcher 3 — Full, frame generation off](docs/images/witcher3-full.png)
+
+## Backend and historical release documentation
+
+[Documentation index](docs/INDEX.md) · [v0.3.0 source release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.3.0-multires)
 
 **2026-11-01 variable-resolution update:** Full and Small now follow the actual game render input, with native/720/540/480/360p NR controls and streaming enabled. Use `Install-Cyberpunk.cmd` after installing the build prerequisites: it fetches pinned model containers, builds both models, backs up game files and installs the panel. Existing SR/FG files are preserved; FSR XMX is installed separately. See the [installer guide](docs/ONE-CLICK-INSTALL.zh-CN.md) and [release validation](docs/MULTIRES-20261101.md). Native-control and device-recreation fixes are included.
 
@@ -13,7 +33,7 @@ Experimental **NR + FSR XMX upscaling + XeSS Frame Generation** on Intel Arc B58
 
 **Detailed guides:** [Installation walkthrough (中文)](docs/USER-GUIDE.zh-CN.md) · [Full development history](docs/optimization/FULL-HISTORY.md) · [Technical retrospective](docs/optimization/TECHNICAL-RETROSPECTIVE.md) · [Other-game integration](PORTING.md)
 
-**Download the [v0.3.0-multires source release](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires), or current main for subsequent documentation and fixes. The v0.2.0 archive is historical.**
+**Download the [v0.3.0-multires source release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.3.0-multires), or current main for subsequent documentation and fixes. The v0.2.0 archive is historical.**
 
 [实验工具与用法](tools/experiments/README.md) · [项目恢复与私人备份清单](docs/RECOVERY.md) · [研究源码档案](source/research-archive/README.md)
 

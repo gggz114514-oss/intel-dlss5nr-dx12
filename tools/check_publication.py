@@ -12,7 +12,8 @@ ALLOWED = {'.md', '.txt', '.json', '.py', '.ps1', '.cmd', '.cpp', '.h', '.comp',
 SPECIAL = {'.gitignore', '.gitattributes', 'LICENSE', 'CMakeLists.txt'}
 SCREENSHOTS = {'docs/images/' + name + '.png' for name in
                ('nr-off', 'vk102-classic', 'vk102-natural', 'vk102-cinematic',
-                'small-classic', 'small-natural', 'small-cinematic')}
+                'small-classic', 'small-natural', 'small-cinematic',
+                'witcher3-small', 'witcher3-nr-off', 'witcher3-full')}
 
 
 def check(output, archive):
@@ -48,7 +49,7 @@ def check(output, archive):
     if archive:
         with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
             for row in rows:
-                z.write(ROOT/row['path'], 'intel-dlss5nr-cyberpunk2077/'+row['path'])
+                z.write(ROOT/row['path'], 'intel-dlss5nr-dx12/'+row['path'])
         result['archive'] = str(archive)
         result['archive_sha256'] = hashlib.sha256(archive.read_bytes()).hexdigest()
         output.write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8')

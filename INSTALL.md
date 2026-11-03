@@ -6,12 +6,12 @@ Run `Install-Cyberpunk.cmd` after preparing the build prerequisites below. It do
 
 [中文完整操作教程](docs/USER-GUIDE.zh-CN.md)：从下载源码到双后端挂载，附常见问题与恢复步骤。
 
-下载稳定的源码快照 [v0.3.0-multires](https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077/releases/tag/v0.3.0-multires)，或使用 main 获取后续修订。旧 v0.2.0 是历史版本。
+下载稳定的源码快照 [v0.3.0-multires](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.3.0-multires)，或使用 main 获取后续修订。旧 v0.2.0 是历史版本。
 
 ## Download the current source / 下载当前源码
 
 ```powershell
-git clone https://github.com/gggz114514-oss/intel-dlss5nr-cyberpunk2077.git C:\Dev\intel-dlss5nr-cyberpunk2077
+git clone https://github.com/gggz114514-oss/intel-dlss5nr-dx12.git C:\Dev\intel-dlss5nr-cyberpunk2077
 cd C:\Dev\intel-dlss5nr-cyberpunk2077
 ```
 
