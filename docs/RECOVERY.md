@@ -1,6 +1,6 @@
 # 换电脑后的项目恢复手册
 
-恢复分为两部分：**公开 GitHub 保存代码与研究方法；私人存储保存模型、场景输入和原始结果。** 公开源码可恢复新版FP16构建、可变分辨率、安装脚本和实验工具。可重新下载或生成的数据不要求重复上传；私人备份优先保留不可重建的成果。
+恢复分为两部分：**公开 GitHub 保存代码与研究方法；Release 保存完整用户包；私人存储保存未公开研究、最小复现输入和原始结果。** 公开源码可恢复新版FP16构建、可变分辨率、安装脚本和实验工具。可重新下载或生成的数据不要求重复上传；私人备份优先保留不可重建的成果。
 
 ## 当前 DX12 通用版恢复
 
@@ -11,7 +11,8 @@
 | 内容 | 位置 |
 |---|---|
 | 当前 Full / Small 源码与模型配方 | source/network-fp16-20261027、source/network-small-20261028、tools |
-| 游戏桥、流式交接、控制面板 | source/bridge、source/vulkan、panel |
+| 当前 OPT 通用桥、Vulkan 组件与游戏内面板 | source/optiscaler-overlay、source/vulkan |
+| 历史私有桥与网页面板 | source/bridge、panel |
 | 可直接使用的实验工具与说明 | tools/experiments |
 | 优化历程、最终收益与验证摘要 | docs/optimization |
 | 历史研究源码、候选、计划、任务与报告 | source/research-archive |
@@ -19,18 +20,22 @@
 
 档案保留 5,699 个研究文件，以 5,013 个内容寻址对象去重存储；INDEX 将每个对象映射回原目录。研究档案覆盖主审计工作目录、DSH INT8 实施与细量化、XMX 验证包、zcode 诊断目录及早期报告。每个文件保留原始 SHA256 和发布版 SHA256。路径匿名化之后发布字节不同，原始身份用于与私人备份核对。
 
-历史 Python/PowerShell 以 `.py.txt` / `.ps1.txt` 保存，防止误点执行挂载、清理或 GPU 脚本。它们是历史实现档案，不参与默认构建，也不自动成为当前采纳版本。当前版本以 tools/model_profiles.json 及源码构建配方为准。
+历史 Python/PowerShell 以 `.py.txt` / `.ps1.txt` 保存，防止误点执行挂载、清理或 GPU 脚本。它们是历史实现档案，不参与默认构建，也不自动成为当前采纳版本。用户安装版本以 tools/intel-nr/PACKAGE.json、Release 完整包及其文件清单为准；模型构建配方由 tools/model_profiles.json 记录。
 
-## 恢复步骤
+## 恢复日常使用
 
-1. 从v0.3.0-multires或main克隆仓库，保存实际commit ID。
-2. 安装 INSTALL.md 所列构建依赖；安装实验 Python requirements。
-3. 使用Install-Cyberpunk.cmd下载并校验固定模型，自动先构建Full再构建Small；已有模型缓存可用-FullDll/-SmallDll。
-4. 安装器按实际游戏路径生成默认Full/原生/流式配置，保存INSTALL-RECEIPT.json与逐文件备份；恢复旧配置时使用对应收据。
-5. 如需继续实验，构建各模型独立的 port_network_model_runner，先执行 CPU plan check。
-6. 恢复采集输入、历史、输出、原始计时回执和候选权重，按 SHA256 清单核对。
-7. 展开历史研究档案，将占位符指向新电脑路径；只执行本次选定任务，历史挂载/清理脚本先人工核对。
-8. GPU 任务统一使用一个锁文件，先重建固定输入参考，再做候选数值门、反馈和计时。
+1. 从 v0.4.0-dx12 Release 下载完整安装 ZIP，保存 ZIP 与 SHA256SUMS.txt。
+2. 解压并双击 Install.cmd，选择游戏 EXE；无需准备开发工具。也可从整个仓库运行 Install-NR.cmd，自动下载并校验相同包。
+3. 安装默认 Full／原生／经典，在 OPT 游戏内面板调整。已有 INI 优先保留。
+4. 保存游戏目录的 intel-nr-install.json 与 intel-nr-backups。卸载用 Uninstall.cmd，恢复被覆盖的原文件。
+
+## 恢复开发与实验
+
+1. 克隆仓库并保存实际 commit，按 [DX12 源码构建](DX12-DEVELOPMENT.md) 恢复固定上游、Intel 宿主覆盖、Vulkan 组件与模型配方。
+2. 为 Full 和 Small 分别构建离线 runner，先执行 CPU plan check。实验 Python 依赖见 [工具说明](../tools/experiments/README.md)。
+3. 恢复选定实验的输入、历史、原始回执和候选尺度，按 SHA256 核对；不要把所有可重新生成的数据都当作必须恢复。
+4. 展开历史研究档案，重映射路径。历史挂载／清理脚本先审查，不直接用于当前游戏包。
+5. GPU 任务统一使用一个锁文件，先重建同输入参考，再做候选数值门、反馈和计时。
 
 ## 展开研究档案
 

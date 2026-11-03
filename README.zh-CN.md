@@ -63,9 +63,8 @@ Intel Arc B580、1280×720 NR 输入的历史记录：
 | Full 网络起点 → 优化链头 | **50.821 → 17.450 ms** |
 | 最新 Full 优化批次配对 | **18.724 → 17.450 ms** |
 | 新 Small 配对 | **14.324 → 9.980 ms** |
-| 赛博朋克私有桥流式优化，实机场景帧周期 | **34.81 → 29.38 ms，节省 5.43 ms** |
 
-网络计时与游戏帧周期是不同口径；私有桥流式收益单独保留，不加算到 OPT 通用桥。处理分辨率、游戏负载与驱动会改变耗时。完整经历见 [50 ms→17 ms 历史](docs/optimization/FULL-HISTORY.md)、[优化方法](docs/optimization/TECHNICAL-RETROSPECTIVE.md)。
+以上为 NR 网络的历史计时。处理分辨率、游戏负载与驱动会改变耗时。完整经历见 [50 ms→17 ms 历史](docs/optimization/FULL-HISTORY.md)、[优化方法](docs/optimization/TECHNICAL-RETROSPECTIVE.md)。
 
 ## 开发、排障与恢复
 

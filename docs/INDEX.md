@@ -4,6 +4,7 @@
 
 - [首页与完整包下载](../README.zh-CN.md)
 - [安装、默认设置、卸载与日志](../INSTALL.md)
+- [FSR XMX 安装与设置](FSR-XMX-INSTALL.md)
 - [其他 DX12 游戏接入](../PORTING.md)
 - [GPL／MIT 与两个 AMD 社区项目鸣谢](../LICENSES.md)
 - [发布说明](../RELEASE-NOTES.md)
@@ -25,4 +26,4 @@
 - [2026-11-01 多分辨率验证](MULTIRES-20261101.md)
 - [2026-11-01 源码构建记录](../BUILD-VERIFICATION.md)
 
-Full／Small 的历史网络计时与赛博朋克私有桥 −5.43 ms 流式收益分开保留。普通用户走本页当前安装入口；历史文档中的 Python／SDK／私有 ASI 构建步骤用于开发恢复，不是新通用安装步骤。
+Full／Small 网络计时保留各自批次。旧私有桥专题仅作历史研究，不列入当前性能汇总。普通用户走本页当前安装入口；历史文档中的 Python／SDK／私有 ASI 构建步骤用于开发恢复，不是新通用安装步骤。

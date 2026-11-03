@@ -22,6 +22,6 @@ Download **Intel-NR-DX12-20261103.zip**, extract everything, run **Install.cmd**
 
 ## Validation scope
 
-This release packages the already game-tested DLLs, shader and model assets; it does not replace them with untested rebuilds. Package hashes, installer tests and source checks are documented in the repository. Full ~17.45 ms and Small ~9.98 ms are historical B580/720p network timings; the private Cyberpunk streaming −5.43 ms is a separate historical game-period result.
+This release packages the already game-tested DLLs, shader and model assets; it does not replace them with untested rebuilds. Package hashes, installer tests and source checks are documented in the repository. Full ~17.45 ms and Small ~9.98 ms are historical B580/720p network timings.
 
 See INSTALL.md for use, LICENSES.md for licenses and docs/optimization/SMALL-GPU-HANG-20261103.md for stability evidence and costs.

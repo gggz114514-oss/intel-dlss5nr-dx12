@@ -61,9 +61,8 @@ Arc B580, 1280×720 NR input:
 | Full historical starting point → optimized head | **50.821 → 17.450 ms** |
 | Latest Full paired campaign | **18.724 → 17.450 ms** |
 | Optimized Small paired batch | **14.324 → 9.980 ms** |
-| Cyberpunk private-bridge streaming, scene frame period | **34.81 → 29.38 ms (−5.43 ms)** |
 
-Network inference and game frame period are separate measurements. The private-bridge streaming result is retained as history, not added to the universal OPT bridge’s results. Input resolution and workload affect timings. [Full optimization history](docs/optimization/FULL-HISTORY.md).
+These are historical NR inference measurements. Input resolution and workload affect timings. [Full optimization history](docs/optimization/FULL-HISTORY.md).
 
 ## Development and diagnostics
 

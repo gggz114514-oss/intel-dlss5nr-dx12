@@ -1,13 +1,26 @@
-# 当前构建与验证 — 2026-11-01
+# 当前构建与验证 — v0.4.0-dx12
 
-当前版本为v0.3.0-multires。推荐从根目录 `Install-Cyberpunk.cmd` 进入；手动构建继续使用 `tools/Build.ps1`，默认 `vk102` 为Full232派发，`small`为新版Small108派发。
+## 用户安装
 
-先构建Full，再给Small传 `-FullModel <Full模型目录>`。这份共享末端blend参数沿用已采纳Small，其他权重来自Small自己的DLL。两个模型分别使用build/vulkan-vk102和build/vulkan-small，组包按profile选择DLL；桥使用build/bridge。输出目录支持绝对路径和相对路径。
+完整包提供 Full／Small、OPT 通用宿主和 FSR XMX。解压后运行 Install.cmd；源码目录入口 Install-NR.cmd 下载并校验同一完整包。无需安装开发工具。详见 [安装指南](../../INSTALL.md)。
 
-模型下载/身份名单在tools/fetch_install_models.py和model_profiles.json。Full原版E16和原社区8270两个精确SHA对应的599张量、165冷资源完全一致；Small保留2bc1精确SHA、255张量和70冷资源。提取DLL作为数据，不执行它。
+## 开发构建
 
-每模型39份网络shader遵守固定glslang16.5.0及NoContraction配方；六份桥shader覆盖原生gather/scatter与低分辨率gather/scatter。720p计划作为种子，nr_geometry.h和nr_network_shape.inc按R/N生成实际buffer、PUSH、grid与padding。
+[DX12-DEVELOPMENT](../DX12-DEVELOPMENT.md) 是当前构建入口：先恢复固定 TheAutomatic 上游，再应用 Intel GPL 宿主覆盖；Vulkan 组件与模型分别构建。旧 tools/Build.ps1 还会构建历史私有桥，不是新用户安装器。
 
-本轮实际完成两模型公开源码全流程构建：后端5/5、桥11/11、面板与组包初始化均通过。GPU验证包括两模型22组原生尺寸；修复设备函数缓存后，两模型共6次生命周期、42帧逐字节等于720p基线。Full540padding与低分辨率强度0回归另已通过。完整口径见[当前构建验收](../../BUILD-VERIFICATION.md)。
+Full 保留 232 派发，Small 保留 108 派发及自身五个偏移专用核。模型生成先 Full 后 Small，共享末端 blend 参数，不混用两个模型的权重或 manifest。glslang 16.5.0 与 NoContraction 配方、每模型 39 个网络 shader 及六个桥 shader 的身份规则继续保留。
 
-publication-validation.json、new-user-validation.json等2026-10月记录保留原始版本身份；它们是历史证据，不是本轮验收文件。性能继续区分网络推理、准备/恢复、桥内重叠等待与游戏帧周期；不得相加不同批次收益。低分辨率早期计时与最终画质门分别列于[多分辨率说明](../MULTIRES-20261101.md)。
+## 当前发布检查
+
+- 完整安装 ZIP 的 392 个 payload 文件 SHA256 通过。
+- 安装器专项 5/5；完整 ZIP 经仓库启动器在隔离模拟游戏目录安装／卸载，原生 FidelityFX 文件恢复一致。
+- Small Vulkan 组件源码构建通过；网络几何、残差合同、设备派发生命周期三项 CPU 检查通过。
+- 37 个 OPT 宿主覆盖文件与固定上游逐一核对，模块合同检查通过。
+- 旧 AMD 宿主综合测试在 nr_install_status 用例异常退出，未计为整套通过；细节记录于发布检查清单。
+- 本轮发布保留此前实机验证二进制，没有用源码检查产生的重编 DLL 替换安装包，没有新跑 GPU。
+
+[发布检查清单](../releases/20261103-publication-checks.json) · [包身份](../releases/20261103-package-manifest.json) · [Small 挂死处理与成本](SMALL-GPU-HANG-20261103.md)
+
+## 历史证据
+
+[2026-11-01 源码及多分辨率验收](../../BUILD-VERIFICATION.md) 和 [多分辨率专题](../MULTIRES-20261101.md) 保留原测试版本、输入与数值。2026-10 月的 publication-validation、new-user-validation 等仍是对应历史版本的记录，不替代当前安装包检查。性能报告按同批网络区间比较，不累加不同批次收益。

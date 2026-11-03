@@ -1,6 +1,6 @@
 # 实验工具：构建、回放、数值、性能与恢复
 
-当前适配v0.3.0-multires。Build默认Full，普通构建目录为build/vulkan-vk102与build/vulkan-small；实验目录继续与它们分开。原生/低分辨率组件测试与离线固定计划runner是两种入口，不混用输入合同。
+当前用户发行版为 v0.4.0-dx12。本页为开发者的 Vulkan 实验工具；使用此前保留的多分辨率组件及 runner 接口。组件构建目录为 build/vulkan-vk102 与 build/vulkan-small，实验目录与它们分开。原生/低分辨率组件测试与离线固定计划runner是两种入口，不混用输入合同。
 
 ## 新增：多分辨率组件验证
 
@@ -39,7 +39,7 @@ Python 环境使用根目录 `.venv`：
 
 ```powershell
 cmake -S source/vulkan -B build/experiment-full -A x64 `
-  -DNR_MODEL_DIR="C:/Dev/intel-dlss5nr-cyberpunk2077/local/vk102" `
+  -DNR_MODEL_DIR="C:/Dev/intel-dlss5nr-dx12/local/vk102" `
   -DVULKAN_INCLUDE_DIR="C:/VulkanSDK/Include"
 cmake --build build/experiment-full --config Release --target port_network_model_runner
 

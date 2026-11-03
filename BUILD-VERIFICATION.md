@@ -1,8 +1,8 @@
 > 历史记录：以下是 2026-11-01 私有桥／多分辨率源码验收。当前 DX12 通用版见 [发布说明](RELEASE-NOTES.md) 和 [构建入口](docs/DX12-DEVELOPMENT.md)。
 
-# Current source-build verification — 2026-11-01
+# Historical source-build verification — 2026-11-01
 
-Current release: **v0.3.0-multires**. Source builds include native/low-resolution processing, effective panel controls and device-dispatch lifetime fixes.
+Version tested in this historical record: **v0.3.0-multires**. Source builds include native/low-resolution processing, effective panel controls and device-dispatch lifetime fixes.
 
 | Check | Full | Small |
 |---|---:|---:|

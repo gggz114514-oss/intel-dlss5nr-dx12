@@ -1,8 +1,8 @@
 # Source-package verification
 
-历史构建记录（2026-10-24），不是当前安装指南。新版后端5项CPU、桥11项CPU及多分辨率/生命周期GPU验收见[当前验证](../../BUILD-VERIFICATION.md)。
+历史构建记录（2026-10-24），不是当前安装指南。新版后端5项CPU、桥11项CPU及多分辨率/生命周期GPU验收见[2026-11-01验证](../../BUILD-VERIFICATION.md)；当前发布检查见[2026-11-03记录](../releases/20261103-publication-checks.json)。
 
-> 2026-10-29 optimized update: current Full/Small build identities, streaming changes and validation are documented in [docs/optimization](README.md). Older entries below describe the earlier release.
+> Historical verification from October 2026. Current installation and release checks are linked above; the older entries below retain their original version and test scope.
 
 
 Verified locally on Windows x64, 2026-10-24, with MSVC 14.44.35207, Windows SDK 10.0.26100.0, CMake, Python 3.12 / NumPy and glslang 16.5.0.

@@ -1,3 +1,6 @@
+# Developer / historical private-bridge workflow.
+# Current DX12 user installer: repository root Install-NR.cmd.
+# See docs/DX12-DEVELOPMENT.md before using this legacy build path.
 param(
     [string]$GameDirectory = '',
     [string]$FullDll = '',
