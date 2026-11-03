@@ -2,11 +2,11 @@
 
 **Vulkan NR Full / Small for Intel Arc, integrated into OptiScaler.** Used in Cyberpunk 2077, The Witcher 3 DX12, and Death Stranding Director’s Cut. Press **Insert** for the in-game OPT / Intel NR panel.
 
-[Download complete installer](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261103.zip) · [v0.4.0 release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) · [中文完整说明](README.zh-CN.md) · [Installation](INSTALL.md)
+[Download complete installer](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261104.zip) · [v0.4.0 release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) · [中文完整说明](README.zh-CN.md) · [Installation](INSTALL.md)
 
 ## Install
 
-1. Download and fully extract **Intel-NR-DX12-20261103.zip**.
+1. Download and fully extract **Intel-NR-DX12-20261104.zip**.
 2. Exit the game. Run **Install.cmd**, then select the game executable.
 3. Enable DLSS/upscaling in the game. Load a save, press **Insert**, and enable Intel NR.
 4. To remove it, exit the game and run **Uninstall.cmd** from the same package. Original replaced files are restored; backups and user logs remain.
@@ -20,6 +20,8 @@ Alternatively download the repository and run **Install-NR.cmd**. It downloads t
 | Cyberpunk 2077 | `bin/x64/Cyberpunk2077.exe` |
 | The Witcher 3 next-gen | `bin/x64_dx12/witcher3.exe` (DX12) |
 | Death Stranding Director’s Cut | `ds.exe` |
+
+Other game EXEs are accepted using a generic DX12 profile (`dxgi.dll`). Select the rendering executable, not a launcher. The three games above retain tested profiles. Generic games start with frame generation disabled; configure it separately after confirming NR works. Installation is not a compatibility certification. Export diagnostics with **Collect-Logs.cmd** if the hook does not load.
 
 ## Included
 

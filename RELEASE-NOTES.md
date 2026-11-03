@@ -2,7 +2,7 @@
 
 ## Download / 下载
 
-Download **Intel-NR-DX12-20261103.zip**, extract everything, run **Install.cmd**, select your game's EXE. No Python, Visual Studio, Vulkan SDK or preinstalled OPT required. Source users can run **Install-NR.cmd** to download and hash-check this same bundle.
+Download **Intel-NR-DX12-20261104.zip**, extract everything, run **Install.cmd**, select your game's EXE. No Python, Visual Studio, Vulkan SDK or preinstalled OPT required. Source users can run **Install-NR.cmd** to download and hash-check this same bundle.
 
 下载完整安装包并解压，运行 Install.cmd。支持安装入口：赛博朋克 2077、巫师三 DX12、死亡搁浅导演剪辑版。卸载用 Uninstall.cmd，日志用 Collect-Logs.cmd。请保留安装记录和备份，勿手动删除游戏原生 FidelityFX DLL。
 
@@ -25,3 +25,7 @@ Download **Intel-NR-DX12-20261103.zip**, extract everything, run **Install.cmd**
 This release packages the already game-tested DLLs, shader and model assets; it does not replace them with untested rebuilds. Package hashes, installer tests and source checks are documented in the repository. Full ~17.45 ms and Small ~9.98 ms are historical B580/720p network timings.
 
 See INSTALL.md for use, LICENSES.md for licenses and docs/optimization/SMALL-GPU-HANG-20261103.md for stability evidence and costs.
+
+### 2026-11-04 installer update
+
+Removed the three-game EXE whitelist. Other games use the generic DX12 (`dxgi.dll`) profile; the tested Cyberpunk, Witcher and Death Stranding profiles are retained. Generic profiles start with frame generation disabled and upscaler FG input. Install, log collection and uninstall accept the selected EXE. Six installer tests passed; all 392 payload files remain unchanged.

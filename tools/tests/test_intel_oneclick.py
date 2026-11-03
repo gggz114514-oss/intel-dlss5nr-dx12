@@ -71,4 +71,24 @@ class InstallerTests(unittest.TestCase):
   p=self.run_script();self.assertEqual(p.returncode,0,p.stdout+p.stderr)
   self.assertEqual((self.game/'OptiScaler.ini').read_bytes(),ini.replace(b'FGInput=dlssg',b'FGInput=upscaler'))
 
+ def test_generic_exe_install_and_folder_uninstall(self):
+  (self.game/'ds.exe').rename(self.game/'OtherGame-Win64-Shipping.exe')
+  (self.game/'winhttp.dll').unlink()
+  (self.game/'OptiScaler.ini').unlink()
+  ini=b'[FrameGen]\nEnabled=true\nFGInput=dlssg\nFGOutput=xefg\n'
+  (self.payload/'OptiScaler.ini').write_bytes(ini)
+  manifest=json.loads((self.package/'PACKAGE-MANIFEST.json').read_text())
+  for f in manifest['files']:
+   if f['path']=='OptiScaler.ini':f['sha256']=hashlib.sha256(ini).hexdigest()
+  (self.package/'PACKAGE-MANIFEST.json').write_text(json.dumps(manifest))
+  for target,args in [(self.game/'OtherGame-Win64-Shipping.exe',[]),(self.game,['-CollectLogs']),(self.game,['-Uninstall'])]:
+   p=subprocess.run([str(PS),'-NoProfile','-NonInteractive','-STA','-ExecutionPolicy','Bypass','-File',str(SCRIPT),'-GameDir',str(target),'-PackageDir',str(self.package),*args],capture_output=True)
+   self.assertEqual(p.returncode,0,p.stdout+p.stderr)
+   if not args:
+    self.assertEqual((self.game/'dxgi.dll').read_bytes(),b'new')
+    self.assertIn(b'Enabled=false',(self.game/'OptiScaler.ini').read_bytes())
+    self.assertIn(b'FGInput=upscaler',(self.game/'OptiScaler.ini').read_bytes())
+    self.assertEqual(json.loads((self.game/'intel-nr-install.json').read_text(encoding='utf-8-sig'))['profile'],'generic-dx12')
+  self.assertFalse((self.game/'dxgi.dll').exists())
+
 if __name__=='__main__':unittest.main()

@@ -7,7 +7,7 @@ v0.4.0-dx12 完整安装包已包含匹配的 FSR XMX DLL 和依赖，不需要�
 3. 游戏中开启超分，按 Insert 打开 OPT；确认实际选用 FSR 路径。NR、超分、补帧是独立设置，装好 DLL 不等于游戏已经启用了所有功能。
 4. 卸载使用同包 Uninstall.cmd，恢复被替换文件。不要把游戏原生 FidelityFX DLL 当成 MOD 手动删除。
 
-新版入口不使用旧脚本的 -FsrXmxPackage、-GameDirectory 或 -ProbeAsi 参数。命令行指定游戏可用 `Install-NR.cmd -GameDir "C:/Games/MyGame/game.exe"`；实际 EXE 必须是安装器支持的三款游戏之一。
+新版入口不使用旧脚本的 -FsrXmxPackage、-GameDirectory 或 -ProbeAsi 参数。命令行指定游戏可用 `Install-NR.cmd -GameDir "C:/Games/MyGame/game.exe"`；可选择任意游戏实际 EXE；三款已验证游戏使用专用配置，其余使用通用 DX12 配置。
 
 默认 NVIDIA DXGI／Streamline 伪装仅作用于游戏进程；赛博朋克／巫师三需在游戏里开启帧生成，死亡搁浅导演剪辑版使用 upscaler FG 输入。现有 INI 优先保留，修改伪装后重启游戏。
 

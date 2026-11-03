@@ -2,11 +2,11 @@
 
 **Intel Arc 上的 Vulkan NR Full / Small + OptiScaler 通用桥。** 已在《赛博朋克 2077》《巫师三》DX12 版、《死亡搁浅 导演剪辑版》中实机使用。设置集成在游戏内 OPT 面板，按 **Insert** 打开。
 
-[下载完整安装包](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261103.zip) · [v0.4.0 发布说明](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) · [安装与卸载](INSTALL.md) · [English](README.md)
+[下载完整安装包](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261104.zip) · [v0.4.0 发布说明](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) · [安装与卸载](INSTALL.md) · [English](README.md)
 
 ## 下载后怎么用
 
-1. 下载 **Intel-NR-DX12-20261103.zip**，完整解压。
+1. 下载 **Intel-NR-DX12-20261104.zip**，完整解压。
 2. 退出游戏，双击 **Install.cmd**，选择游戏 EXE；无需预装 OPT、Python、Visual Studio 或 Vulkan SDK。
 3. 启动游戏并开启 DLSS/超分，进入存档后按 **Insert**，在 Intel NR 页切换 Full / Small、处理分辨率及风格。
 4. 卸载时退出游戏，双击同一包里的 **Uninstall.cmd**，选择同一 EXE。安装器恢复原文件，保留备份和用户日志。
@@ -20,6 +20,8 @@
 | 死亡搁浅 导演剪辑版 | `ds.exe` |
 
 Windows 10/11 x64，当前实测硬件 Intel Arc B580。显卡驱动由用户安装；缺少 VC++ x64 运行库时安装器从微软下载并校验签名。其他游戏的接入见 [通用桥与兼容说明](PORTING.md)。
+
+其他游戏可直接选择实际渲染 EXE，使用通用 DX12 配置（`dxgi.dll`），不再限制三款游戏。通用配置先关闭补帧，确认 NR 生效后再配置；未加载时使用 **Collect-Logs.cmd** 导出日志。安装成功与游戏兼容验证分开记录。
 
 ## 本版包含什么
 

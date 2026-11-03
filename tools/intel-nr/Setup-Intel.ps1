@@ -13,18 +13,35 @@ trap { Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red; Write-H
 if(!$GameDir){
  Add-Type -AssemblyName System.Windows.Forms
  $picker=New-Object System.Windows.Forms.OpenFileDialog
- $picker.Title='选择游戏 EXE：巫师三 DX12 / 赛博朋克2077 / 死亡搁浅导演剪辑版'
- $picker.Filter='游戏程序 (witcher3.exe;Cyberpunk2077.exe;ds.exe)|witcher3.exe;Cyberpunk2077.exe;ds.exe'
+ $picker.Title='选择游戏的实际 DX12 EXE（不要选择启动器）'
+ $picker.Filter='游戏程序 (*.exe)|*.exe'
  if($picker.ShowDialog() -ne [Windows.Forms.DialogResult]::OK){Stop-Transcript | Out-Null; exit 0}
- $GameDir=Split-Path -Parent $picker.FileName
+ $GameDir=$picker.FileName
  $picker.Dispose()
 }
 $GameDir=[IO.Path]::GetFullPath($GameDir.Trim('"'))
-if(Test-Path -LiteralPath $GameDir -PathType Leaf){$GameDir=Split-Path -Parent $GameDir}
-if(Test-Path "$GameDir/bin/x64_dx12/witcher3.exe"){$GameDir=Join-Path $GameDir 'bin/x64_dx12'}
-elseif(Test-Path "$GameDir/bin/x64/Cyberpunk2077.exe"){$GameDir=Join-Path $GameDir 'bin/x64'}
-$exe=@('witcher3','Cyberpunk2077','ds') | Where-Object {Test-Path "$GameDir/$_.exe"} | Select-Object -First 1
-if(!$exe){throw 'Supported targets: Witcher 3 DX12, Cyberpunk 2077, Death Stranding Director Cut.'}
+$exe=$null
+if(Test-Path -LiteralPath $GameDir -PathType Leaf){
+ if([IO.Path]::GetExtension($GameDir) -ine '.exe'){throw 'Select the actual game EXE.'}
+ $exe=[IO.Path]::GetFileNameWithoutExtension($GameDir)
+ $GameDir=Split-Path -Parent $GameDir
+}
+if(!$exe){
+ if(Test-Path "$GameDir/bin/x64_dx12/witcher3.exe"){$GameDir=Join-Path $GameDir 'bin/x64_dx12'}
+ elseif(Test-Path "$GameDir/bin/x64/Cyberpunk2077.exe"){$GameDir=Join-Path $GameDir 'bin/x64'}
+ $existingRecord=Join-Path $GameDir 'intel-nr-install.json'
+ if(Test-Path -LiteralPath $existingRecord){$exe=(Get-Content -LiteralPath $existingRecord -Raw | ConvertFrom-Json).game}
+ else{
+  $exe=@('witcher3','Cyberpunk2077','ds') | Where-Object {Test-Path "$GameDir/$_.exe"} | Select-Object -First 1
+  if(!$exe){
+   $choices=@(Get-ChildItem -LiteralPath $GameDir -Filter '*.exe' -File)
+   if($choices.Count -ne 1){throw 'Multiple or no EXEs in this folder. Select the actual game EXE instead of its folder.'}
+   $exe=$choices[0].BaseName
+  }
+ }
+}
+$knownGame=$exe -in @('witcher3','Cyberpunk2077','ds')
+if(!$knownGame){Write-Host '通用 DX12 安装：此游戏尚未实测。请选择游戏实际渲染 EXE，并启用 DX12 和游戏内 DLSS/超分；安装成功不等于已验证兼容。'}
 if($exe -eq 'witcher3' -and (Split-Path $GameDir -Leaf) -eq 'x64'){
  $dx12=Join-Path (Split-Path $GameDir) 'x64_dx12'
  if(!(Test-Path "$dx12/witcher3.exe")){throw 'Select the DX12 version: bin/x64_dx12/witcher3.exe'}
@@ -109,12 +126,13 @@ try{
   Copy-Item -LiteralPath (Join-Path $payload $f.path) -Destination $p -Force
   if((Get-FileHash $p).Hash -ne $f.sha256){throw "Installed hash mismatch: $rel"}
   # Death Stranding DC has no native DLSSG input; use OptiScaler's SR input.
-  if($rel -eq 'OptiScaler.ini' -and $exe -eq 'ds'){
+  if($rel -eq 'OptiScaler.ini' -and ($exe -eq 'ds' -or !$knownGame)){
    $ini=[IO.File]::ReadAllText($p).Replace('FGInput=dlssg','FGInput=upscaler')
+   if(!$knownGame){$ini=[regex]::Replace($ini,'(?m)(^\[FrameGen\]\r?\n)Enabled=true','$1Enabled=false')}
    [IO.File]::WriteAllText($p,$ini,(New-Object Text.UTF8Encoding($false)))
   }
  }
- $receipt=[ordered]@{version=$manifest.version;game=$exe;backup=$backup;files=@($actions.ToArray());host_sha256=(Get-FileHash "$GameDir/$proxy").Hash}
+ $receipt=[ordered]@{version=$manifest.version;game=$exe;profile=$(if($knownGame){$exe}else{'generic-dx12'});proxy=$proxy;backup=$backup;files=@($actions.ToArray());host_sha256=(Get-FileHash "$GameDir/$proxy").Hash}
  $receipt | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $record -Encoding UTF8
 }catch{
  foreach($f in $actions){$p=Target $f.path; if(Test-Path $p){Remove-Item -LiteralPath $p -Force}; if($f.existed){Copy-Item -LiteralPath (Join-Path $backup $f.path) -Destination $p}}
@@ -122,7 +140,7 @@ try{
 }
 Write-Host "Installed Intel NR Full + Small + FSR XMX into $GameDir"
 Write-Host 'Launch the DX12 game, enable DLSS/upscaling in game, press Insert for OptiScaler / Intel NR.'
-Write-Host 'Clean-install defaults: Full, native NR, Classic; NVIDIA DXGI/Streamline spoofing + XeFG.'
+Write-Host 'Clean-install defaults: Full, native NR, Classic; NVIDIA DXGI/Streamline spoofing. Generic games: frame generation off until configured in menu.'
 Write-Host 'Cyberpunk/Witcher: enable frame generation in game. Death Stranding: upscaler FG input. Restart after spoofing changes.'
 Write-Host '安装完成。无需安装 Python、Visual Studio、Vulkan SDK 或单独安装 OPT。'
 Write-Host "安装记录：$record"
