@@ -1,41 +1,37 @@
 # Intel DLSS5 NR — DX12 Universal
 
-**Latest archived pre-release: v0.7.2.** The unified installer uses `Setup.cmd` for installation and removal. Residual extrapolation has an off-by-default switch and a typed multiplier from 1 to 4. In-game verification of the updated controls is pending.
+Vulkan NR Full and Small for Intel Arc, integrated into OptiScaler. The current pre-release is **v0.7.2** and includes FSR XMX and frame generation dependencies.
 
-[Download v0.7.2](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [Iteration archive](docs/ITERATION-ARCHIVE.md) · [Source snapshots](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/archive/iterations-20261107)
+[Download v0.7.2 ZIP](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/archive-v0.7.2-controls/Intel-NR-Unified-v0.7.2-controls.zip) · [Release notes](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [中文说明](README.zh-CN.md)
 
-The original v0.4.0 installation instructions follow.
+## Install and uninstall
 
-**Vulkan NR Full / Small for Intel Arc, integrated into OptiScaler.** Used in Cyberpunk 2077, The Witcher 3 DX12, and Death Stranding Director’s Cut. Press **Insert** for the in-game OPT / Intel NR panel.
+1. Fully extract the ZIP and exit the game.
+2. Open **Setup.cmd** and select the game's DX12 rendering executable. Enhanced ASI is the default. Built-in spoofing is also available with the same host and models.
+3. Select **Inspect & Install** and review the confirmation. For removal, use **Inspect & Uninstall** in the same window. The completion dialog shows the backup and log folder under `intel-nr-backups`.
+4. Launch the game, enable upscaling and press **Insert** for the Intel NR panel.
 
-[Download complete installer](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261104.zip) · [v0.4.0 release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) · [中文完整说明](README.zh-CN.md) · [Installation](INSTALL.md)
+Windows 10/11 x64 and a compatible Intel GPU driver are required. The measured platform is Arc B580. [Full installation guide](INSTALL.md)
 
-## Install
-
-1. Download and fully extract **Intel-NR-DX12-20261104.zip**.
-2. Exit the game. Run **Install.cmd**, then select the game executable.
-3. Enable DLSS/upscaling in the game. Load a save, press **Insert**, and enable Intel NR.
-4. To remove it, exit the game and run **Uninstall.cmd** from the same package. Original replaced files are restored; backups and user logs remain.
-
-No preinstalled OPT, Python, Visual Studio or Vulkan SDK is required. Windows 10/11 x64 and an installed compatible Intel graphics driver are required; the measured platform is Arc B580. A missing VC++ x64 runtime is downloaded from Microsoft with signature verification.
-
-Alternatively download the repository and run **Install-NR.cmd**. It downloads the pinned complete release, checks SHA256, and launches the same installer. Source-root uninstall and diagnostics entries are **Uninstall-NR.cmd** and **Collect-NR-Logs.cmd**.
-
-| Game | Executable |
-|---|---|
+| Game | Rendering executable |
+| --- | --- |
+| Where Winds Meet CN | `Engine/Binaries/Win64rh/yysls.exe` |
 | Cyberpunk 2077 | `bin/x64/Cyberpunk2077.exe` |
-| The Witcher 3 next-gen | `bin/x64_dx12/witcher3.exe` (DX12) |
-| Death Stranding Director’s Cut | `ds.exe` |
+| The Witcher 3 next-gen | `bin/x64_dx12/witcher3.exe` |
 
-Other game EXEs are accepted using a generic DX12 profile (`dxgi.dll`). Select the rendering executable, not a launcher. The three games above retain tested profiles. Generic games start with frame generation disabled; configure it separately after confirming NR works. Installation is not a compatibility certification. Export diagnostics with **Collect-Logs.cmd** if the hook does not load.
+These three games were tested with the earlier host and routing. Other DX12 games can be selected. The v0.7.2 host build and installer checks passed. In-game verification of the updated controls is pending.
 
-## Included
+## NR controls
 
-Optimized Full and Small; native variable-resolution input and 720/540/480/360p NR processing; matched OPT host, Vulkan runtime, model assets, FSR XMX and SR/FG dependencies. Native means the game’s render input, not display resolution. Settings live in OPT; there is no separate browser filter editor.
+Choose Full or Small and native, 720p, 540p, 480p or 360p NR processing. The default is Full, native and Classic. Enable **Residual extrapolation**, enter a multiplier from **1 to 4** and press Enter. Fresh settings prefill 2 and start with extrapolation off. Save settings to retain both values.
 
-The Small runtime includes the tested **4 KiB alignment rule for buffers sized (4 KiB, 64 KiB]**. Natural style removes the overly dark legacy LUT, while Classic/Natural/Cinematic and strength controls remain. Defaults are Full/native/Classic, NVIDIA DXGI + Streamline spoofing inside the game process, and XeFG output. Cyberpunk/Witcher require the in-game frame-generation switch; Death Stranding uses upscaler FG input. Existing INI preferences win.
+The installer includes the matched host, Vulkan runtime, model assets and SR/FG dependencies. [Third-party notices](LICENSES.md)
 
-Files are verified before installation and backed up individually. **Do not manually delete native game FidelityFX DLLs.** The installer restores replaced files on uninstall. Complete binaries are Release assets; Git contains source, tools and manifests. [Third-party notices](LICENSES.md).
+## Versions and source
+
+The archive contains each version's installer, matching source materials and verification status. The repository's root `Install-NR.cmd` uses the pinned v0.4.0 package.
+
+[Iteration archive](docs/ITERATION-ARCHIVE.md) · [Source snapshots](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/archive/iterations-20261107) · [v0.4.0 release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12)
 
 ## Special thanks: two AMD community projects
 

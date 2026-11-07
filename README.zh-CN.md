@@ -1,43 +1,37 @@
 # Intel DLSS5 NR — DX12 通用
 
-**近期预发行版 v0.7.2** 使用统一安装器 `Setup.cmd`。残差外推默认关闭，启用后可输入 1–4 倍。新版控制仍待游戏内复验。
+Intel Arc 上的 Vulkan NR Full／Small，集成于 OptiScaler。当前预发行版为 **v0.7.2**，安装包含 FSR XMX 与补帧依赖。
 
-[下载 v0.7.2](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [历次迭代说明](docs/ITERATION-ARCHIVE.md) · [源码归档](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/archive/iterations-20261107)
+[下载 v0.7.2 ZIP](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/archive-v0.7.2-controls/Intel-NR-Unified-v0.7.2-controls.zip) · [本版说明](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [English](README.md)
 
-以下为原 v0.4.0 安装说明。
+## 安装与卸载
 
-**Intel Arc 上的 Vulkan NR Full / Small + OptiScaler 通用桥。** 已在《赛博朋克 2077》《巫师三》DX12 版、《死亡搁浅 导演剪辑版》中实机使用。设置集成在游戏内 OPT 面板，按 **Insert** 打开。
+1. 完整解压 ZIP，退出游戏。
+2. 双击 **Setup.cmd**，选择实际 DX12 渲染 EXE。默认使用增强 ASI 挂载，也可选择内置伪装。两种方式共用宿主和模型。
+3. 选择「检查并安装」，阅读确认提示后继续。卸载时在同一窗口选择「检查并卸载」。完成窗口会显示 `intel-nr-backups` 下的本次备份和日志目录。
+4. 启动游戏并开启超分，按 **Insert** 打开 Intel NR 菜单。
 
-[下载完整安装包](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261104.zip) · [v0.4.0 发布说明](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) · [安装与卸载](INSTALL.md) · [English](README.md)
+需要 Windows 10/11 x64 和兼容的 Intel 显卡驱动，实测硬件为 Arc B580。[完整安装指南](INSTALL.md)
 
-## 下载后怎么用
-
-1. 下载 **Intel-NR-DX12-20261104.zip**，完整解压。
-2. 退出游戏，双击 **Install.cmd**，选择游戏 EXE；无需预装 OPT、Python、Visual Studio 或 Vulkan SDK。
-3. 启动游戏并开启 DLSS/超分，进入存档后按 **Insert**，在 Intel NR 页切换 Full / Small、处理分辨率及风格。
-4. 卸载时退出游戏，双击同一包里的 **Uninstall.cmd**，选择同一 EXE。安装器恢复原文件，保留备份和用户日志。
-
-也可以下载本仓库源码后双击 **Install-NR.cmd**：脚本从 Release 下载固定版本完整包、核对 SHA256，再打开相同安装器。下载整个仓库，不要只保存单个 CMD。
-
-| 游戏 | 选择的 EXE |
-|---|---|
+| 游戏 | 选择的渲染程序 |
+| --- | --- |
+| 燕云国服 | `Engine/Binaries/Win64rh/yysls.exe` |
 | 赛博朋克 2077 | `bin/x64/Cyberpunk2077.exe` |
-| 巫师三次世代版 | `bin/x64_dx12/witcher3.exe`，使用 DX12 |
-| 死亡搁浅 导演剪辑版 | `ds.exe` |
+| 巫师三次世代版 | `bin/x64_dx12/witcher3.exe` |
 
-Windows 10/11 x64，当前实测硬件 Intel Arc B580。显卡驱动由用户安装；缺少 VC++ x64 运行库时安装器从微软下载并校验签名。其他游戏的接入见 [通用桥与兼容说明](PORTING.md)。
+此前宿主与接入通道在上述三款游戏中实测通过。其他 DX12 游戏也可选择。v0.7.2 已通过宿主构建和安装器检查，新控件的游戏内效果待复验。
 
-其他游戏可直接选择实际渲染 EXE，使用通用 DX12 配置（`dxgi.dll`），不再限制三款游戏。通用配置先关闭补帧，确认 NR 生效后再配置；未加载时使用 **Collect-Logs.cmd** 导出日志。安装成功与游戏兼容验证分开记录。
+## NR 设置
 
-## 本版包含什么
+可选 Full／Small，处理分辨率可用原生、720p、540p、480p 或 360p。默认 Full、原生、经典。勾选「启用残差外推」后输入 **1–4 倍**并按回车。新配置预填 2 倍，默认关闭。保存设置可记住开关和倍率。
 
-- 已优化的 **Full / 新 Small**，可变原生输入分辨率，以及 720 / 540 / 480 / 360p NR 处理档位。原生跟随游戏实际渲染输入，不等于显示器输出分辨率。
-- 配套 OPT 宿主、NR 运行时、模型资源、FSR XMX 和超分／补帧依赖。整包放在 Release，Git 保存源码、构建工具与清单。
-- Small 的 **4–64 KiB 窄缓冲 4 KiB 对齐修复**，保留原有模型、shader 与计算顺序。
-- 参考望月实现的输入编码／颜色、运动矢量与深度合同；游戏内 Full/Small、分辨率和风格控制。
-- 经典／自然／电影与强度修复：自然风格移除造成过暗的旧 LUT，1 附近连续过渡。已移除自定义滤镜编辑器。
-- 默认 Full、原生、经典；干净安装开启游戏进程内 NVIDIA DXGI/Streamline 伪装与 XeFG 输出。赛博朋克／巫师三还需在游戏中开启帧生成；死亡搁浅自动选 upscaler 帧生成输入。已有 INI 优先保留。
-- 安装前完整校验、逐文件备份、按安装记录卸载、日志一键导出。**不要手动删除游戏自带 FidelityFX DLL。**
+安装包包含配套宿主、Vulkan 运行库、模型资源及超分和补帧依赖。[第三方许可证](LICENSES.md)
+
+## 版本与源码
+
+归档记录各版安装包、对应源码材料和验收状态。仓库根目录的 `Install-NR.cmd` 使用固定的 v0.4.0 安装包。
+
+[版本索引](docs/ITERATION-ARCHIVE.md) · [源码归档](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/archive/iterations-20261107) · [v0.4.0 发布页](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12)
 
 ## 特别鸣谢 AMD 社区的两个项目
 
