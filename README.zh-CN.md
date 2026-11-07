@@ -40,39 +40,28 @@ Intel Arc 上的 Vulkan NR Full／Small，集成于 OptiScaler。当前预发行
 
 这是社区项目之间的借鉴与移植，不代表 AMD／Intel／NVIDIA 官方产品。望月 MIT、OPT 派生宿主 GPL-3.0 及各第三方许可证分别保留，见 [许可证与来源](LICENSES.md) 和 [详细致谢](docs/optimization/AMD-ATTRIBUTION.md)。
 
-## 巫师三实机对比
+## v0.7.2 安装器实图
 
-用户确认顺序：**Small → NR 关闭 → Full**，三张均**未开补帧**。原始 PNG 未调色、未缩放；可点击查看原图。观察皮肤、头发和盔甲的表现，截图瞬时 FPS 不作为同批性能基准。
+![从 v0.7.2 安装包渲染的双语界面](docs/images/installer-v0.7.2.png)
 
-### Small
+巫师三的 Small／NR 关闭／Full 三张游戏截图摄于 v0.4.0 时期，均关闭补帧。v0.7.2 的游戏画面待复验。[历史截图](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/blob/eaf0ce5acab9cc51b4e02bb06a0ac9480cab5225/README.zh-CN.md#巫师三实机对比)
 
-![Small，无补帧](docs/images/witcher3-small.png)
+## v0.7.2 所用模型的离线验收
 
-### NR 关闭
+Arc B580、1280×720 NR 输入。下表记录 11 月 6 日各模型与其各自上一版本的配对 GPU 计时。
 
-![NR 关闭，无补帧](docs/images/witcher3-nr-off.png)
+| 模型 | 含历史处理 | 标准 GPU 区段 |
+| --- | --- | --- |
+| Full 封存版 `62d438f6` | 15.0367 → 15.0030 ms | 14.9603 → 14.9961 ms |
+| 随包 Small `3b35fb14` | 10.3179 → 8.9284 ms | 10.1643 → 8.9208 ms |
 
-### Full
-
-![Full，无补帧](docs/images/witcher3-full.png)
-
-## 从 50 ms 到现在
-
-Intel Arc B580、1280×720 NR 输入的历史记录：
-
-| 项目 | 实测记录 |
-|---|---|
-| Full 网络起点 → 优化链头 | **50.821 → 17.450 ms** |
-| 最新 Full 优化批次配对 | **18.724 → 17.450 ms** |
-| 新 Small 配对 | **14.324 → 9.980 ms** |
-
-以上为 NR 网络的历史计时。处理分辨率、游戏负载与驱动会改变耗时。完整经历见 [50 ms→17 ms 历史](docs/optimization/FULL-HISTORY.md)、[优化方法](docs/optimization/TECHNICAL-RETROSPECTIVE.md)。
+随包 Full 为旧 CRT 兼容构建 `7fc56d5a`。五组 35 帧输出与封存版逐位一致，兼容构建的性能待单独测速。表中数值为离线 GPU 区段计时，游戏帧率待实测。原始报告随 ZIP 提供，位于 `VALIDATION/FP16-Next`。[v0.7.2 发布页](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls)
 
 ## 开发、排障与恢复
 
 - [DX12 宿主源码、固定上游及构建](docs/DX12-DEVELOPMENT.md)
 - [Small 挂死：完整排查、修复与经验笔记](docs/optimization/SMALL-GPU-HANG-20261103.md)
-- [新包身份与文件 SHA256](docs/releases/20261103-package-manifest.json)
+- [当前安装包 SHA-256 与源码](docs/ITERATION-ARCHIVE.md)
 - [实验工具](tools/experiments/README.md)、[恢复说明](docs/RECOVERY.md)、[文档索引](docs/INDEX.md)
 
 故障时运行 **Collect-Logs.cmd**（源码入口为 `Collect-NR-Logs.cmd`），检查生成的 ZIP 后反馈。日志不会自动上传，不含存档或采集帧。请附游戏、显卡、驱动、后端、输入分辨率和复现动作。

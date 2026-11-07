@@ -40,36 +40,25 @@ The archive contains each version's installer, matching source materials and ver
 
 Their licenses remain distinct: MIT for the Mochizuki source, GPL-3.0 for the derived OPT host, and each dependency’s own terms. This is a community project, with no AMD/Intel/NVIDIA endorsement. [Attribution](docs/optimization/AMD-ATTRIBUTION.md).
 
-## The Witcher 3 comparison
+## v0.7.2 installer preview
 
-User-confirmed order: **Small → NR off → Full**, with **frame generation disabled in all three**. Original PNGs are preserved without resizing or color processing. Compare skin, hair and armor; the instantaneous FPS overlay is not a paired benchmark.
+![Bilingual installer rendered from the v0.7.2 package](docs/images/installer-v0.7.2.png)
 
-### Small
+The Witcher 3 Small, NR off and Full screenshots are from the v0.4.0 period, with frame generation disabled. Game screenshots for v0.7.2 await in-game verification. [Historical comparison](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/blob/eaf0ce5acab9cc51b4e02bb06a0ac9480cab5225/README.md#the-witcher-3-comparison)
 
-![Small, frame generation off](docs/images/witcher3-small.png)
+## Offline validation of the models included in v0.7.2
 
-### NR off
+Arc B580 at 1280×720 NR input. These are November 6 paired GPU timings against each model's own previous build.
 
-![NR off, frame generation off](docs/images/witcher3-nr-off.png)
+| Model | Including history | Standard GPU interval |
+| --- | --- | --- |
+| Sealed Full `62d438f6` | 15.0367 → 15.0030 ms | 14.9603 → 14.9961 ms |
+| Bundled Small `3b35fb14` | 10.3179 → 8.9284 ms | 10.1643 → 8.9208 ms |
 
-### Full
-
-![Full, frame generation off](docs/images/witcher3-full.png)
-
-## Performance history
-
-Arc B580, 1280×720 NR input:
-
-| Measurement | Result |
-|---|---|
-| Full historical starting point → optimized head | **50.821 → 17.450 ms** |
-| Latest Full paired campaign | **18.724 → 17.450 ms** |
-| Optimized Small paired batch | **14.324 → 9.980 ms** |
-
-These are historical NR inference measurements. Input resolution and workload affect timings. [Full optimization history](docs/optimization/FULL-HISTORY.md).
+The bundled Full is the older CRT compatibility build `7fc56d5a`. All 35 frames across five media cases matched the sealed build bit for bit. Separate performance measurements for the compatibility build and in-game frame rates are pending. The ZIP contains the validation reports under `VALIDATION/FP16-Next`. [v0.7.2 release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls)
 
 ## Development and diagnostics
 
-[Source/build instructions](docs/DX12-DEVELOPMENT.md) · [Small GPU-hang investigation](docs/optimization/SMALL-GPU-HANG-20261103.md) · [Package identities](docs/releases/20261103-package-manifest.json) · [Other-game integration](PORTING.md) · [Experiment tools](tools/experiments/README.md) · [Recovery](docs/RECOVERY.md) · [Index](docs/INDEX.md)
+[Source/build instructions](docs/DX12-DEVELOPMENT.md) · [Small GPU-hang investigation](docs/optimization/SMALL-GPU-HANG-20261103.md) · [Current packages and source](docs/ITERATION-ARCHIVE.md) · [Other-game integration](PORTING.md) · [Experiment tools](tools/experiments/README.md) · [Recovery](docs/RECOVERY.md) · [Index](docs/INDEX.md)
 
 Run **Collect-Logs.cmd** to export diagnostics locally. Review the archive before sharing it; include GPU/driver, game, model, NR resolution and reproduction steps. No automatic upload, saves or captured frames are included.
