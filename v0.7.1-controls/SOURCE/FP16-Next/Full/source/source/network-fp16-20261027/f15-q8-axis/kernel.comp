@@ -1,0 +1,158 @@
+#version 450
+#extension GL_GOOGLE_include_directive : require
+#extension GL_KHR_shader_subgroup_basic : require
+#extension GL_KHR_shader_subgroup_shuffle : require
+#extension GL_KHR_cooperative_matrix : require
+#extension GL_KHR_memory_scope_semantics : require
+#extension GL_EXT_shader_explicit_arithmetic_types_float16 : require
+
+layout(local_size_x=256) in;
+#include "vit_common.glsl"
+#include "register_handoff.glsl"
+
+shared float16_t sk[4096],sv[4096];
+
+uint c12_kv_slot(uint e) {
+    uint row=e/32u,col=e%32u;
+    return ((row/16u)*2u+col/16u)*256u+(row%16u)*16u+col%16u;
+}
+
+void fill_bank(uint bank,uint j,uint first,uint step,uint h) {
+    if(j+64u<=pc.p0.x) {
+        uint bk=pc.p6.x+((32u+h)*pc.p0.x+j)*32u;
+        uint bv=pc.p6.x+((64u+h)*pc.p0.x+j)*32u;
+        for(uint e=first;e<2048u;e+=step) {
+            sk[bank+c12_kv_slot(e)]=qkv[bk+e];
+            sv[bank+c12_kv_slot(e)]=qkv[bv+e];
+        }
+    } else {
+        for(uint e=first;e<2048u;e+=step) {
+            uint t=j+e/32u,d=e%32u;
+            sk[bank+c12_kv_slot(e)]=t<pc.p0.x ? qkv[pc.p6.x+((32u+h)*pc.p0.x+t)*32u+d] : float16_t(0.0);
+            sv[bank+c12_kv_slot(e)]=t<pc.p0.x ? qkv[pc.p6.x+((64u+h)*pc.p0.x+t)*32u+d] : float16_t(0.0);
+        }
+    }
+}
+
+f16vec4 shuffle_half4(f16vec4 v, uint lane) {
+    return f16vec4(
+        unpackFloat2x16(subgroupShuffle(packFloat2x16(v.xy),lane)),
+        unpackFloat2x16(subgroupShuffle(packFloat2x16(v.zw),lane)));
+}
+
+#define Q8_LIVE(value,key) (value)
+#define Q8_PAD(value,key) ((key)<pc.p0.x ? (value) : float16_t(0.0))
+#define Q8_PV_LIVE
+#define Q8_PV_TAIL if(j0+kb<pc.p0.x)
+#define Q8_CHUNK(Q8_LOAD,Q8_PV) \
+if(active_query) { \
+precise f16vec4 part=f16vec4(0.0); \
+for(uint kb=0u;kb<64u;kb+=16u) { \
+MC score=MC(0.0); \
+{ \
+MB b0,b1; \
+coopMatLoad(b0,sk,bank+kb*32u,16u,CM); \
+coopMatLoad(b1,sk,bank+kb*32u+256u,16u,CM); \
+score=coopMatMulAdd(qa0,b0,score); \
+score=coopMatMulAdd(qa1,b1,score); \
+} \
+NRH_CH p=NRH_CH(score); \
+if(pc.p0.w!=0u) { \
+for(uint ci=0u;ci<p.length();++ci) { \
+uvec2 rc=nrh_coord_C(ci); \
+uint qk=(h*pc.p0.x+m+rc.x)*pc.p0.y+j0+kb+rc.y; \
+dbgf[pc.p6.z/2u+pc.p3.z+qk]=score[ci]; \
+} \
+} \
+f16vec4 ph=f16vec4(vit_exp2(f16vec2(p[0],p[1])),vit_exp2(f16vec2(p[2],p[3]))); \
+if(pc.p0.w!=0u) { \
+for(uint ci=0u;ci<p.length();++ci) { \
+uvec2 rc=nrh_coord_CH(ci); \
+uint qk=(h*pc.p0.x+m+rc.x)*pc.p0.y+j0+kb+rc.y; \
+dbg[pc.p6.z+pc.p3.w+qk]=ph[ci]; \
+} \
+} \
+/* Same query row in a half subgroup. Use the lower key first. */ \
+f16vec4 peer=shuffle_half4(ph,lane^8u); \
+precise f16vec4 pair=(lane&8u)==0u ? ph+peer : peer+ph; \
+part=kb==0u ? pair : part+pair; \
+/* Padded exp(0) stays in den; skip only a wholly padded PV K16. */ \
+Q8_PV { \
+for(uint ci=0u;ci<p.length();++ci) \
+p[ci]=Q8_LOAD(ph[ci],j0+kb+(lane&15u)); \
+MA a=nrh_to_A(p); \
+{ \
+MB v; \
+coopMatLoad(v,sv,bank+kb*32u,16u,RM); \
+ctx0=coopMatMulAdd(a,v,ctx0); \
+} \
+{ \
+MB v; \
+coopMatLoad(v,sv,bank+kb*32u+256u,16u,RM); \
+ctx1=coopMatMulAdd(a,v,ctx1); \
+} \
+} \
+} \
+/* Canonical key-0 lane performs ((p0+p2)+p4)+p6 first; */ \
+/* its key-1 peer performs ((p1+p3)+p5)+p7 in the same order. */ \
+precise f16vec4 t2=shuffle_half4(part,lane^2u); \
+precise f16vec4 t4=shuffle_half4(part,lane^4u); \
+precise f16vec4 t6=shuffle_half4(part,lane^6u); \
+precise f16vec4 mine=((part+t2)+t4)+t6; \
+precise f16vec4 other=shuffle_half4(mine,lane^1u); \
+precise f16vec4 total=mine+other; \
+den=den+shuffle_half4(total,lane&16u); \
+}
+
+void main() {
+    uint lid=gl_LocalInvocationID.x, lane=gl_SubgroupInvocationID;
+    uint m=gl_WorkGroupID.x*64u+gl_SubgroupID*8u;
+    uint h=gl_WorkGroupID.y;
+    bool active_query=m<pc.p0.x;
+    MA qa0=MA(0.0), qa1=MA(0.0);
+    if(active_query) {
+        uint q=pc.p6.x+(h*pc.p0.x+m)*32u;
+        coopMatLoad(qa0,qkv,q,32u,RM);
+        coopMatLoad(qa1,qkv,q+16u,32u,RM);
+    }
+    MC ctx0=MC(0.0),ctx1=MC(0.0);
+    precise f16vec4 den=f16vec4(0.0);
+    uint bank=0u;
+    if(pc.p0.y!=0u) { fill_bank(0u,0u,lid,256u,h); barrier(); }
+    for(uint j0=0u;j0<pc.p0.y;j0+=64u) {
+        if((gl_SubgroupID&1u)!=0u && j0+64u<pc.p0.y)
+            fill_bank(bank^2048u,j0+64u,(gl_SubgroupID/2u)*32u+lane,128u,h);
+        if(j0+64u<=pc.p0.x) { Q8_CHUNK(Q8_LIVE,Q8_PV_LIVE) }
+        else { Q8_CHUNK(Q8_PAD,Q8_PV_TAIL) }
+        if(j0+64u<pc.p0.y) barrier();
+        bank^=2048u;
+    }
+    if(active_query) {
+        precise float16_t pad=float16_t(float(pc.p0.y-pc.p0.x)*float(vit_exp(float16_t(0.0))));
+        NRH_CH inverse;
+        for(uint ci=0u;ci<inverse.length();++ci) {
+            precise float16_t d=den[ci]-pad;
+            precise float16_t inv=float16_t(1.0/max(float(d),6.198883056640625e-05));
+            inverse[ci]=inv;
+            if(pc.p0.w!=0u && (lane&15u)==0u) {
+                uint token=m+nrh_coord_CH(ci).x;
+                uint at=h*pc.p0.x+token;
+                dbg[pc.p6.z+pc.p4.x+at]=d;
+                dbg[pc.p6.z+pc.p4.z+at]=inv;
+            }
+        }
+        uint oat=pc.p6.y+m*1024u+h*32u;
+        uint dat=pc.p6.z+pc.p4.y+m*1024u+h*32u;
+        NRH_CH num0=NRH_CH(ctx0),num1=NRH_CH(ctx1);
+        if(pc.p0.w!=0u)
+            for(uint ci=0u;ci<num0.length();++ci) {
+                uvec2 rc=nrh_coord_CH(ci);
+                dbg[dat+rc.x*1024u+rc.y]=num0[ci];
+                dbg[dat+rc.x*1024u+16u+rc.y]=num1[ci];
+            }
+        precise NRH_CH out0=num0*inverse,out1=num1*inverse;
+        coopMatStore(out0,context,oat,1024u,RM);
+        coopMatStore(out1,context,oat+16u,1024u,RM);
+    }
+}
+

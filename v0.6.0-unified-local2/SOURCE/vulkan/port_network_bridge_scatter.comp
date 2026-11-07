@@ -1,0 +1,28 @@
+#version 450
+layout(local_size_x=256) in;
+layout(set=0,binding=0,std430) readonly buffer Frame { float application_history[]; };
+layout(set=0,binding=1,rgba16f) uniform writeonly image2D output_image;
+layout(push_constant) uniform Push { uvec4 base_size; } pc;
+// The application surface is finite LDR [0,1]. imageStore's format conversion
+// may truncate; explicitly form the agreed IEEE half RNE value first.
+uint half_rne(float x) {
+    uint b=floatBitsToUint(x),sign=(b>>16)&0x8000u,e=(b>>23)&255u,m=b&0x7fffffu;
+    if(e==255u)return sign|0x7c00u|(m!=0u?0x200u:0u);
+    if(e<102u)return sign;
+    if(e<113u) {
+        uint v=m|0x800000u,s=126u-e,q=v>>s,r=v&((1u<<s)-1u),tie=1u<<(s-1u);
+        return sign|(q+uint(r>tie||(r==tie&&(q&1u)!=0u)));
+    }
+    if(e>142u)return sign|0x7c00u;
+    uint rounded=m+0xfffu+((m>>13)&1u);
+    return sign|(((e-112u)<<10)+(rounded>>13));
+}
+void main() {
+    uint i=gl_GlobalInvocationID.x;
+    if(i>=pc.base_size.z*pc.base_size.w)return;
+    uint a=i*4;
+    vec4 c=vec4(application_history[a],application_history[a+1],application_history[a+2],application_history[a+3]);
+    c=vec4(unpackHalf2x16(half_rne(c.x)|(half_rne(c.y)<<16)),
+           unpackHalf2x16(half_rne(c.z)|(half_rne(c.w)<<16)));
+    imageStore(output_image,ivec2(i%pc.base_size.z,i/pc.base_size.z)+ivec2(pc.base_size.xy),c);
+}

@@ -1,0 +1,39 @@
+Intel NR 统一安装与卸载 / Unified Install & Uninstall
+
+1. 完整解压，退出游戏，双击 Setup.cmd。选择实际 DX12 游戏 EXE，而非启动器。
+   Extract the whole archive, exit the game, and open Setup.cmd. Select the actual DX12 game EXE, not its launcher.
+
+2. 默认推荐“新版”。新版包含 Intel 伪装、旧 VC++ 下 NR 闪退、NR 漏处理及 DLSS-G → XeFG 资源帧号修复，在已测游戏中兼容性更好。新版无异常就使用新版。
+   “New” is recommended. It includes Intel spoofing, NR compatibility with older game VC++ runtimes, NR admission and DLSS-G to XeFG frame-token fixes. Compatibility is improved in tested games; keep the new version if it works.
+   “旧版”是此前的完整宿主与运行库组合，用于回退，并不只是切换补帧通道。两种方案的未变化模型资源共享存储。
+   “Legacy” is the earlier complete host/runtime combination for rollback, not merely a different frame-generation input. Unchanged model resources are stored once for both variants.
+
+3. 安装器先检查旧 OPT，再显示确认窗口。确认之前不会删除或移动游戏文件。选择“否”即可取消。
+   The installer inspects old OPT and displays a confirmation. No game files are removed or moved before confirmation. Choose “No” to cancel.
+   确认后，按已有安装记录卸载并恢复原文件，归档旧配置及剩余 NR 文件，再安装所选完整版本，使用全新默认配置。
+   After confirmation, recorded old files are uninstalled and originals restored; old settings and remaining NR files are archived, then the selected complete version is installed with fresh defaults.
+   没有安装记录时，只归档已识别的 OPT 入口、配置及 NR 文件。不猜测或删除原生游戏 DLL；替换前保留备份。
+   Without a receipt, only identified OPT entries, settings and NR files are archived. Native game DLLs are not guessed or deleted; replacements are backed up.
+   如果旧记录还指向搬盘前的位置，只有搬迁后的对应备份齐全，才会修正路径并继续。恢复文件缺失则停止，游戏不变。
+   A moved game's old backup path is corrected only when all relocated restore files exist. Missing restore files stop the operation without changing the game.
+
+4. 同一窗口的“检查并卸载”可单独卸载。它也会在删除前确认。备份保留在游戏目录 intel-nr-backups；其他用户插件、游戏存档不批量清理。
+   “Inspect & Uninstall” removes OPT without reinstalling, with the same confirmation. Backups remain under intel-nr-backups. Other user plugins and game saves are not bulk-cleaned.
+
+5. 允许选择任意游戏 EXE，没有游戏准入名单；技术支持范围是 Windows 10/11 x64、兼容 Intel 显卡与 DX12。
+   Any game EXE may be selected; there is no game allowlist. Technical requirements are Windows 10/11 x64, a compatible Intel GPU and DX12.
+   本机已实测：燕云国服、赛博朋克 2077、巫师三 DX12；新版的超分、NR、DLSS-G → XeFG 经全新重装场景验收。
+   Locally tested: Where Winds Meet CN, Cyberpunk 2077 and The Witcher 3 DX12, including SR, NR and DLSS-G to XeFG after clean reinstalls.
+   用户反馈成功：异环、鸣潮。这是用户报告，不冒充本机实测。其他所选游戏会显示“未经本机实测”，但仍可安装。
+   User-reported success: Neverness to Everness and Wuthering Waves. These are user reports, not local validation. Other selections display “not tested locally” but are still installable.
+
+6. 新版已测游戏的插帧开关跟随游戏设置；死亡搁浅使用超分输入。未知游戏默认关闭插帧，之后可在 OPT 菜单配置，不能因“未实测”而阻止安装。
+   New-version tested games follow the in-game FG switch; Death Stranding uses upscaler inputs. Unknown games start with FG off and can be configured in OPT; untested status never blocks installation.
+   NR 默认 Intel Full／原生／经典。FSR/DLSS XMX 在 OPT 的 FFX/FSR 版本列表选择。首次启动后请验证画面、NR 和补帧。
+   NR defaults to Intel Full/native/Classic. Select FSR/DLSS XMX in OPT's FFX/FSR version list. Verify image quality, NR and FG after the first launch.
+
+离线完整包，无需 Python、Visual Studio、Vulkan SDK 或预装 OPT。缺少微软 VC++ x64 运行库时，安装引擎可能调用微软签名安装器。
+Complete offline payloads; no Python, Visual Studio, Vulkan SDK or prior OPT required. If needed, the engine may run Microsoft's signed VC++ x64 runtime installer.
+宿主 GPL-3.0、项目 MIT 及第三方说明分别保留。SOURCE 提供新版对应的修改源码与构建信息，Licenses 含版本说明。
+Host GPL-3.0, project MIT and third-party notices are retained separately. SOURCE contains the new host overlay and build information; Licenses contains version notices.
+旧版公开来源 / Legacy public source: https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12

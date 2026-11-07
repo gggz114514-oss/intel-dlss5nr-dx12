@@ -1,0 +1,125 @@
+#version 450
+#extension GL_GOOGLE_include_directive : require
+#extension GL_KHR_shader_subgroup_basic : require
+#extension GL_KHR_cooperative_matrix : require
+#extension GL_KHR_memory_scope_semantics : require
+#extension GL_EXT_shader_explicit_arithmetic_types_float16 : require
+layout(local_size_x=256) in;
+#include "split16_ffwd_exec_opt_common.glsl"
+#define MH coopmat<float16_t,gl_ScopeSubgroup,8,16,gl_MatrixUseAccumulator>
+shared float16_t debugTile[4096]; // first projection handoff, then debug scratch
+MA as_a(MH x) { MA a; for(int i=0;i<a.length();++i) a[i]=x[i]; return a; }
+MH as_h(MA a) { MH h; for(int i=0;i<h.length();++i) h[i]=a[i]; return h; }
+void debug_half(MH x,uint base,uint token,uint channel,uint stride) {
+    uint sg=gl_SubgroupID,lane=gl_SubgroupInvocationID;
+    coopMatStore(x,debugTile,(2048u+sg*128u),16u,ROW);
+    subgroupMemoryBarrierShared();subgroupBarrier();
+    for(uint e=lane;e<128u;e+=32u)
+        dbg[base+(token+e/16u)*stride+channel+e%16u]=float(debugTile[(2048u+sg*128u)+e]);
+    subgroupMemoryBarrierShared();subgroupBarrier();
+}
+void main() {
+    uint sg=gl_SubgroupID;
+    // Projection ownership: each of the two SG in a group computes all M16
+    // for one N32 half. The four FP32 accumulators and K order are unchanged.
+    uint groupLocal=sg/2u;
+    uint nPart=sg%2u;
+    uint group=gl_WorkGroupID.y*4u+groupLocal;
+    uint token16=gl_WorkGroupID.x*16u;
+    uint xb0=tiled(token16,0u,512u);
+    uint xb1=tiled(token16+8u,0u,512u);
+    uint w1=uint(pc.p2.x)+(group*4u+nPart*2u)*8192u;
+    MC r0a=MC(0.0),r1a=MC(0.0),r0b=MC(0.0),r1b=MC(0.0);
+    for(uint k=0u;k<512u;k+=16u) {
+        MA a0,a1;
+        coopMatLoad(a0,gx,xb0+(k/16u)*256u,16u,ROW);
+        coopMatLoad(a1,gx,xb1+(k/16u)*256u,16u,ROW);
+        MB b0,b1;
+        coopMatLoad(b0,weights,w1+(k/16u)*256u,16u,COL);
+        coopMatLoad(b1,weights,w1+8192u+(k/16u)*256u,16u,COL);
+        r0a=coopMatMulAdd(a0,b0,r0a);
+        r1a=coopMatMulAdd(a0,b1,r1a);
+        r0b=coopMatMulAdd(a1,b0,r0b);
+        r1b=coopMatMulAdd(a1,b1,r1b);
+    }
+    uint col=groupLocal*64u+nPart*32u;
+    coopMatStore(MH(r0a),debugTile,col,256u,ROW);
+    coopMatStore(MH(r1a),debugTile,col+16u,256u,ROW);
+    coopMatStore(MH(r0b),debugTile,8u*256u+col,256u,ROW);
+    coopMatStore(MH(r1b),debugTile,8u*256u+col+16u,256u,ROW);
+    barrier(); // all projection output tiles published to their original owners
+
+    // P2: retain both M8 inputs before retiring the stage-one SLM arena.
+    const uint g=group, ownCol=groupLocal*64u;
+    MA aA0,aA1,aA2,aA3,aB0,aB1,aB2,aB3;
+    coopMatLoad(aA0,debugTile,ownCol,256u,ROW);
+    coopMatLoad(aA1,debugTile,ownCol+16u,256u,ROW);
+    coopMatLoad(aA2,debugTile,ownCol+32u,256u,ROW);
+    coopMatLoad(aA3,debugTile,ownCol+48u,256u,ROW);
+    coopMatLoad(aB0,debugTile,2048u+ownCol,256u,ROW);
+    coopMatLoad(aB1,debugTile,2048u+ownCol+16u,256u,ROW);
+    coopMatLoad(aB2,debugTile,2048u+ownCol+32u,256u,ROW);
+    coopMatLoad(aB3,debugTile,2048u+ownCol+48u,256u,ROW);
+    barrier(); // retire every old input read before debug/activation overwrite
+    if(pc.p5.x!=0) {
+        // Each producer still dumps its own projection columns once.
+        if(nPart==0u) {
+            debug_half(as_h(aA0),uint(pc.p5.y),token16,g*64u,512u);
+            debug_half(as_h(aA1),uint(pc.p5.y),token16,g*64u+16u,512u);
+            debug_half(as_h(aB0),uint(pc.p5.y),token16+8u,g*64u,512u);
+            debug_half(as_h(aB1),uint(pc.p5.y),token16+8u,g*64u+16u,512u);
+        } else {
+            debug_half(as_h(aA2),uint(pc.p5.y),token16,g*64u+32u,512u);
+            debug_half(as_h(aA3),uint(pc.p5.y),token16,g*64u+48u,512u);
+            debug_half(as_h(aB2),uint(pc.p5.y),token16+8u,g*64u+32u,512u);
+            debug_half(as_h(aB3),uint(pc.p5.y),token16+8u,g*64u+48u,512u);
+        }
+    }
+    MC oA0=MC(0.0),oA1=MC(0.0),oB0=MC(0.0),oB1=MC(0.0);
+    for(uint hidden=0u;hidden<256u;hidden+=32u) {
+        const uint hsub=hidden+nPart*16u;
+        const uint w2=uint(pc.p2.y)+((g*256u+hsub)/16u)*1024u;
+        MC eA=MC(0.0),eB=MC(0.0);
+#define EXPAND_PAIR(A,B,K) { MB w; coopMatLoad(w,weights,w2+(K)*256u,16u,COL); eA=coopMatMulAdd(A,w,eA); eB=coopMatMulAdd(B,w,eB); }
+        EXPAND_PAIR(aA0,aB0,0u)
+        EXPAND_PAIR(aA1,aB1,1u)
+        EXPAND_PAIR(aA2,aB2,2u)
+        EXPAND_PAIR(aA3,aB3,3u)
+#undef EXPAND_PAIR
+        MH vA=MH(eA),vB=MH(eB);
+        if(pc.p5.x!=0) {
+            debug_half(vA,uint(pc.p5.z),token16,g*256u+hsub,2048u);
+            debug_half(vB,uint(pc.p5.z),token16+8u,g*256u+hsub,2048u);
+        }
+        for(int i=0;i<vA.length();++i) { vA[i]=activation(vA[i]);vB[i]=activation(vB[i]); }
+        if(pc.p5.x!=0) {
+            debug_half(vA,uint(pc.p5.w),token16,g*256u+hsub,2048u);
+            debug_half(vB,uint(pc.p5.w),token16+8u,g*256u+hsub,2048u);
+        }
+        // Activation arena [0,2048); debug scratch is disjoint [2048,3072).
+        const uint slot=128u*(4u*groupLocal+2u*nPart);
+        coopMatStore(vA,debugTile,slot,16u,ROW);
+        coopMatStore(vB,debugTile,slot+128u,16u,ROW);
+        barrier(); // publish both hidden halves, both M8 token blocks
+        const uint w3=uint(pc.p2.z)+(g*4u+nPart*2u)*4096u+(hidden/16u)*256u;
+        // Each output element consumes hidden K16 blocks in 0,1,...,15 order.
+        for(uint hs=0u;hs<2u;++hs) {
+            MA va,vb;
+            coopMatLoad(va,debugTile,128u*(4u*groupLocal+2u*hs),16u,ROW);
+            coopMatLoad(vb,debugTile,128u*(4u*groupLocal+2u*hs+1u),16u,ROW);
+            MB b0,b1;
+            coopMatLoad(b0,weights,w3+hs*256u,16u,COL);
+            coopMatLoad(b1,weights,w3+4096u+hs*256u,16u,COL);
+            oA0=coopMatMulAdd(va,b0,oA0);
+            oA1=coopMatMulAdd(va,b1,oA1);
+            oB0=coopMatMulAdd(vb,b0,oB0);
+            oB1=coopMatMulAdd(vb,b1,oB1);
+        }
+        barrier(); // retire all activation reads before next iteration writes
+    }
+    const uint channel=g*64u+nPart*32u;
+    coopMatStore(MH(oA0),gf,tiled(token16,channel,512u),16u,ROW);
+    coopMatStore(MH(oA1),gf,tiled(token16,channel+16u,512u),16u,ROW);
+    coopMatStore(MH(oB0),gf,tiled(token16+8u,channel,512u),16u,ROW);
+    coopMatStore(MH(oB1),gf,tiled(token16+8u,channel+16u,512u),16u,ROW);
+}

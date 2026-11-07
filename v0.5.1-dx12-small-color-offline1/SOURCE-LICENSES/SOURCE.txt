@@ -1,0 +1,5 @@
+Source, pinned upstream and build instructions:
+https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/main
+This local package includes its exact host overlay in SOURCE/optiscaler-overlay.
+source/optiscaler-overlay/UPSTREAM.json
+docs/DX12-DEVELOPMENT.md

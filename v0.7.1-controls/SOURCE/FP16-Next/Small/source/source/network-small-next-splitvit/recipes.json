@@ -1,0 +1,2172 @@
+{
+  "profile": "small",
+  "shaders": {
+    "small-sv-l0-p2.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-l0-p2/kernel.comp",
+      "defines": [],
+      "raw_sha256": "ea7f13ce0bd29bbe7b36f85c9977481742f8ea27618698e435c34cfab4df503c",
+      "sha256": "ea7f13ce0bd29bbe7b36f85c9977481742f8ea27618698e435c34cfab4df503c",
+      "precision_decorations": []
+    },
+    "small-sv-production-l0-p2.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-production-l0-p2/kernel.comp",
+      "defines": [
+        "-DNR_PRODUCTION=1"
+      ],
+      "raw_sha256": "8d7d03250f7f7f779bcde2971a7c2bd7b7753e59b059150a9ec7dc4f84109e53",
+      "sha256": "8d7d03250f7f7f779bcde2971a7c2bd7b7753e59b059150a9ec7dc4f84109e53",
+      "precision_decorations": []
+    },
+    "small-sv-l1-n32.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-l1-n32/kernel.comp",
+      "defines": [],
+      "raw_sha256": "05439e1dfb4a8a5c680b42b130ff7adc51df8bf782fdbbf600ab3705939626f2",
+      "sha256": "05439e1dfb4a8a5c680b42b130ff7adc51df8bf782fdbbf600ab3705939626f2",
+      "precision_decorations": [
+        {
+          "position": 207,
+          "words": [
+            196679,
+            148,
+            42
+          ]
+        },
+        {
+          "position": 208,
+          "words": [
+            196679,
+            151,
+            42
+          ]
+        },
+        {
+          "position": 209,
+          "words": [
+            196679,
+            157,
+            42
+          ]
+        },
+        {
+          "position": 210,
+          "words": [
+            196679,
+            160,
+            42
+          ]
+        },
+        {
+          "position": 211,
+          "words": [
+            196679,
+            162,
+            42
+          ]
+        },
+        {
+          "position": 212,
+          "words": [
+            196679,
+            205,
+            42
+          ]
+        },
+        {
+          "position": 213,
+          "words": [
+            196679,
+            206,
+            42
+          ]
+        },
+        {
+          "position": 214,
+          "words": [
+            196679,
+            218,
+            42
+          ]
+        },
+        {
+          "position": 222,
+          "words": [
+            196679,
+            235,
+            42
+          ]
+        },
+        {
+          "position": 223,
+          "words": [
+            196679,
+            242,
+            42
+          ]
+        },
+        {
+          "position": 224,
+          "words": [
+            196679,
+            258,
+            42
+          ]
+        },
+        {
+          "position": 225,
+          "words": [
+            196679,
+            259,
+            42
+          ]
+        },
+        {
+          "position": 226,
+          "words": [
+            196679,
+            265,
+            42
+          ]
+        },
+        {
+          "position": 227,
+          "words": [
+            196679,
+            271,
+            42
+          ]
+        },
+        {
+          "position": 228,
+          "words": [
+            196679,
+            283,
+            42
+          ]
+        },
+        {
+          "position": 229,
+          "words": [
+            196679,
+            289,
+            42
+          ]
+        },
+        {
+          "position": 230,
+          "words": [
+            196679,
+            305,
+            42
+          ]
+        },
+        {
+          "position": 231,
+          "words": [
+            196679,
+            306,
+            42
+          ]
+        },
+        {
+          "position": 232,
+          "words": [
+            196679,
+            316,
+            42
+          ]
+        },
+        {
+          "position": 233,
+          "words": [
+            196679,
+            318,
+            42
+          ]
+        },
+        {
+          "position": 234,
+          "words": [
+            196679,
+            330,
+            42
+          ]
+        },
+        {
+          "position": 235,
+          "words": [
+            196679,
+            336,
+            42
+          ]
+        },
+        {
+          "position": 236,
+          "words": [
+            196679,
+            352,
+            42
+          ]
+        },
+        {
+          "position": 237,
+          "words": [
+            196679,
+            353,
+            42
+          ]
+        },
+        {
+          "position": 238,
+          "words": [
+            196679,
+            359,
+            42
+          ]
+        },
+        {
+          "position": 239,
+          "words": [
+            196679,
+            364,
+            42
+          ]
+        },
+        {
+          "position": 240,
+          "words": [
+            196679,
+            366,
+            42
+          ]
+        },
+        {
+          "position": 241,
+          "words": [
+            196679,
+            378,
+            42
+          ]
+        },
+        {
+          "position": 242,
+          "words": [
+            196679,
+            384,
+            42
+          ]
+        },
+        {
+          "position": 243,
+          "words": [
+            196679,
+            458,
+            42
+          ]
+        },
+        {
+          "position": 244,
+          "words": [
+            196679,
+            464,
+            42
+          ]
+        },
+        {
+          "position": 245,
+          "words": [
+            196679,
+            470,
+            42
+          ]
+        },
+        {
+          "position": 246,
+          "words": [
+            196679,
+            476,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-l2-standard.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-l2-standard/kernel.comp",
+      "defines": [],
+      "raw_sha256": "228dee8a437dd0827c4c7bc770707e645c753d493252fdda0907283889a9eb0e",
+      "sha256": "228dee8a437dd0827c4c7bc770707e645c753d493252fdda0907283889a9eb0e",
+      "precision_decorations": [
+        {
+          "position": 784,
+          "words": [
+            196679,
+            248,
+            42
+          ]
+        },
+        {
+          "position": 785,
+          "words": [
+            196679,
+            268,
+            42
+          ]
+        },
+        {
+          "position": 786,
+          "words": [
+            196679,
+            279,
+            42
+          ]
+        },
+        {
+          "position": 858,
+          "words": [
+            196679,
+            765,
+            42
+          ]
+        },
+        {
+          "position": 884,
+          "words": [
+            196679,
+            1858,
+            42
+          ]
+        },
+        {
+          "position": 885,
+          "words": [
+            196679,
+            1862,
+            42
+          ]
+        },
+        {
+          "position": 886,
+          "words": [
+            196679,
+            1868,
+            42
+          ]
+        },
+        {
+          "position": 887,
+          "words": [
+            196679,
+            2017,
+            42
+          ]
+        },
+        {
+          "position": 888,
+          "words": [
+            196679,
+            2203,
+            42
+          ]
+        },
+        {
+          "position": 889,
+          "words": [
+            196679,
+            2389,
+            42
+          ]
+        },
+        {
+          "position": 890,
+          "words": [
+            196679,
+            2575,
+            42
+          ]
+        },
+        {
+          "position": 891,
+          "words": [
+            196679,
+            2761,
+            42
+          ]
+        },
+        {
+          "position": 892,
+          "words": [
+            196679,
+            2948,
+            42
+          ]
+        },
+        {
+          "position": 893,
+          "words": [
+            196679,
+            3134,
+            42
+          ]
+        },
+        {
+          "position": 894,
+          "words": [
+            196679,
+            3321,
+            42
+          ]
+        },
+        {
+          "position": 895,
+          "words": [
+            196679,
+            3431,
+            42
+          ]
+        },
+        {
+          "position": 896,
+          "words": [
+            196679,
+            3434,
+            42
+          ]
+        },
+        {
+          "position": 897,
+          "words": [
+            196679,
+            3440,
+            42
+          ]
+        },
+        {
+          "position": 898,
+          "words": [
+            196679,
+            3443,
+            42
+          ]
+        },
+        {
+          "position": 899,
+          "words": [
+            196679,
+            3449,
+            42
+          ]
+        },
+        {
+          "position": 900,
+          "words": [
+            196679,
+            3452,
+            42
+          ]
+        },
+        {
+          "position": 901,
+          "words": [
+            196679,
+            3458,
+            42
+          ]
+        },
+        {
+          "position": 902,
+          "words": [
+            196679,
+            3461,
+            42
+          ]
+        },
+        {
+          "position": 903,
+          "words": [
+            196679,
+            3467,
+            42
+          ]
+        },
+        {
+          "position": 904,
+          "words": [
+            196679,
+            3470,
+            42
+          ]
+        },
+        {
+          "position": 905,
+          "words": [
+            196679,
+            3476,
+            42
+          ]
+        },
+        {
+          "position": 906,
+          "words": [
+            196679,
+            3479,
+            42
+          ]
+        },
+        {
+          "position": 907,
+          "words": [
+            196679,
+            3485,
+            42
+          ]
+        },
+        {
+          "position": 908,
+          "words": [
+            196679,
+            3488,
+            42
+          ]
+        },
+        {
+          "position": 909,
+          "words": [
+            196679,
+            3494,
+            42
+          ]
+        },
+        {
+          "position": 910,
+          "words": [
+            196679,
+            3497,
+            42
+          ]
+        },
+        {
+          "position": 911,
+          "words": [
+            196679,
+            3503,
+            42
+          ]
+        },
+        {
+          "position": 912,
+          "words": [
+            196679,
+            3506,
+            42
+          ]
+        },
+        {
+          "position": 913,
+          "words": [
+            196679,
+            3512,
+            42
+          ]
+        },
+        {
+          "position": 914,
+          "words": [
+            196679,
+            3515,
+            42
+          ]
+        },
+        {
+          "position": 915,
+          "words": [
+            196679,
+            3521,
+            42
+          ]
+        },
+        {
+          "position": 916,
+          "words": [
+            196679,
+            3524,
+            42
+          ]
+        },
+        {
+          "position": 917,
+          "words": [
+            196679,
+            3530,
+            42
+          ]
+        },
+        {
+          "position": 918,
+          "words": [
+            196679,
+            3533,
+            42
+          ]
+        },
+        {
+          "position": 919,
+          "words": [
+            196679,
+            3539,
+            42
+          ]
+        },
+        {
+          "position": 920,
+          "words": [
+            196679,
+            3542,
+            42
+          ]
+        },
+        {
+          "position": 921,
+          "words": [
+            196679,
+            3548,
+            42
+          ]
+        },
+        {
+          "position": 922,
+          "words": [
+            196679,
+            3551,
+            42
+          ]
+        },
+        {
+          "position": 923,
+          "words": [
+            196679,
+            3557,
+            42
+          ]
+        },
+        {
+          "position": 924,
+          "words": [
+            196679,
+            3560,
+            42
+          ]
+        },
+        {
+          "position": 925,
+          "words": [
+            196679,
+            3566,
+            42
+          ]
+        },
+        {
+          "position": 926,
+          "words": [
+            196679,
+            3569,
+            42
+          ]
+        },
+        {
+          "position": 927,
+          "words": [
+            196679,
+            3573,
+            42
+          ]
+        },
+        {
+          "position": 928,
+          "words": [
+            196679,
+            3577,
+            42
+          ]
+        },
+        {
+          "position": 929,
+          "words": [
+            196679,
+            3581,
+            42
+          ]
+        },
+        {
+          "position": 930,
+          "words": [
+            196679,
+            3597,
+            42
+          ]
+        },
+        {
+          "position": 931,
+          "words": [
+            196679,
+            3602,
+            42
+          ]
+        },
+        {
+          "position": 932,
+          "words": [
+            196679,
+            3610,
+            42
+          ]
+        },
+        {
+          "position": 933,
+          "words": [
+            196679,
+            3619,
+            42
+          ]
+        },
+        {
+          "position": 934,
+          "words": [
+            196679,
+            3624,
+            42
+          ]
+        },
+        {
+          "position": 935,
+          "words": [
+            196679,
+            3629,
+            42
+          ]
+        },
+        {
+          "position": 936,
+          "words": [
+            196679,
+            3634,
+            42
+          ]
+        },
+        {
+          "position": 937,
+          "words": [
+            196679,
+            3639,
+            42
+          ]
+        },
+        {
+          "position": 938,
+          "words": [
+            196679,
+            3644,
+            42
+          ]
+        },
+        {
+          "position": 939,
+          "words": [
+            196679,
+            3649,
+            42
+          ]
+        },
+        {
+          "position": 940,
+          "words": [
+            196679,
+            3654,
+            42
+          ]
+        },
+        {
+          "position": 941,
+          "words": [
+            196679,
+            3750,
+            42
+          ]
+        },
+        {
+          "position": 942,
+          "words": [
+            196679,
+            3755,
+            42
+          ]
+        },
+        {
+          "position": 943,
+          "words": [
+            196679,
+            3760,
+            42
+          ]
+        },
+        {
+          "position": 944,
+          "words": [
+            196679,
+            3765,
+            42
+          ]
+        },
+        {
+          "position": 945,
+          "words": [
+            196679,
+            3770,
+            42
+          ]
+        },
+        {
+          "position": 946,
+          "words": [
+            196679,
+            3775,
+            42
+          ]
+        },
+        {
+          "position": 947,
+          "words": [
+            196679,
+            3780,
+            42
+          ]
+        },
+        {
+          "position": 948,
+          "words": [
+            196679,
+            3785,
+            42
+          ]
+        },
+        {
+          "position": 949,
+          "words": [
+            196679,
+            3882,
+            42
+          ]
+        },
+        {
+          "position": 950,
+          "words": [
+            196679,
+            3887,
+            42
+          ]
+        },
+        {
+          "position": 951,
+          "words": [
+            196679,
+            3892,
+            42
+          ]
+        },
+        {
+          "position": 952,
+          "words": [
+            196679,
+            3897,
+            42
+          ]
+        },
+        {
+          "position": 953,
+          "words": [
+            196679,
+            3902,
+            42
+          ]
+        },
+        {
+          "position": 954,
+          "words": [
+            196679,
+            3907,
+            42
+          ]
+        },
+        {
+          "position": 955,
+          "words": [
+            196679,
+            3912,
+            42
+          ]
+        },
+        {
+          "position": 956,
+          "words": [
+            196679,
+            3917,
+            42
+          ]
+        },
+        {
+          "position": 957,
+          "words": [
+            196679,
+            4014,
+            42
+          ]
+        },
+        {
+          "position": 958,
+          "words": [
+            196679,
+            4019,
+            42
+          ]
+        },
+        {
+          "position": 959,
+          "words": [
+            196679,
+            4024,
+            42
+          ]
+        },
+        {
+          "position": 960,
+          "words": [
+            196679,
+            4029,
+            42
+          ]
+        },
+        {
+          "position": 961,
+          "words": [
+            196679,
+            4034,
+            42
+          ]
+        },
+        {
+          "position": 962,
+          "words": [
+            196679,
+            4039,
+            42
+          ]
+        },
+        {
+          "position": 963,
+          "words": [
+            196679,
+            4044,
+            42
+          ]
+        },
+        {
+          "position": 964,
+          "words": [
+            196679,
+            4049,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-l2-q8.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-l2-q8/kernel.comp",
+      "defines": [],
+      "raw_sha256": "0de78f3f8407db1a526f765a422eaed5a1c81196f365fafa33c7b3b17077ac7b",
+      "sha256": "0de78f3f8407db1a526f765a422eaed5a1c81196f365fafa33c7b3b17077ac7b",
+      "precision_decorations": [
+        {
+          "position": 346,
+          "words": [
+            196679,
+            251,
+            42
+          ]
+        },
+        {
+          "position": 347,
+          "words": [
+            196679,
+            271,
+            42
+          ]
+        },
+        {
+          "position": 348,
+          "words": [
+            196679,
+            282,
+            42
+          ]
+        },
+        {
+          "position": 360,
+          "words": [
+            196679,
+            583,
+            42
+          ]
+        },
+        {
+          "position": 386,
+          "words": [
+            196679,
+            1224,
+            42
+          ]
+        },
+        {
+          "position": 387,
+          "words": [
+            196679,
+            1228,
+            42
+          ]
+        },
+        {
+          "position": 388,
+          "words": [
+            196679,
+            1234,
+            42
+          ]
+        },
+        {
+          "position": 389,
+          "words": [
+            196679,
+            1423,
+            42
+          ]
+        },
+        {
+          "position": 390,
+          "words": [
+            196679,
+            1544,
+            42
+          ]
+        },
+        {
+          "position": 391,
+          "words": [
+            196679,
+            1548,
+            42
+          ]
+        },
+        {
+          "position": 392,
+          "words": [
+            196679,
+            1552,
+            42
+          ]
+        },
+        {
+          "position": 393,
+          "words": [
+            196679,
+            1580,
+            42
+          ]
+        },
+        {
+          "position": 394,
+          "words": [
+            196679,
+            1584,
+            42
+          ]
+        },
+        {
+          "position": 395,
+          "words": [
+            196679,
+            1588,
+            42
+          ]
+        },
+        {
+          "position": 396,
+          "words": [
+            196679,
+            1599,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-production-l2-q8.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-production-l2-q8/kernel.comp",
+      "defines": [
+        "-DNR_PRODUCTION=1"
+      ],
+      "raw_sha256": "d9aaf5909f98fa1462235b0ab45c16a582cba7082c6ba5e374fbe8bebcf56ba2",
+      "sha256": "7a1319889095424aff2ac25d6916c529beea016ad5b138d9c5f90584b7a12e9d",
+      "precision_decorations": [
+        {
+          "position": 414,
+          "words": [
+            196679,
+            251,
+            42
+          ]
+        },
+        {
+          "position": 415,
+          "words": [
+            196679,
+            271,
+            42
+          ]
+        },
+        {
+          "position": 416,
+          "words": [
+            196679,
+            282,
+            42
+          ]
+        },
+        {
+          "position": 417,
+          "words": [
+            196679,
+            583,
+            42
+          ]
+        },
+        {
+          "position": 418,
+          "words": [
+            196679,
+            1221,
+            42
+          ]
+        },
+        {
+          "position": 419,
+          "words": [
+            196679,
+            1225,
+            42
+          ]
+        },
+        {
+          "position": 420,
+          "words": [
+            196679,
+            1231,
+            42
+          ]
+        },
+        {
+          "position": 421,
+          "words": [
+            196679,
+            1408,
+            42
+          ]
+        },
+        {
+          "position": 422,
+          "words": [
+            196679,
+            1523,
+            42
+          ]
+        },
+        {
+          "position": 423,
+          "words": [
+            196679,
+            1527,
+            42
+          ]
+        },
+        {
+          "position": 424,
+          "words": [
+            196679,
+            1531,
+            42
+          ]
+        },
+        {
+          "position": 425,
+          "words": [
+            196679,
+            1559,
+            42
+          ]
+        },
+        {
+          "position": 426,
+          "words": [
+            196679,
+            1563,
+            42
+          ]
+        },
+        {
+          "position": 427,
+          "words": [
+            196679,
+            1567,
+            42
+          ]
+        },
+        {
+          "position": 428,
+          "words": [
+            196679,
+            1578,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-l3.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-l3/split_projection_swap.comp",
+      "defines": [
+        "-DKIND=1"
+      ],
+      "raw_sha256": "cc70e2d68b85c1d3ba2cff1e22e5dbb32562bdc836e4d0651af889da5ddd0015",
+      "sha256": "cc70e2d68b85c1d3ba2cff1e22e5dbb32562bdc836e4d0651af889da5ddd0015",
+      "precision_decorations": []
+    },
+    "small-sv-l3-pool.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-l3-pool/kernel.comp",
+      "defines": [
+        "-DKIND=2"
+      ],
+      "raw_sha256": "d9f2ac3eb45e31d7a3a3600833a33ee5cc5652a5efc3057eb57a6698cdcd9638",
+      "sha256": "d9f2ac3eb45e31d7a3a3600833a33ee5cc5652a5efc3057eb57a6698cdcd9638",
+      "precision_decorations": [
+        {
+          "position": 179,
+          "words": [
+            196679,
+            176,
+            42
+          ]
+        },
+        {
+          "position": 180,
+          "words": [
+            196679,
+            230,
+            42
+          ]
+        },
+        {
+          "position": 194,
+          "words": [
+            196679,
+            430,
+            42
+          ]
+        },
+        {
+          "position": 195,
+          "words": [
+            196679,
+            436,
+            42
+          ]
+        },
+        {
+          "position": 196,
+          "words": [
+            196679,
+            440,
+            42
+          ]
+        },
+        {
+          "position": 202,
+          "words": [
+            196679,
+            496,
+            42
+          ]
+        },
+        {
+          "position": 203,
+          "words": [
+            196679,
+            502,
+            42
+          ]
+        },
+        {
+          "position": 204,
+          "words": [
+            196679,
+            506,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-l4-head.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-l4-head/kernel.comp",
+      "defines": [
+        "-DKIND=3"
+      ],
+      "raw_sha256": "7407f93cd5185d7bbba060e3a5fe705d641de31b934e76251527e1674ade62d5",
+      "sha256": "7407f93cd5185d7bbba060e3a5fe705d641de31b934e76251527e1674ade62d5",
+      "precision_decorations": []
+    },
+    "small-sv-vit-expand.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-vit-expand/kernel.comp",
+      "defines": [],
+      "raw_sha256": "e8747d59afef4bdd97625e4d627b442517a22197c1f98503a51ab3d5bb144fda",
+      "sha256": "e8747d59afef4bdd97625e4d627b442517a22197c1f98503a51ab3d5bb144fda",
+      "precision_decorations": []
+    },
+    "small-sv-production-vit-expand.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-production-vit-expand/kernel.comp",
+      "defines": [
+        "-DNR_PRODUCTION=1"
+      ],
+      "raw_sha256": "5465a87ee1619c0666a9318fdac60669dbd6207018e762a68c13c09774e1a055",
+      "sha256": "5465a87ee1619c0666a9318fdac60669dbd6207018e762a68c13c09774e1a055",
+      "precision_decorations": []
+    },
+    "small-sv-vit-contract-m64.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-vit-contract-m64/kernel.comp",
+      "defines": [],
+      "raw_sha256": "c1585d56bd0b0183638172af94cb0f8a22f9d1f6c20d768e9ba60177f767cf71",
+      "sha256": "c1585d56bd0b0183638172af94cb0f8a22f9d1f6c20d768e9ba60177f767cf71",
+      "precision_decorations": []
+    },
+    "small-sv-flags-vit-contract-m64.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-flags-vit-contract-m64/kernel.comp",
+      "defines": [],
+      "raw_sha256": "aae2555f3d082340f479d29a19d8bcd5df8befce3fdf38c37f68de217d10c815",
+      "sha256": "aae2555f3d082340f479d29a19d8bcd5df8befce3fdf38c37f68de217d10c815",
+      "precision_decorations": []
+    },
+    "small-sv-vit-qkv.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-vit-qkv/kernel.comp",
+      "defines": [],
+      "raw_sha256": "feeedafaedf30b47fe98de1c0e2f5a6dabaf9fa1a5f19f756c3628362e1396d5",
+      "sha256": "feeedafaedf30b47fe98de1c0e2f5a6dabaf9fa1a5f19f756c3628362e1396d5",
+      "precision_decorations": [
+        {
+          "position": 224,
+          "words": [
+            196679,
+            68,
+            42
+          ]
+        },
+        {
+          "position": 225,
+          "words": [
+            196679,
+            72,
+            42
+          ]
+        },
+        {
+          "position": 226,
+          "words": [
+            196679,
+            76,
+            42
+          ]
+        },
+        {
+          "position": 227,
+          "words": [
+            196679,
+            179,
+            42
+          ]
+        },
+        {
+          "position": 228,
+          "words": [
+            196679,
+            183,
+            42
+          ]
+        },
+        {
+          "position": 229,
+          "words": [
+            196679,
+            187,
+            42
+          ]
+        },
+        {
+          "position": 230,
+          "words": [
+            196679,
+            194,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-production-vit-qkv.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-production-vit-qkv/kernel.comp",
+      "defines": [
+        "-DNR_PRODUCTION=1"
+      ],
+      "raw_sha256": "5aa43da4fced68a0aabfeea725b526978d86ddf1763beedf7f4303a38cc6097f",
+      "sha256": "340096e089167ffc5a6b2566e5590ac450003a1c9e3143688924487cc4b51cf1",
+      "precision_decorations": [
+        {
+          "position": 294,
+          "words": [
+            196679,
+            68,
+            42
+          ]
+        },
+        {
+          "position": 295,
+          "words": [
+            196679,
+            72,
+            42
+          ]
+        },
+        {
+          "position": 296,
+          "words": [
+            196679,
+            76,
+            42
+          ]
+        },
+        {
+          "position": 297,
+          "words": [
+            196679,
+            179,
+            42
+          ]
+        },
+        {
+          "position": 298,
+          "words": [
+            196679,
+            183,
+            42
+          ]
+        },
+        {
+          "position": 299,
+          "words": [
+            196679,
+            187,
+            42
+          ]
+        },
+        {
+          "position": 300,
+          "words": [
+            196679,
+            194,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-vit-attention.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-vit-attention/kernel.comp",
+      "defines": [],
+      "raw_sha256": "d98e907d7f37715d4fa48e4d6b559e92fc7ec49ce31633faa1da51f008395197",
+      "sha256": "d98e907d7f37715d4fa48e4d6b559e92fc7ec49ce31633faa1da51f008395197",
+      "precision_decorations": [
+        {
+          "position": 363,
+          "words": [
+            196679,
+            892,
+            42
+          ]
+        },
+        {
+          "position": 364,
+          "words": [
+            196679,
+            907,
+            42
+          ]
+        },
+        {
+          "position": 365,
+          "words": [
+            196679,
+            979,
+            42
+          ]
+        },
+        {
+          "position": 366,
+          "words": [
+            196679,
+            982,
+            42
+          ]
+        },
+        {
+          "position": 367,
+          "words": [
+            196679,
+            985,
+            42
+          ]
+        },
+        {
+          "position": 368,
+          "words": [
+            196679,
+            994,
+            42
+          ]
+        },
+        {
+          "position": 369,
+          "words": [
+            196679,
+            1002,
+            42
+          ]
+        },
+        {
+          "position": 370,
+          "words": [
+            196679,
+            1007,
+            42
+          ]
+        },
+        {
+          "position": 371,
+          "words": [
+            196679,
+            1016,
+            42
+          ]
+        },
+        {
+          "position": 372,
+          "words": [
+            196679,
+            1417,
+            42
+          ]
+        },
+        {
+          "position": 373,
+          "words": [
+            196679,
+            1430,
+            42
+          ]
+        },
+        {
+          "position": 374,
+          "words": [
+            196679,
+            1554,
+            42
+          ]
+        },
+        {
+          "position": 375,
+          "words": [
+            196679,
+            1557,
+            42
+          ]
+        },
+        {
+          "position": 376,
+          "words": [
+            196679,
+            1560,
+            42
+          ]
+        },
+        {
+          "position": 377,
+          "words": [
+            196679,
+            1569,
+            42
+          ]
+        },
+        {
+          "position": 378,
+          "words": [
+            196679,
+            1577,
+            42
+          ]
+        },
+        {
+          "position": 379,
+          "words": [
+            196679,
+            1582,
+            42
+          ]
+        },
+        {
+          "position": 380,
+          "words": [
+            196679,
+            1591,
+            42
+          ]
+        },
+        {
+          "position": 381,
+          "words": [
+            196679,
+            1614,
+            42
+          ]
+        },
+        {
+          "position": 382,
+          "words": [
+            196679,
+            1619,
+            42
+          ]
+        },
+        {
+          "position": 383,
+          "words": [
+            196679,
+            1623,
+            42
+          ]
+        },
+        {
+          "position": 384,
+          "words": [
+            196679,
+            1630,
+            42
+          ]
+        },
+        {
+          "position": 385,
+          "words": [
+            196679,
+            1685,
+            42
+          ]
+        },
+        {
+          "position": 386,
+          "words": [
+            196679,
+            1773,
+            42
+          ]
+        },
+        {
+          "position": 392,
+          "words": [
+            196679,
+            1825,
+            42
+          ]
+        },
+        {
+          "position": 393,
+          "words": [
+            196679,
+            1873,
+            42
+          ]
+        },
+        {
+          "position": 394,
+          "words": [
+            196679,
+            1921,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-vit-attention-q8.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-vit-attention-q8/kernel.comp",
+      "defines": [],
+      "raw_sha256": "1550b0db0bb720294ad3f474a2181527ea97e78bb417cdcb47dcd70baf31f7c3",
+      "sha256": "1550b0db0bb720294ad3f474a2181527ea97e78bb417cdcb47dcd70baf31f7c3",
+      "precision_decorations": [
+        {
+          "position": 268,
+          "words": [
+            196679,
+            707,
+            42
+          ]
+        },
+        {
+          "position": 269,
+          "words": [
+            196679,
+            711,
+            42
+          ]
+        },
+        {
+          "position": 270,
+          "words": [
+            196679,
+            722,
+            42
+          ]
+        },
+        {
+          "position": 271,
+          "words": [
+            196679,
+            779,
+            42
+          ]
+        },
+        {
+          "position": 272,
+          "words": [
+            196679,
+            805,
+            42
+          ]
+        },
+        {
+          "position": 273,
+          "words": [
+            196679,
+            807,
+            42
+          ]
+        },
+        {
+          "position": 274,
+          "words": [
+            196679,
+            809,
+            42
+          ]
+        },
+        {
+          "position": 275,
+          "words": [
+            196679,
+            820,
+            42
+          ]
+        },
+        {
+          "position": 276,
+          "words": [
+            196679,
+            828,
+            42
+          ]
+        },
+        {
+          "position": 277,
+          "words": [
+            196679,
+            1021,
+            42
+          ]
+        },
+        {
+          "position": 278,
+          "words": [
+            196679,
+            1025,
+            42
+          ]
+        },
+        {
+          "position": 279,
+          "words": [
+            196679,
+            1036,
+            42
+          ]
+        },
+        {
+          "position": 280,
+          "words": [
+            196679,
+            1060,
+            42
+          ]
+        },
+        {
+          "position": 281,
+          "words": [
+            196679,
+            1064,
+            42
+          ]
+        },
+        {
+          "position": 282,
+          "words": [
+            196679,
+            1116,
+            42
+          ]
+        },
+        {
+          "position": 283,
+          "words": [
+            196679,
+            1141,
+            42
+          ]
+        },
+        {
+          "position": 284,
+          "words": [
+            196679,
+            1143,
+            42
+          ]
+        },
+        {
+          "position": 285,
+          "words": [
+            196679,
+            1145,
+            42
+          ]
+        },
+        {
+          "position": 286,
+          "words": [
+            196679,
+            1156,
+            42
+          ]
+        },
+        {
+          "position": 287,
+          "words": [
+            196679,
+            1164,
+            42
+          ]
+        },
+        {
+          "position": 288,
+          "words": [
+            196679,
+            1175,
+            42
+          ]
+        },
+        {
+          "position": 289,
+          "words": [
+            196679,
+            1184,
+            42
+          ]
+        },
+        {
+          "position": 290,
+          "words": [
+            196679,
+            1189,
+            42
+          ]
+        },
+        {
+          "position": 291,
+          "words": [
+            196679,
+            1207,
+            42
+          ]
+        },
+        {
+          "position": 292,
+          "words": [
+            196679,
+            1214,
+            42
+          ]
+        },
+        {
+          "position": 293,
+          "words": [
+            196679,
+            1344,
+            42
+          ]
+        },
+        {
+          "position": 294,
+          "words": [
+            196679,
+            1348,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-production-vit-attention-q8.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-production-vit-attention-q8/kernel.comp",
+      "defines": [
+        "-DNR_PRODUCTION=1"
+      ],
+      "raw_sha256": "38868d36c49a3c2bb20e443a44483975251f0e3ecf0481792ab2b594b448b135",
+      "sha256": "66e9599fdec1d0b8ff29c9fe346a90a1f5a11e586589616366e3e94f039c60e7",
+      "precision_decorations": [
+        {
+          "position": 309,
+          "words": [
+            196679,
+            702,
+            42
+          ]
+        },
+        {
+          "position": 310,
+          "words": [
+            196679,
+            706,
+            42
+          ]
+        },
+        {
+          "position": 311,
+          "words": [
+            196679,
+            717,
+            42
+          ]
+        },
+        {
+          "position": 312,
+          "words": [
+            196679,
+            774,
+            42
+          ]
+        },
+        {
+          "position": 313,
+          "words": [
+            196679,
+            800,
+            42
+          ]
+        },
+        {
+          "position": 314,
+          "words": [
+            196679,
+            802,
+            42
+          ]
+        },
+        {
+          "position": 315,
+          "words": [
+            196679,
+            804,
+            42
+          ]
+        },
+        {
+          "position": 316,
+          "words": [
+            196679,
+            815,
+            42
+          ]
+        },
+        {
+          "position": 317,
+          "words": [
+            196679,
+            823,
+            42
+          ]
+        },
+        {
+          "position": 318,
+          "words": [
+            196679,
+            1010,
+            42
+          ]
+        },
+        {
+          "position": 319,
+          "words": [
+            196679,
+            1014,
+            42
+          ]
+        },
+        {
+          "position": 320,
+          "words": [
+            196679,
+            1025,
+            42
+          ]
+        },
+        {
+          "position": 321,
+          "words": [
+            196679,
+            1049,
+            42
+          ]
+        },
+        {
+          "position": 322,
+          "words": [
+            196679,
+            1053,
+            42
+          ]
+        },
+        {
+          "position": 323,
+          "words": [
+            196679,
+            1105,
+            42
+          ]
+        },
+        {
+          "position": 324,
+          "words": [
+            196679,
+            1130,
+            42
+          ]
+        },
+        {
+          "position": 325,
+          "words": [
+            196679,
+            1132,
+            42
+          ]
+        },
+        {
+          "position": 326,
+          "words": [
+            196679,
+            1134,
+            42
+          ]
+        },
+        {
+          "position": 327,
+          "words": [
+            196679,
+            1145,
+            42
+          ]
+        },
+        {
+          "position": 328,
+          "words": [
+            196679,
+            1153,
+            42
+          ]
+        },
+        {
+          "position": 329,
+          "words": [
+            196679,
+            1164,
+            42
+          ]
+        },
+        {
+          "position": 330,
+          "words": [
+            196679,
+            1173,
+            42
+          ]
+        },
+        {
+          "position": 331,
+          "words": [
+            196679,
+            1178,
+            42
+          ]
+        },
+        {
+          "position": 332,
+          "words": [
+            196679,
+            1196,
+            42
+          ]
+        },
+        {
+          "position": 333,
+          "words": [
+            196679,
+            1203,
+            42
+          ]
+        },
+        {
+          "position": 334,
+          "words": [
+            196679,
+            1327,
+            42
+          ]
+        },
+        {
+          "position": 335,
+          "words": [
+            196679,
+            1331,
+            42
+          ]
+        }
+      ]
+    },
+    "small-sv-vit-projection-n32.spv": {
+      "source": "source/network-small-next-splitvit/small-sv-vit-projection-n32/kernel.comp",
+      "defines": [],
+      "raw_sha256": "2039e5c7ab2f77eb7f9702c06d4cd4168c331650a4b2ad899370fd488c540a9f",
+      "sha256": "2039e5c7ab2f77eb7f9702c06d4cd4168c331650a4b2ad899370fd488c540a9f",
+      "precision_decorations": []
+    }
+  }
+}

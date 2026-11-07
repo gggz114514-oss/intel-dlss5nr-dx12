@@ -1,0 +1,25 @@
+#version 450
+layout(local_size_x=256) in;
+layout(set=0,binding=0) uniform sampler2D color_image;
+layout(set=0,binding=1) uniform sampler2D motion_image;
+layout(set=0,binding=2) uniform sampler2D depth_image;
+layout(set=0,binding=3,std430) buffer PreBundle { float pre[]; };
+layout(set=0,binding=4,std430) buffer PostBundle { float post[]; };
+layout(push_constant) uniform Push {
+    uvec4 color_motion_base;
+    uvec4 depth_size; // depth base xy, native1280x720.
+    uvec4 pre_offsets;  // source,motion,depth(float elements),have_depth.
+    uvec4 post_offsets;
+} pc;
+void main() {
+    uint i=gl_GlobalInvocationID.x;
+    if(i>=pc.depth_size.z*pc.depth_size.w)return;
+    ivec2 xy=ivec2(i%pc.depth_size.z,i/pc.depth_size.z);
+    vec4 c=texelFetch(color_image,xy+ivec2(pc.color_motion_base.xy),0);
+    vec2 m=texelFetch(motion_image,xy+ivec2(pc.color_motion_base.zw),0).xy;
+    float d=pc.pre_offsets.w!=0u?texelFetch(depth_image,xy+ivec2(pc.depth_size.xy),0).r:0.0;
+    for(uint k=0;k<4;++k) {pre[pc.pre_offsets.x+i*4+k]=c[k];post[pc.post_offsets.x+i*4+k]=c[k];}
+    pre[pc.pre_offsets.y+i*2]=m.x;pre[pc.pre_offsets.y+i*2+1]=m.y;
+    post[pc.post_offsets.y+i*2]=m.x;post[pc.post_offsets.y+i*2+1]=m.y;
+    pre[pc.pre_offsets.z+i]=d;post[pc.post_offsets.z+i]=d;
+}

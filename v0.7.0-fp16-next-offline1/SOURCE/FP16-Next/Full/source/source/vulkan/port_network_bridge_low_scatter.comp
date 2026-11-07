@@ -1,0 +1,49 @@
+#version 450
+layout(local_size_x=256) in;
+layout(set=0,binding=0,std430) readonly buffer Frame {float frame[];};
+#ifdef OUTPUT32
+layout(set=0,binding=1,rgba32f) uniform writeonly image2D output_image;
+#else
+layout(set=0,binding=1,rgba16f) uniform writeonly image2D output_image;
+#endif
+layout(set=0,binding=2) uniform sampler2D original;
+layout(set=0,binding=3,std430) readonly buffer Pre {float pre[];};
+layout(set=0,binding=4,std430) buffer Scratch {float tmp[];};
+layout(set=0,binding=5,std430) readonly buffer FilterTables {uint table[];};
+layout(push_constant) uniform Push {uvec4 sizes;uvec4 bases;uvec4 stage;uvec4 cat_tables;} pc; // Nwh,Rwh; color xy,output xy; axis; x off/taps,y off/taps
+uint half_rne(float x){
+    uint b=floatBitsToUint(x),sign=(b>>16)&0x8000u,e=(b>>23)&255u,m=b&0x7fffffu;
+    if(e==255u)return sign|0x7c00u|(m!=0u?0x200u:0u);
+    if(e<102u)return sign;
+    if(e<113u){uint v=m|0x800000u,s=126u-e,q=v>>s,r=v&((1u<<s)-1u),tie=1u<<(s-1u);return sign|(q+uint(r>tie||(r==tie&&(q&1u)!=0u)));}
+    if(e>142u)return sign|0x7c00u;uint rounded=m+0xfffu+((m>>13)&1u);return sign|(((e-112u)<<10)+(rounded>>13));
+}
+float half_value(float x){return unpackHalf2x16(half_rne(x)).x;}
+void main(){
+    uint i=gl_GlobalInvocationID.x,NW=pc.sizes.x,NH=pc.sizes.y,RW=pc.sizes.z,RH=pc.sizes.w;
+    if(pc.stage.x==0u){
+        if(i>=RW*NH)return;uint x=i%RW,y=i/RW;
+        precise vec3 sum=vec3(0);
+        for(uint k=0;k<pc.cat_tables.y;++k){
+            uint t=pc.cat_tables.x+(x*pc.cat_tables.y+k)*2;float w=uintBitsToFloat(table[t+1]);uint a=(y*NW+table[t])*4;
+            precise vec3 delta=vec3(half_value(frame[a]-pre[a]),half_value(frame[a+1]-pre[a+1]),half_value(frame[a+2]-pre[a+2]));
+            sum=sum+delta*w;
+        }
+        vec3 c=sum;for(uint j=0;j<3;++j)tmp[i*6+j]=half_value(c[j]);
+    }else{
+        if(i>=RW*RH)return;uint x=i%RW,y=i/RW;
+        precise vec3 sum=vec3(0);
+        for(uint k=0;k<pc.cat_tables.w;++k){uint t=pc.cat_tables.z+(y*pc.cat_tables.w+k)*2;float w=uintBitsToFloat(table[t+1]);uint a=(table[t]*RW+x)*6;
+            sum=sum+vec3(tmp[a],tmp[a+1],tmp[a+2])*w;}
+        vec4 input_color=texelFetch(original,ivec2(x,y)+ivec2(pc.bases.xy),0);
+        precise vec3 restored=clamp(input_color.rgb+sum,vec3(0),vec3(1));
+        // Match the existing surface contract: explicit half RNE for RGBA16F,
+        // FP32 for RGBA32F. The delta and horizontal intermediate remain half.
+#ifdef OUTPUT32
+        vec4 result=vec4(restored,1.0);
+#else
+        vec4 result=vec4(half_value(restored.x),half_value(restored.y),half_value(restored.z),1.0);
+#endif
+        imageStore(output_image,ivec2(x,y)+ivec2(pc.bases.zw),result);
+    }
+}

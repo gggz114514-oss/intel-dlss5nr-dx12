@@ -1,0 +1,45 @@
+Intel NR 统一安装与卸载 / Unified Install & Uninstall
+
+1. 完整解压，退出游戏，双击 Setup.cmd，选择实际 DX12 渲染程序 EXE。
+   Extract the whole archive, exit the game, open Setup.cmd and select the actual DX12 renderer EXE.
+   燕云国服：Engine/Binaries/Win64rh/yysls.exe；巫师三：bin/x64_dx12/witcher3.exe。
+   Where Winds Meet CN: Engine/Binaries/Win64rh/yysls.exe; The Witcher 3: bin/x64_dx12/witcher3.exe.
+
+2. 包内只有一套最新宿主、Full、Small、FSR/DLSS XMX 与 DLSS-G → XeFG。
+   The bundle contains one current host, Full, Small, FSR/DLSS XMX and DLSS-G to XeFG.
+   推荐方式：ASI 增强挂载与 Intel → NVIDIA 伪装，包含燕云已测前置修正。建议先使用推荐方式，正常就继续使用。
+   Recommended: enhanced ASI attachment and Intel-to-NVIDIA spoofing, including the tested Where Winds Meet front-end fixes. Try this first and keep it if it works.
+   兼容方式：保留旧式内置 NVIDIA 伪装，不安装本包的增强 AmdSpoofing.asi。其他用户 ASI 不会因此被禁用。
+   Compatibility: earlier built-in NVIDIA spoofing, without the bundled enhanced AmdSpoofing.asi. Other user ASIs remain enabled.
+   两种方式只改变前置挂载与伪装；宿主、模型和补帧通道相同，不切换整套旧版本。
+   Only front-end attachment/spoofing changes. Both modes use the same host, models and FG routing; no complete legacy version is installed.
+
+3. 安装前先检查旧 OPT，再显示删除前确认，默认选择“否”。确认前不移除或移动游戏文件。
+   Old OPT is inspected first, then a removal confirmation defaults to “No”. No game files are removed or moved before confirmation.
+   确认后按安装记录卸载并恢复原文件，归档已识别入口、旧配置与 NR 残留，再安装当前文件及全新默认配置。
+   After confirmation, recorded files are uninstalled and originals restored; identified entry DLLs, old settings and NR remnants are archived, then current files and fresh defaults are installed.
+   无安装记录时仅归档已识别 OPT 文件；未经确认来源的游戏 DLL 保留，替换前备份。所需恢复文件缺失会停止操作。
+   Without a receipt, only identified OPT files are archived. Unverified game DLLs are retained and backed up before replacement. Missing required restore files stop the operation.
+   同一窗口可单独“检查并卸载”。备份保留在游戏目录 intel-nr-backups；其他插件和存档不批量清理。
+   “Inspect & Uninstall” removes OPT independently. Backups remain under intel-nr-backups; unrelated plugins and saves are not bulk-cleaned.
+
+4. 任意游戏 EXE 均可选择，无游戏白名单。要求 Windows 10/11 x64、兼容 Intel GPU 与 DX12。
+   Any game EXE may be selected, without a game allowlist. Requires Windows 10/11 x64, a compatible Intel GPU and DX12.
+   本机实测宿主与通道：燕云国服、赛博朋克 2077、巫师三 DX12，超分、NR 和 DLSS-G → XeFG 均通过。
+   Host/routing tested locally: Where Winds Meet CN, Cyberpunk 2077 and The Witcher 3 DX12, including SR, NR and DLSS-G to XeFG.
+   上述实测使用此前模型；本包最新 Full/Small 已通过离线验收，游戏内效果待复验。
+   Those game tests used earlier models. This bundle's latest Full/Small passed offline acceptance; in-game verification is pending.
+   用户反馈成功：异环、鸣潮。其他游戏显示未经本机实测，但仍允许安装。燕云国际服不冒充国服实测。
+   User-reported success: Neverness to Everness and Wuthering Waves. Other games show “not tested locally” and remain installable. Where Winds Meet international is not claimed as locally tested.
+
+5. 已知 DLSS-G 游戏跟随游戏插帧开关；死亡搁浅使用超分输入。未知游戏默认关闭插帧，可在 OPT 菜单自行配置。
+   Known DLSS-G games follow the game's FG switch; Death Stranding uses upscaler inputs. Unknown games start with FG off and can be configured in OPT.
+   NR 默认 Intel Full／原生／经典，Small 可选。启动后按 Insert 打开 OPT，验证超分、NR、补帧和画面。
+   NR defaults to Intel Full/native/Classic; Small is selectable. Press Insert for OPT after launch and verify SR, NR, FG and image quality.
+
+离线运行文件齐全，无需 Python、Visual Studio、Vulkan SDK 或预装 OPT；缺少 VC++ x64 运行库时可能调用微软签名安装器。
+Complete offline runtime files; no Python, Visual Studio, Vulkan SDK or prior OPT required. Microsoft's signed VC++ x64 runtime installer may run if needed.
+SOURCE 保留当前对应源码及构建信息，Licenses 保留宿主 GPL-3.0、项目 MIT 和第三方说明。
+SOURCE contains corresponding current source/build information; Licenses retains host GPL-3.0, project MIT and third-party notices.
+MODEL-STATUS.txt 和 VALIDATION 记录模型来源、哈希、验收及测速口径。
+MODEL-STATUS.txt and VALIDATION record model provenance, hashes, acceptance and timing scope.

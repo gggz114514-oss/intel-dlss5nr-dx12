@@ -1,0 +1,5 @@
+Intel NR DX12 source: https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/v0.4.0-dx12
+OptiScaler host changes: source/optiscaler-overlay (GPL-3.0); apply to the exact upstream commit in UPSTREAM.json.
+Vulkan NR source and build tools: source/vulkan, tools/Build.ps1.
+Third-party libraries retain their supplied licenses in payload/Licenses.
+Model/library binaries remain subject to their respective upstream terms; the project MIT license does not relicense them.

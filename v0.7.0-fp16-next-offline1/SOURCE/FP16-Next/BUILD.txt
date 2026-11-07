@@ -1,0 +1,6 @@
+Full source: Full/source/source/vulkan. Small source: Small/source/source/vulkan.
+Use the respective model/generated and payload/nr-intel/<model>/assets and manifest.
+Full is rebuilt from sealed 62d438f6 with /D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR to retain older game MSVCP140 compatibility.
+Small retains its sealed 3b35fb14 DLL and existing mutex compatibility definition.
+Full configure: cmake -S Full/source/source/vulkan -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_GENERATOR_INSTANCE=<VS2022> -DNR_MODEL_DIR=<Full/model> -DVULKAN_INCLUDE_DIR=<Vulkan-Headers/include> "-DCMAKE_CXX_FLAGS=/DWIN32 /D_WINDOWS /EHsc /D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR"
+Build: cmake --build build --config Release --target nrvk_bridge

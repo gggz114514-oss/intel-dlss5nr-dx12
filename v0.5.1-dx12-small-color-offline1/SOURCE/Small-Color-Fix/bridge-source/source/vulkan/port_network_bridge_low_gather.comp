@@ -1,0 +1,55 @@
+#version 450
+layout(local_size_x=256) in;
+layout(set=0,binding=0) uniform sampler2D color_image;
+layout(set=0,binding=1) uniform sampler2D motion_image;
+layout(set=0,binding=2) uniform sampler2D depth_image;
+layout(set=0,binding=3,std430) buffer Pre {float pre[];};
+layout(set=0,binding=4,std430) buffer Post {float post[];};
+layout(set=0,binding=5,std430) buffer Scratch {float tmp[];};
+layout(set=0,binding=6,std430) readonly buffer FilterTables {uint table[];};
+layout(push_constant) uniform Push {
+    uvec4 bases; // color xy, motion xy in R
+    uvec4 depth_size; // depth xy, N width/height
+    uvec4 pre_offsets;
+    uvec4 post_offsets; // w: 0 vertical, 1 horizontal
+    uvec4 render_size;
+    uvec4 color_tables; // y offset/taps, x offset/taps
+    uvec4 motion_tables;
+} pc;
+void main(){
+    uint i=gl_GlobalInvocationID.x,RW=pc.render_size.x,RH=pc.render_size.y,NW=pc.depth_size.z,NH=pc.depth_size.w;
+    if(pc.post_offsets.w==0u){
+        if(i>=RW*NH)return;uint x=i%RW,y=i/RW;
+        precise vec4 sum=vec4(0);
+        for(uint k=0;k<pc.color_tables.y;++k){
+            uint a=pc.color_tables.x+(y*pc.color_tables.y+k)*2;float w=uintBitsToFloat(table[a+1]);
+            vec4 c=texelFetch(color_image,ivec2(x,table[a])+ivec2(pc.bases.xy),0);sum=sum+c*w;
+        }
+        precise vec4 c=sum;
+        precise vec2 motion=vec2(0);
+        for(uint k=0;k<pc.motion_tables.y;++k){uint a=pc.motion_tables.x+(y*pc.motion_tables.y+k)*2;float w=uintBitsToFloat(table[a+1]);
+            vec2 m=texelFetch(motion_image,ivec2(x,table[a])+ivec2(pc.bases.zw),0).xy;motion=motion+m*w;}
+        for(uint j=0;j<4;++j)tmp[i*6+j]=c[j];tmp[i*6+4]=motion.x;tmp[i*6+5]=motion.y;
+    }else{
+        if(i>=NW*NH)return;uint x=i%NW,y=i/NW;
+        precise vec4 sum=vec4(0);
+        for(uint k=0;k<pc.color_tables.w;++k){
+            uint t=pc.color_tables.z+(x*pc.color_tables.w+k)*2;float w=uintBitsToFloat(table[t+1]);uint a=(y*RW+table[t])*6;
+            vec4 c=vec4(tmp[a],tmp[a+1],tmp[a+2],tmp[a+3]);sum=sum+c*w;
+        }
+        // Lanczos can ring outside the normalized LDR proxy domain. This is
+        // the single D used by both network bundles and residual subtraction.
+        precise vec4 c=clamp(sum,vec4(0),vec4(1));precise vec2 motion=vec2(0);
+        for(uint k=0;k<pc.motion_tables.w;++k){uint t=pc.motion_tables.z+(x*pc.motion_tables.w+k)*2;float w=uintBitsToFloat(table[t+1]);uint a=(y*RW+table[t])*6;
+            motion=motion+vec2(tmp[a+4],tmp[a+5])*w;}
+        // Convert native-render pixel motion to N pixels exactly once. The
+        // existing control scales subsequently convert N pixels to history UV.
+        motion=motion*vec2(float(NW)/float(RW),float(NH)/float(RH));
+        ivec2 xy=ivec2(floor((vec2(x,y)+0.5)*vec2(RW,RH)/vec2(NW,NH)));
+        float depth=pc.pre_offsets.w!=0u?texelFetch(depth_image,xy+ivec2(pc.depth_size.xy),0).r:0.0;
+        for(uint j=0;j<4;++j){pre[pc.pre_offsets.x+i*4+j]=c[j];post[pc.post_offsets.x+i*4+j]=c[j];}
+        pre[pc.pre_offsets.y+i*2]=motion.x;pre[pc.pre_offsets.y+i*2+1]=motion.y;
+        post[pc.post_offsets.y+i*2]=motion.x;post[pc.post_offsets.y+i*2+1]=motion.y;
+        pre[pc.pre_offsets.z+i]=depth;post[pc.post_offsets.z+i]=depth;
+    }
+}

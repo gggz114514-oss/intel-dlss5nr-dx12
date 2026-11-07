@@ -1,0 +1,12 @@
+#version 450
+layout(local_size_x=256) in;
+layout(set=0,binding=0,std430) readonly buffer Application { float application[]; };
+layout(set=0,binding=1,rgba32f) uniform writeonly image2D output_image;
+layout(push_constant) uniform Push { uvec4 base_size; } pc;
+void main() {
+    uint i=gl_GlobalInvocationID.x;
+    if(i>=pc.base_size.z*pc.base_size.w)return;
+    ivec2 xy=ivec2(i%pc.base_size.z,i/pc.base_size.z)+ivec2(pc.base_size.xy);
+    uint a=i*4u;
+    imageStore(output_image,xy,vec4(application[a],application[a+1u],application[a+2u],application[a+3u]));
+}

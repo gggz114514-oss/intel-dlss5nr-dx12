@@ -1,0 +1,4 @@
+Uncommitted local test candidate. The matching host overlay is included in host-overlay/.
+Pinned upstream and original/modified SHA256 identities are in host-overlay/UPSTREAM.json.
+Build instructions: https://github.com/gggz114514-oss/intel-dlss5nr-dx12/blob/main/docs/DX12-DEVELOPMENT.md
+No v0.5.0 tag or public release has been published yet.

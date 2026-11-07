@@ -1,0 +1,17 @@
+#version 450
+
+#ifndef NR_PRODUCTION
+#define NR_PRODUCTION 0
+#endif
+#if NR_PRODUCTION
+#define NR_PRODUCTION_DEBUG(v) false
+#else
+#define NR_PRODUCTION_DEBUG(v) (v)
+#endif
+#extension GL_GOOGLE_include_directive : require
+#extension GL_KHR_shader_subgroup_basic : require
+#extension GL_KHR_cooperative_matrix : require
+#extension GL_KHR_memory_scope_semantics : require
+#extension GL_EXT_shader_explicit_arithmetic_types_float16 : require
+#define VIT_STAGE 0
+#include "vit_nb04_mpair_s32.glsl"

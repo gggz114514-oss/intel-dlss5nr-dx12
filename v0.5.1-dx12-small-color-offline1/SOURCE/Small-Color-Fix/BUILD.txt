@@ -1,0 +1,4 @@
+Exact tested Small bridge: bridge-source/source/vulkan, model/generated.
+Use payload/nr-intel/small/assets and manifest with these generated headers.
+CMake defines _DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR. The snapshot retains the tested 4 KiB pool rule.
+The shared SOURCE/vulkan remains the Full build source; use this frozen snapshot to reproduce the accepted Small DLL.
