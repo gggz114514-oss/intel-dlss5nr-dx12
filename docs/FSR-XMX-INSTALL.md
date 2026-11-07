@@ -1,5 +1,9 @@
 # FSR XMX：当前完整包的安装与设置
 
+v0.7.2 预发行包已包含 FSR XMX。完整解压后运行 `Setup.cmd`，选择实际游戏 EXE。安装与卸载都在同一窗口完成。启动后在游戏内开启超分，再按 Insert 检查实际超分路径。详见 [新版安装步骤](../INSTALL.md) 与 [版本索引](ITERATION-ARCHIVE.md)。
+
+## 原 v0.4.0 流程
+
 v0.4.0-dx12 完整安装包已包含匹配的 FSR XMX DLL 和依赖，不需要额外传入本地 XMX 目录或单独安装 OPT。
 
 1. 从 [Release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) 下载完整 ZIP，解压后运行 Install.cmd；或从整个源码仓库运行 Install-NR.cmd。

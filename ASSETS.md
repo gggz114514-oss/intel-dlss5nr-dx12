@@ -1,6 +1,6 @@
 # Local assets
 
-Model-generation recipe retained from **v0.3.0-multires / 2026-11-01**; current user release is **v0.4.0-dx12**. This page describes current generated assets; historical performance is in [docs/optimization](docs/optimization/README.md).
+Model-generation recipe retained from **v0.3.0-multires / 2026-11-01**; the stable package referenced by this recipe is **v0.4.0-dx12**. For the Full and Small assets used by later pre-releases, see the per-version source and package manifests in the [iteration archive](docs/ITERATION-ARCHIVE.md). Historical performance is in [docs/optimization](docs/optimization/README.md).
 
 
 Build Full first; Small also takes the built Full directory for its accepted shared blend scalar. Model tensors come from the supported `nvngx_dlssnr.dll` or its ZIP, supplied locally or fetched by the pinned installer. Extraction parses PE resources without executing the DLL.

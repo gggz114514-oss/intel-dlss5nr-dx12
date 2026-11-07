@@ -1,5 +1,11 @@
 # DX12 通用版源码与构建
 
+近期预发行包的宿主覆盖、构建材料和各版说明按版本归档。重建某个版本时，以对应 Release 的源码附件和版本目录为准。
+
+[版本索引](ITERATION-ARCHIVE.md) · [源码快照](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/archive/iterations-20261107)
+
+以下是原通用版的构建入口。
+
 普通用户下载 [完整安装包](../README.zh-CN.md)，无需以下开发环境。本页用于恢复项目、修改宿主或重新构建。
 
 ## 源码分层

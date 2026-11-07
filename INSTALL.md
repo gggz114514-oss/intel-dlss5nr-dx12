@@ -1,5 +1,19 @@
 # DX12 通用版安装与卸载
 
+## v0.7.2 统一安装器
+
+1. 下载并完整解压 ZIP，退出游戏，再运行 `Setup.cmd`。
+2. 选择实际的 DX12 渲染 EXE。默认使用增强 ASI 挂载，也可选内置伪装。两种方式使用相同的宿主、Full 和 Small。
+3. 安装前先检查旧 OPT，确认后卸载旧安装并写入当前文件。单独卸载可在同一窗口选择「检查并卸载」。
+4. 备份与日志位于实际游戏 EXE 同目录的 `intel-nr-backups`，完成窗口会显示此次操作的子目录。
+5. 游戏中按 Insert 打开 NR 菜单。勾选「启用残差外推」，输入 1–4 倍并按回车。新配置默认关闭，倍率预填 2。保存设置可保留两项。
+
+燕云国服选择 `Engine/Binaries/Win64rh/yysls.exe`。巫师三选择 `bin/x64_dx12/witcher3.exe`。新版界面交互与画面待实机复验。
+
+[下载 v0.7.2](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [版本归档](docs/ITERATION-ARCHIVE.md)
+
+## 原 v0.4.0 安装方式
+
 [下载完整安装包](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261104.zip) · [发布说明](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12)
 
 Intel NR + FSR XMX — 新用户安装指南

@@ -1,5 +1,11 @@
 # Intel DLSS5 NR — DX12 Universal
 
+**Latest archived pre-release: v0.7.2.** The unified installer uses `Setup.cmd` for installation and removal. Residual extrapolation has an off-by-default switch and a typed multiplier from 1 to 4. In-game verification of the updated controls is pending.
+
+[Download v0.7.2](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [Iteration archive](docs/ITERATION-ARCHIVE.md) · [Source snapshots](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/archive/iterations-20261107)
+
+The original v0.4.0 installation instructions follow.
+
 **Vulkan NR Full / Small for Intel Arc, integrated into OptiScaler.** Used in Cyberpunk 2077, The Witcher 3 DX12, and Death Stranding Director’s Cut. Press **Insert** for the in-game OPT / Intel NR panel.
 
 [Download complete installer](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261104.zip) · [v0.4.0 release](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) · [中文完整说明](README.zh-CN.md) · [Installation](INSTALL.md)

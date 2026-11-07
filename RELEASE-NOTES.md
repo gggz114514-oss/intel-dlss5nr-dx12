@@ -1,4 +1,8 @@
-# v0.4.0 — Intel NR DX12 Universal
+# Intel NR 版本说明
+
+近期 12 个预发行版本的逐版变更、验收状态与下载入口见 [迭代归档](docs/ITERATION-ARCHIVE.md)。每版源码目录也有独立的 `RELEASE-NOTES.md`。[源码归档](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/archive/iterations-20261107)
+
+## v0.4.0 — Intel NR DX12 Universal
 
 ## Download / 下载
 

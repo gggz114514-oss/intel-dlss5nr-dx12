@@ -1,5 +1,11 @@
 # Intel DLSS5 NR — DX12 通用
 
+**近期预发行版 v0.7.2** 使用统一安装器 `Setup.cmd`。残差外推默认关闭，启用后可输入 1–4 倍。新版控制仍待游戏内复验。
+
+[下载 v0.7.2](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [历次迭代说明](docs/ITERATION-ARCHIVE.md) · [源码归档](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/tree/archive/iterations-20261107)
+
+以下为原 v0.4.0 安装说明。
+
 **Intel Arc 上的 Vulkan NR Full / Small + OptiScaler 通用桥。** 已在《赛博朋克 2077》《巫师三》DX12 版、《死亡搁浅 导演剪辑版》中实机使用。设置集成在游戏内 OPT 面板，按 **Insert** 打开。
 
 [下载完整安装包](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/v0.4.0-dx12/Intel-NR-DX12-20261104.zip) · [v0.4.0 发布说明](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.4.0-dx12) · [安装与卸载](INSTALL.md) · [English](README.md)
