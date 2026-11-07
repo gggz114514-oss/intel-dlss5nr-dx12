@@ -44,7 +44,16 @@ Intel Arc 上的 Vulkan NR Full／Small，集成于 OptiScaler。当前预发行
 
 ![从 v0.7.2 安装包渲染的双语界面](docs/images/installer-v0.7.2.png)
 
-巫师三的 Small／NR 关闭／Full 三张游戏截图摄于 v0.4.0 时期，均关闭补帧。v0.7.2 的游戏画面待复验。[历史截图](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/blob/eaf0ce5acab9cc51b4e02bb06a0ac9480cab5225/README.zh-CN.md#巫师三实机对比)
+巫师三的 Small／NR 关闭／Full 三张游戏截图摄于 v0.4.0 时期，均关闭补帧。[历史截图](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/blob/eaf0ce5acab9cc51b4e02bb06a0ac9480cab5225/README.zh-CN.md#巫师三实机对比)
+
+## 巫师三 DX12 外推对比
+
+用户提供的 v0.7.2 实机截图。一层为 1× 残差，两层为 2× 残差外推，均运行一次 NR。截图中的帧率是瞬时读数。
+
+| 模型 | 一层（1×） | 两层（2×） |
+| --- | --- | --- |
+| Full | ![Full 1×](docs/images/witcher3-v072-full-1x.png) | ![Full 2×](docs/images/witcher3-v072-full-2x.png) |
+| Small | ![Small 1×](docs/images/witcher3-v072-small-1x.png) | ![Small 2×](docs/images/witcher3-v072-small-2x.png) |
 
 ## v0.7.2 所用模型的离线验收
 

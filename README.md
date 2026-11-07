@@ -44,7 +44,16 @@ Their licenses remain distinct: MIT for the Mochizuki source, GPL-3.0 for the de
 
 ![Bilingual installer rendered from the v0.7.2 package](docs/images/installer-v0.7.2.png)
 
-The Witcher 3 Small, NR off and Full screenshots are from the v0.4.0 period, with frame generation disabled. Game screenshots for v0.7.2 await in-game verification. [Historical comparison](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/blob/eaf0ce5acab9cc51b4e02bb06a0ac9480cab5225/README.md#the-witcher-3-comparison)
+The Witcher 3 Small, NR off and Full screenshots are from the v0.4.0 period, with frame generation disabled. [Historical comparison](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/blob/eaf0ce5acab9cc51b4e02bb06a0ac9480cab5225/README.md#the-witcher-3-comparison)
+
+## The Witcher 3 DX12 extrapolation comparison
+
+User-provided v0.7.2 gameplay screenshots. One layer uses 1× residual and two layers use 2× extrapolation. Each runs one NR inference. FPS overlays show instantaneous readings.
+
+| Model | One layer (1×) | Two layers (2×) |
+| --- | --- | --- |
+| Full | ![Full 1×](docs/images/witcher3-v072-full-1x.png) | ![Full 2×](docs/images/witcher3-v072-full-2x.png) |
+| Small | ![Small 1×](docs/images/witcher3-v072-small-1x.png) | ![Small 2×](docs/images/witcher3-v072-small-2x.png) |
 
 ## Offline validation of the models included in v0.7.2
 
