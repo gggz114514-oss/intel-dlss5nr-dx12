@@ -1,5 +1,7 @@
 # 近期迭代归档
 
+**[v0.7.3](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.7.3)** · B580 型号限制修复，B570 已验证。Release 提供安装包及对应源码。 / Fixed the B580-only restriction, verified on B570. The release includes the installer and matching source.
+
 归档范围为 2026-11-03 至 2026-11-07 的 12 个带独立版本标识的安装包。Release 标记为预发行版。
 
 | 版本 | 变更 | 验证状态 |

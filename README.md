@@ -1,5 +1,7 @@
 # Intel DLSS5 NR — DX12 Universal
 
+**[v0.7.3 preview](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.7.3)** fixes the B580-only NR device check. Arc B570 has been verified in user testing. The unified installer adds a standalone **Test Offline NR** button for Full and Small.
+
 Vulkan NR Full and Small for Intel Arc, integrated into OptiScaler. The current pre-release is **v0.7.2** and includes FSR XMX and frame generation dependencies.
 
 [Download v0.7.2 ZIP](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/archive-v0.7.2-controls/Intel-NR-Unified-v0.7.2-controls.zip) · [Release notes](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [中文说明](README.zh-CN.md)

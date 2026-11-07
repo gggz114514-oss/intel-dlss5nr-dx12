@@ -1,5 +1,11 @@
 # DX12 通用版安装与卸载
 
+## v0.7.3 离线试跑 / Offline NR check
+
+下载并解压 [v0.7.3](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.7.3)，运行 `Setup.cmd`。点「离线 NR 试跑」即可在本机检查 Full 和 Small，无需选游戏。安装仍会自动试跑，两套模型均通过后才修改游戏目录。Arc B570 已经用户验证。
+
+Extract [v0.7.3](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.7.3) and run `Setup.cmd`. Select **Test Offline NR** to check both models without selecting a game. Installation runs both checks before changing game files. Arc B570 has been verified in user testing.
+
 ## v0.7.2 统一安装器
 
 1. 下载并完整解压 ZIP，退出游戏，再运行 `Setup.cmd`。

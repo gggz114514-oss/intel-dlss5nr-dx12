@@ -1,5 +1,7 @@
 # Intel DLSS5 NR — DX12 通用
 
+**[v0.7.3 预发行版](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/v0.7.3)**修复了 NR 的 B580 型号限制，Arc B570 已由用户实测验证。统一安装器新增独立的「离线 NR 试跑」按钮，可检查 Full 和 Small。
+
 Intel Arc 上的 Vulkan NR Full／Small，集成于 OptiScaler。当前预发行版为 **v0.7.2**，安装包含 FSR XMX 与补帧依赖。
 
 [下载 v0.7.2 ZIP](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/download/archive-v0.7.2-controls/Intel-NR-Unified-v0.7.2-controls.zip) · [本版说明](https://github.com/gggz114514-oss/intel-dlss5nr-dx12/releases/tag/archive-v0.7.2-controls) · [English](README.md)
